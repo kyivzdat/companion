@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     let secret = "2dc221791978c281af5bf914f3b690d66feea3469c79d1a8d3c217b23531f402"
     var bearer = ""
     
+    var selfInfo : SelfModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -48,7 +50,7 @@ class ViewController: UIViewController {
         
         let session = URLSession.shared
         session.dataTask(with: request as URLRequest) { (data, response, error) in
-            guard error == nil else { print(error!); return}
+            guard error == nil else { print(error!); return }
             guard let response = response else { return }
             print("\n\nRESPONSE\n\(response)")
             
@@ -89,9 +91,12 @@ class ViewController: UIViewController {
                     guard json["error"] == nil else { return }
                     print(json)
                     DispatchQueue.main.async {
-                        self.lvlLabel.text = json["login"] as! String
+                        self.lvlLabel.text = String(describing: (json["login"])!)
                     }
-                    
+                    self.selfInfo = SelfModel(json: json)
+                    if let selfInfo = self.selfInfo {
+                        print(selfInfo.description)
+                    }
                 }
             } catch {
                 print(error)

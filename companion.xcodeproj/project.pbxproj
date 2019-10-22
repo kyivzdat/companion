@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E12CB3A6235DDBF100827F80 /* SelfModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12CB3A5235DDBF100827F80 /* SelfModel.swift */; };
 		E169F8282359DC2E00B03A82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E169F8272359DC2E00B03A82 /* AppDelegate.swift */; };
 		E169F82A2359DC2E00B03A82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E169F8292359DC2E00B03A82 /* ViewController.swift */; };
 		E169F82D2359DC2E00B03A82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E169F82B2359DC2E00B03A82 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E12CB3A5235DDBF100827F80 /* SelfModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfModel.swift; sourceTree = "<group>"; };
 		E169F8242359DC2E00B03A82 /* companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = companion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E169F8272359DC2E00B03A82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E169F8292359DC2E00B03A82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			children = (
 				E169F8272359DC2E00B03A82 /* AppDelegate.swift */,
 				E169F8292359DC2E00B03A82 /* ViewController.swift */,
+				E12CB3A5235DDBF100827F80 /* SelfModel.swift */,
 				E169F82B2359DC2E00B03A82 /* Main.storyboard */,
 				E169F82E2359DC3300B03A82 /* Assets.xcassets */,
 				E169F8302359DC3300B03A82 /* LaunchScreen.storyboard */,
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E12CB3A6235DDBF100827F80 /* SelfModel.swift in Sources */,
 				E169F82A2359DC2E00B03A82 /* ViewController.swift in Sources */,
 				E169F8282359DC2E00B03A82 /* AppDelegate.swift in Sources */,
 			);
