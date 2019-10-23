@@ -9,7 +9,9 @@
 import UIKit
 import AuthenticationServices
 
-class ViewController: UIViewController {
+var profile: SelfModel?
+
+class LoginViewController: UIViewController {
 
     @IBOutlet weak var lvlLabel: UILabel!
     
@@ -33,9 +35,6 @@ class ViewController: UIViewController {
                 completionHandler: { (data, error) in
                     guard error == nil else { print(error!); return }
                     guard let data = data else { return }
-                    print("DATA\n\n\n")
-                    print(data) // companion://companion?code=a6643aa9272162d4acda12771866ee9f30e3859239c16934433b57311ba2dec0
-                    print(data.query!) // code=079c583b40945842f3e71197ef444ecc69e4b385ab7cdf1461f1ade6b45113a2
                     self.getToken(token: data.query!)
                 })
         webAuthSession?.start()
@@ -51,18 +50,15 @@ class ViewController: UIViewController {
         let session = URLSession.shared
         session.dataTask(with: request as URLRequest) { (data, response, error) in
             guard error == nil else { print(error!); return }
-            guard let response = response else { return }
-            print("\n\nRESPONSE\n\(response)")
             
             guard let data = data else { return }
             do {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
-                    print("\n\nJSON\n\(json)")
+
                     if json["error"] == nil {
                         self.bearer = json["access_token"]! as! String
-                        print("\n\nBEARER")
-                        print(self.bearer)
                         self.getMyInfo()
+            
                     } else {
                         print("Error:", json)
                     }
@@ -78,7 +74,6 @@ class ViewController: UIViewController {
         guard let url = NSURL(string: "https://api.intra.42.fr/v2/me") else { return }
         let request = NSMutableURLRequest(url: url as URL)
         
-        request.httpMethod = "GET"
         request.setValue("Bearer " + self.bearer, forHTTPHeaderField: "Authorization")
         
         let session = URLSession.shared
@@ -89,13 +84,13 @@ class ViewController: UIViewController {
             do {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
                     guard json["error"] == nil else { return }
-                    print(json)
-                    DispatchQueue.main.async {
-                        self.lvlLabel.text = String(describing: (json["login"])!)
-                    }
+
                     self.selfInfo = SelfModel(json: json)
-                    if let selfInfo = self.selfInfo {
-                        print(selfInfo.description)
+                    profile = self.selfInfo
+                    DispatchQueue.main.async {
+                        print("1")
+                        self.performSegue(withIdentifier: "Segue", sender: self)
+                        print("2")
                     }
                 }
             } catch {
@@ -105,7 +100,45 @@ class ViewController: UIViewController {
         }.resume()
     }
     
+    @IBAction func getUserButton(_ sender: UIButton) {
     
+        guard let url = NSURL(string: "https://api.intra.42.fr/v2/users/vpelivan") else { return }
+        let request = NSMutableURLRequest(url: url as URL)
+
+        request.setValue("Bearer " + self.bearer, forHTTPHeaderField: "Authorization")
+        
+        let session = URLSession.shared
+        session.dataTask(with: request as URLRequest) { (data, response, error) in
+            guard let response = response else { return }
+            print(response)
+            guard let data = data else { return }
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
+                    let anotherModel = SelfModel(json: json)
+                    print(anotherModel.description)
+                }
+
+            } catch {
+                print(error)
+            }
+        }.resume()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let vc = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
+
+        let naviController = segue.destination as! UINavigationController
+        if let destVC = naviController.viewControllers.first as? ProfileViewController {
+            destVC.profileInfo = self.selfInfo
+
+        }
+        
+
+        
+
+//        guard let vc = segue.destination as? ProfileViewController else { return }
+//        vc.loginLabel.text = "123"
+    }
 }
 
 

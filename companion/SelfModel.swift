@@ -48,13 +48,16 @@ class SelfModel: NSObject {
         correctionPoints    = json["correction_point"] as! Int
         location            = json["location"] as! String
         
-        let urlPhoto = URL(string: String(describing: json["image_url"]))
-        let data = try? Data(contentsOf: urlPhoto!)
-        if let data = data {
+
+        let urlPhoto = URL(string: String(describing: json["image_url"]!))!
+        do {
+            let data = try Data(contentsOf: urlPhoto)
             photo = UIImage(data: data)
-        } else {
+        } catch let error {
+            print("Error. Cant load photo\n", error)
             photo = UIImage(named: "no_photo")
         }
+       
         
         
     }
