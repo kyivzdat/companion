@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  companion
 //
-//  Created by Vladyslav PALAMARCHUK on 10/18/19.
+//  Created by Vladyslav PALAMARCHUK on 10/25/19.
 //  Copyright © 2019 Vladyslav PALAMARCHUK. All rights reserved.
 //
 
