@@ -80,8 +80,19 @@ class API: ViewController {
             if !self.getInfo(destination: &myInfo, data: data) {
                 return
             }
-
+            
+            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return }
+            print(json)
+            
             myInfo!.description()
+
+            
+            DispatchQueue.main.async {
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyBoard.instantiateViewController(withIdentifier: "NaviController") as! UINavigationController
+                UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+            }
+            
         }.resume()
         
     }
@@ -93,11 +104,7 @@ class API: ViewController {
             
             guard destination != nil else { print("Error. Create my info"); return false }
             
-            let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
-            print(json ?? "nil")
-            destination!.lvl = String(describing: ((json!["cursus_users"] as! NSArray)[0] as! NSDictionary)["level"] as! NSNumber)
-            destination!.cursusNotDecod = ((json!["cursus_users"] as! NSArray)[0] as! NSDictionary)["cursus_id"] as? Int
-            destination!.campusNotDecod = ((json!["campus_users"] as! NSArray)[0] as! NSDictionary)["campus_id"] as? Int
+
         } catch let error {
             print("getMyInfo error:\n", error)
             return false

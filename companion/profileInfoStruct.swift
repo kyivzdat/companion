@@ -13,9 +13,7 @@ struct ProfileInfo: Decodable {
     var first_name          : String?
     var last_name           : String?
     var login               : String?
-    var lvl                 : String?
-    var cursusNotDecod      : Int?
-    var campusNotDecod      : Int?
+    var cursus_users        : [Cursus_users?]
     var id                  : Int?
     var correction_point    : Int?
     var location            : String?
@@ -24,22 +22,42 @@ struct ProfileInfo: Decodable {
     
     func description() {
         print("""
+
             name \(first_name ?? "nil")
             surname \(last_name ?? "nil")
             login \(login ?? "nil")
-            level \(lvl ?? "nil")
-            cursus \(cursusNotDecod ?? -1)
-            campus\(campusNotDecod ?? -1)
             id \(id ?? -1)
             correction_point \(correction_point ?? -1)
             location \(location ?? "nil")
             image_url \(image_url ?? "nil")
-            campus \(campus)
+
+            cursus_users
+            level \(cursus_users[0]?.level ?? -1)
+            cursus \(cursus_users[0]?.cursus_id ?? -1)
+            
+            campus
+            country \(campus[0]?.country ?? "nil")
+            city \(campus[0]?.city ?? "nil")
+            address \(campus[0]!.address ?? "nil")
+            facebook \(campus[0]!.facebook ?? "nil")
+            website \(campus[0]!.website ?? "nil")
+            id \(campus[0]!.id ?? -1)
             """)
     }
 }
 
 struct Campus: Decodable {
-    var address: String?
-    var city:   String?
+
+    var country:    String?
+    var city:       String?
+    var address:    String?
+    var facebook:   String?
+    var website:    String?
+    var id:         Int?
+}
+
+struct Cursus_users: Decodable {
+    
+    var cursus_id: Int?
+    var level: Double?
 }

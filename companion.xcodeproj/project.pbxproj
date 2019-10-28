@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E120DCA223670FB600151F64 /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E120DCA123670FB600151F64 /* MyProfileVC.swift */; };
 		E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */; };
 		E1AAE5B123631ACE0001E4FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5B023631ACE0001E4FE /* ViewController.swift */; };
 		E1AAE5B423631ACF0001E4FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1AAE5B223631ACF0001E4FE /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E120DCA123670FB600151F64 /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
 		E1AAE5AB23631ACE0001E4FE /* companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = companion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1AAE5B023631ACE0001E4FE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */,
 				E1AAE5B023631ACE0001E4FE /* ViewController.swift */,
 				E1AAE5B223631ACF0001E4FE /* Main.storyboard */,
+				E120DCA123670FB600151F64 /* MyProfileVC.swift */,
 				E1AAE5C023631B5F0001E4FE /* API.swift */,
 				E1AAE5C2236337630001E4FE /* profileInfoStruct.swift */,
 				E1AAE5B523631AD60001E4FE /* Assets.xcassets */,
@@ -143,6 +146,7 @@
 			files = (
 				E1AAE5C3236337630001E4FE /* profileInfoStruct.swift in Sources */,
 				E1AAE5B123631ACE0001E4FE /* ViewController.swift in Sources */,
+				E120DCA223670FB600151F64 /* MyProfileVC.swift in Sources */,
 				E1AAE5C123631B5F0001E4FE /* API.swift in Sources */,
 				E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */,
 			);

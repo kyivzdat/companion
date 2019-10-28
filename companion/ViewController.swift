@@ -25,11 +25,9 @@ class ViewController: UIViewController {
     @IBAction func loginButton(_ sender: UIButton) {
         
         let apiInfo = API()
-        
-        
-        
-        apiInfo.authorization()
 
+
+        apiInfo.authorization()
         
 
     
