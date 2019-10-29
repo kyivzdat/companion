@@ -64,8 +64,6 @@ class API: ViewController {
         }.resume()
     }
     
-    
-    
     private func getMyInfo() {
         
         guard let url = NSURL(string: apiURL+"/v2/me") else { return }
@@ -77,7 +75,7 @@ class API: ViewController {
             guard error == nil else { print(error!); return}
             guard let data = data else { return }
             
-            if !self.getInfo(destination: &myInfo, data: data) {
+            if self.getInfo(destination: &myInfo, data: data) == false {
                 return
             }
             
@@ -86,29 +84,56 @@ class API: ViewController {
             
             myInfo!.description()
 
-            
             DispatchQueue.main.async {
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyBoard.instantiateViewController(withIdentifier: "NaviController") as! UINavigationController
                 UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
             }
-            
         }.resume()
-        
     }
     
     private func getInfo(destination: inout ProfileInfo?, data: Data) -> Bool {
+        
         do {
             
             destination = try JSONDecoder().decode(ProfileInfo.self, from: data)
+//            let json = try? JSONSerialization.jsonObject(with: data, options: [])
+//            print(json ?? "nil")
             
-            guard destination != nil else { print("Error. Create my info"); return false }
             
+            guard destination != nil else { print("Error. Create info"); return false }
 
         } catch let error {
             print("getMyInfo error:\n", error)
             return false
         }
         return true
+    }
+    
+    private var retError: Error?
+    public func getProfile(user: String) -> Bool {
+
+        guard let url = NSURL(string: apiURL+"v2/users/"+user) else { return false }
+
+        let request = NSMutableURLRequest(url: url as URL)
+        request.setValue("Bearer " + bearer, forHTTPHeaderField: "Authorization")
+        
+    
+        retError = nil
+        profileInfo = nil
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, error) in
+
+            guard error == nil else { self.retError = error; return print(error!) }
+            guard let data = data else { return }
+
+            if self.getInfo(destination: &profileInfo, data: data) == false {
+                return
+            }
+        }.resume()
+
+        print(retError != nil ? "\nretError = false" : "retError = true")
+        print(retError ?? "nil")
+        print(profileInfo != nil ? "profileInfo = false" : "profileInfo = true")
+        return (retError != nil || profileInfo == nil) ? false : true
     }
 }

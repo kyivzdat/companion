@@ -9,12 +9,12 @@
 import UIKit
 import AuthenticationServices
 
-var myInfo : ProfileInfo?
+var myInfo      : ProfileInfo?
+var profileInfo : ProfileInfo?
+var apiInfo = API()
 
 class ViewController: UIViewController {
-    
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -23,15 +23,8 @@ class ViewController: UIViewController {
 
     
     @IBAction func loginButton(_ sender: UIButton) {
-        
-        let apiInfo = API()
-
 
         apiInfo.authorization()
-        
-
-    
-
     }
     
     

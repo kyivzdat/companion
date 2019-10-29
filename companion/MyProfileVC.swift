@@ -42,6 +42,21 @@ class MyProfileVC: UIViewController, UISearchBarDelegate {
         self.navigationItem.rightBarButtonItem?.image = iconSearch
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        if searchBar.text?.isEmpty == true {
+            print("SearchBar is empty")
+        }
+        
+        if apiInfo.getProfile(user: searchBar.text!) == true {
+            profileInfo?.description()
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Человечка не найти", preferredStyle: .alert)
+            alert.addAction(.init(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            print("Error input")
+        }
+    }
 
 }
 

@@ -20,7 +20,17 @@ struct ProfileInfo: Decodable {
     var image_url           : String?
     var campus              : [Campus?]
     
-    func description() {
+    mutating func description() {
+        
+        if cursus_users.count == 0 {
+            let newCursus = Cursus_users(cursus_id: nil, level: nil)
+            self.cursus_users.append(newCursus)
+        }
+        if campus.count == 0 {
+            let newCampus = Campus(country: nil, city: nil, address: nil, facebook: nil, website: nil, id: nil)
+            self.campus.append(newCampus)
+        }
+        
         print("""
 
             name \(first_name ?? "nil")
@@ -42,10 +52,10 @@ struct ProfileInfo: Decodable {
             facebook \(campus[0]!.facebook ?? "nil")
             website \(campus[0]!.website ?? "nil")
             id \(campus[0]!.id ?? -1)
+
             """)
     }
 }
-
 struct Campus: Decodable {
 
     var country:    String?
@@ -60,4 +70,17 @@ struct Cursus_users: Decodable {
     
     var cursus_id: Int?
     var level: Double?
+}
+
+func clearProfile(profile: inout ProfileInfo) {
+
+    profile.first_name          = nil
+    profile.last_name           = nil
+    profile.login               = nil
+    profile.id                  = nil
+    profile.correction_point    = nil
+    profile.location            = nil
+    profile.image_url           = nil
+    profile.cursus_users.removeAll()
+    profile.campus.removeAll()
 }
