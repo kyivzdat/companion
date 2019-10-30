@@ -27,6 +27,5 @@ class ViewController: UIViewController {
         apiInfo.authorization()
     }
     
-    
 }
 

@@ -64,7 +64,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rtR-FW-yep" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchBar contentMode="redraw" placeholder="Seach a user" showsCancelButton="YES" id="bbe-Na-tuf">
+                <searchBar contentMode="redraw" placeholder="Search a user" showsCancelButton="YES" id="bbe-Na-tuf">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>

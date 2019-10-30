@@ -14,49 +14,90 @@ class MyProfileVC: UIViewController, UISearchBarDelegate {
     @IBOutlet var searchBar: UISearchBar!
     
     let iconSearch = UIImage(named: "iconSearch")
-    let profileLabel = UILabel()
+    var profileLabel : UILabel?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         searchBar.delegate = self
-    
+        initProfileLabel()
+    }
+
+    func initProfileLabel() {
+        profileLabel = UILabel()
+        guard let profileLabel = profileLabel else { return }
         profileLabel.text = "Profile"
         profileLabel.font = UIFont.boldSystemFont(ofSize: 17)
     }
 
-
     @IBAction func tapSearchButton(_ sender: UIBarButtonItem) {
-
-        self.navigationItem.rightBarButtonItem?.image = nil
-        self.navigationItem.titleView = searchBar
+        showSearchBar()
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
-        searchBar.text = nil
-        searchBar.endEditing(true)
-    
-        self.navigationItem.titleView = profileLabel
-        self.navigationItem.rightBarButtonItem?.image = iconSearch
+        hideSearchBar()
     }
-    
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
-        if searchBar.text?.isEmpty == true {
-            print("SearchBar is empty")
-        }
+        guard searchBar.text?.isEmpty == false else { print("SearchBar is empty"); return }
         
-        if apiInfo.getProfile(user: searchBar.text!) == true {
-            profileInfo?.description()
-        } else {
-            let alert = UIAlertController(title: "Error", message: "Человечка не найти", preferredStyle: .alert)
+        apiInfo.getProfile(user: searchBar.text!.lowercased())
+        
+    }
+    
+    func showSearchBar() {
+        
+        self.navigationItem.rightBarButtonItem?.image = nil
+        searchBar.alpha = 0
+        navigationItem.titleView = searchBar
+        UIView.animate(withDuration: 0.5, animations: {
+            self.searchBar.alpha = 1
+        }, completion: { finished in
+            self.searchBar.becomeFirstResponder()
+        })
+    }
+    
+    func hideSearchBar() {
+    
+        self.navigationItem.rightBarButtonItem?.image = iconSearch
+        guard let profileLabel = profileLabel else { return }
+        profileLabel.alpha = 0
+        UIView.animate(withDuration: 0.3, animations: {
+            self.navigationItem.titleView = self.profileLabel
+            profileLabel.alpha = 1
+        })
+    }
+    
+    func alert(title: String, message: String) {
+        
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
             alert.addAction(.init(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true)
-            print("Error input")
+            alert.view.layoutIfNeeded()
+//            !!!
+//            UIApplication.topViewController()?.view.addSubview(UIView())
+//            turn off "animated:" for fix constraints
+            UIApplication.topViewController()?.present(alert, animated: true)
         }
     }
 
 }
 
+extension UIApplication {
+    
+    static func topViewController(base: UIViewController? = UIApplication.shared.delegate?.window??.rootViewController) -> UIViewController? {
+        if let nav = base as? UINavigationController {
+            return topViewController(base: nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController, let selected = tab.selectedViewController {
+            return topViewController(base: selected)
+        }
+        if let presented = base?.presentedViewController {
+            return topViewController(base: presented)
+        }
+        
+        return base
+    }
+}
