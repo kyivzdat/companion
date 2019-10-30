@@ -18,8 +18,6 @@ class API: ViewController {
     let apiURL = "https://api.intra.42.fr/"
     var bearer = ""
     
-
-    
     func authorization() {
 
         webAuthSession = ASWebAuthenticationSession(url:
@@ -52,9 +50,7 @@ class API: ViewController {
                 
                 if json!["error"] == nil {
                     self.bearer = json!["access_token"]! as! String
-                    
                     self.getMyInfo()
-
                 } else {
                     print(json!)
                 }
@@ -84,20 +80,18 @@ class API: ViewController {
             
             myInfo!.description()
 
-            DispatchQueue.main.async {
-                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyBoard.instantiateViewController(withIdentifier: "NaviController") as! UINavigationController
-                UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
-            }
+//            DispatchQueue.main.async {
+//                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+//                let vc = storyBoard.instantiateViewController(withIdentifier: "NaviController") as! UINavigationController
+//                UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+//            }
         }.resume()
     }
     
     private func getInfo(destination: inout ProfileInfo?, data: Data) -> Bool {
         
         do {
-            
             destination = try JSONDecoder().decode(ProfileInfo.self, from: data)
-
         } catch let error {
             print("getInfo error:\n", error)
             return false
@@ -116,7 +110,6 @@ class API: ViewController {
         let request = NSMutableURLRequest(url: url as URL)
         request.setValue("Bearer " + bearer, forHTTPHeaderField: "Authorization")
         
-
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, error) in
 
             guard error == nil, let data = data else { MyProfileVC().alert(title: "Error", message: "Wrong url"); return }
@@ -126,7 +119,6 @@ class API: ViewController {
                 return
             }
             profileInfo?.description()
-            
         }.resume()
     }
     

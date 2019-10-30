@@ -44,7 +44,6 @@ class MyProfileVC: UIViewController, UISearchBarDelegate {
         guard searchBar.text?.isEmpty == false else { print("SearchBar is empty"); return }
         
         apiInfo.getProfile(user: searchBar.text!.lowercased())
-        
     }
     
     func showSearchBar() {
