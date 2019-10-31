@@ -12,6 +12,10 @@ class MyProfileVC: UIViewController, UISearchBarDelegate {
 
     @IBOutlet weak var searchButtonOutlet: UIBarButtonItem!
     @IBOutlet var searchBar: UISearchBar!
+
+    var resultSearchController: UISearchController?
+    
+//    let resultSearchController = UISearchController(searchResultsController: TableVC)
     
     let iconSearch = UIImage(named: "iconSearch")
     var profileLabel : UILabel?
@@ -22,6 +26,16 @@ class MyProfileVC: UIViewController, UISearchBarDelegate {
 
         searchBar.delegate = self
         initProfileLabel()
+        
+        
+        let table = storyboard?.instantiateViewController(withIdentifier: "TableVC") as! TableVC
+        resultSearchController = UISearchController(searchResultsController: table)
+        resultSearchController?.searchResultsUpdater = table
+        searchBar = resultSearchController?.searchBar
+    
+//        resultSearchController?.hidesNavigationBarDuringPresentation = false
+//        resultSearchController?.dimsBackgroundDuringPresentation = true
+//        definesPresentationContext = true
     }
 
     func initProfileLabel() {
@@ -49,8 +63,9 @@ class MyProfileVC: UIViewController, UISearchBarDelegate {
     func showSearchBar() {
         
         self.navigationItem.rightBarButtonItem?.image = nil
+        searchBar.sizeToFit()
         searchBar.alpha = 0
-        navigationItem.titleView = searchBar
+        navigationItem.titleView = resultSearchController?.searchBar
         UIView.animate(withDuration: 0.5, animations: {
             self.searchBar.alpha = 1
         }, completion: { finished in

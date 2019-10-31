@@ -80,11 +80,11 @@ class API: ViewController {
             
             myInfo!.description()
 
-//            DispatchQueue.main.async {
-//                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-//                let vc = storyBoard.instantiateViewController(withIdentifier: "NaviController") as! UINavigationController
-//                UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
-//            }
+            DispatchQueue.main.async {
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyBoard.instantiateViewController(withIdentifier: "NaviController") as! UINavigationController
+                UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+            }
         }.resume()
     }
     

@@ -49,6 +49,43 @@
             </objects>
             <point key="canvasLocation" x="-594" y="284"/>
         </scene>
+        <!--TableVC-->
+        <scene sceneID="z1k-rN-FXc">
+            <objects>
+                <tableViewController storyboardIdentifier="TableVC" id="OkL-qh-UPF" customClass="TableVC" customModule="companion" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ftp-me-4dZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="kbX-qL-bzg" style="IBUITableViewCellStyleDefault" id="NC5-3v-ZbN">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NC5-3v-ZbN" id="WV2-UL-sB7">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kbX-qL-bzg">
+                                            <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="OkL-qh-UPF" id="PSH-rH-Zea"/>
+                            <outlet property="delegate" destination="OkL-qh-UPF" id="62f-Ob-Cyj"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MIy-k8-bRl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1075" y="-430"/>
+        </scene>
         <!--Profile-->
         <scene sceneID="56r-Bt-rdl">
             <objects>
@@ -69,6 +106,7 @@
                     <connections>
                         <outlet property="searchBar" destination="bbe-Na-tuf" id="Xe2-tX-jvP"/>
                         <outlet property="searchButtonOutlet" destination="YrX-FY-Zcz" id="BG0-IO-nY4"/>
+                        <outlet property="searchDisplayController" destination="lyE-4K-Q90" id="QtP-ww-KHt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rtR-FW-yep" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -81,6 +119,14 @@
                         <string>Title</string>
                     </scopeButtonTitles>
                 </searchBar>
+                <searchDisplayController id="lyE-4K-Q90">
+                    <connections>
+                        <outlet property="delegate" destination="rbj-45-vIs" id="6x2-b5-GIN"/>
+                        <outlet property="searchContentsController" destination="rbj-45-vIs" id="S96-fZ-iwq"/>
+                        <outlet property="searchResultsDataSource" destination="rbj-45-vIs" id="c6A-i2-fdQ"/>
+                        <outlet property="searchResultsDelegate" destination="rbj-45-vIs" id="4gh-HF-INz"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1090" y="284"/>
         </scene>
