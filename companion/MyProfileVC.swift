@@ -19,11 +19,15 @@ class MyProfileVC: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupSearchController()
+    }
 
+    private func setupSearchController() {
         let tableView = storyboard?.instantiateViewController(withIdentifier: "TableVC") as! TableVC
         resultSearchController = UISearchController(searchResultsController: tableView)
         resultSearchController?.searchResultsUpdater = tableView
-
+        
         searchBar = resultSearchController?.searchBar
         searchBar?.delegate = self
         searchBar?.sizeToFit()
@@ -35,9 +39,7 @@ class MyProfileVC: UIViewController, UISearchBarDelegate {
         navigationItem.searchController = resultSearchController
     }
 
-
     @IBAction func tapSearchButton(_ sender: UIBarButtonItem) {
-
         self.resultSearchController?.searchBar.becomeFirstResponder()
     }
 

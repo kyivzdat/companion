@@ -8,32 +8,67 @@
 
 import UIKit
 
+struct ParseProfile: Decodable {
+    
+    var login: String?
+}
+
 class TableVC: UITableViewController {
 
-
+    var matchingLogins: [ParseProfile] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
 
 }
 
 extension TableVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        guard let searchBarText = searchController.searchBar.text else { return }
+        print(searchBarText)
+        
+        guard let url = NSURL(string: apiInfo.apiURL+"v2/users?range[login]=\(searchBarText),\(searchBarText)z&sort=login") else {
+            MyProfileVC().alert(title: "Error", message: "Wrong url")
+            return
+        }
+        
+        let request = NSMutableURLRequest(url: url as URL)
+        request.setValue("Bearer " + apiInfo.bearer, forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, error) in
+            
+            guard error == nil, let data = data else { MyProfileVC().alert(title: "Error", message: "Wrong url"); return }
+            
+            let json = try? JSONSerialization.jsonObject(with: data, options: [])
+
+            print(json ?? "nil")
+            do {
+                self.matchingLogins = try JSONDecoder().decode([ParseProfile].self, from: data)
+            } catch {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+
+            
+        }.resume()
+    }
+}
+
+extension TableVC {
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return matchingLogins.count
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+        let selectedItem = matchingLogins[indexPath.row]
+        cell.textLabel?.text = selectedItem.login
+        return cell
+    }
 }

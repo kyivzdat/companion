@@ -88,7 +88,7 @@ class API: ViewController {
         }.resume()
     }
     
-    private func getInfo(destination: inout ProfileInfo?, data: Data) -> Bool {
+    public func getInfo(destination: inout ProfileInfo?, data: Data) -> Bool {
         
         do {
             destination = try JSONDecoder().decode(ProfileInfo.self, from: data)
