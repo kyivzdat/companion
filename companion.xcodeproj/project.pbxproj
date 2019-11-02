@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ACC5DBB6236B5A2B00C5CC1E /* TableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC5DBB5236B5A2B00C5CC1E /* TableVC.swift */; };
+		E10CCBB8236DDB300027C464 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10CCBB7236DDB300027C464 /* UserProfileVC.swift */; };
 		E120DCA223670FB600151F64 /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E120DCA123670FB600151F64 /* MyProfileVC.swift */; };
 		E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */; };
 		E1AAE5B123631ACE0001E4FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5B023631ACE0001E4FE /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		ACC5DBB5236B5A2B00C5CC1E /* TableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableVC.swift; sourceTree = "<group>"; };
+		E10CCBB7236DDB300027C464 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		E120DCA123670FB600151F64 /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
 		E1AAE5AB23631ACE0001E4FE /* companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = companion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */,
 				E1AAE5B023631ACE0001E4FE /* ViewController.swift */,
 				E1AAE5B223631ACF0001E4FE /* Main.storyboard */,
+				E10CCBB7236DDB300027C464 /* UserProfileVC.swift */,
 				ACC5DBB5236B5A2B00C5CC1E /* TableVC.swift */,
 				E120DCA123670FB600151F64 /* MyProfileVC.swift */,
 				E1AAE5C023631B5F0001E4FE /* API.swift */,
@@ -149,6 +152,7 @@
 			files = (
 				E1AAE5C3236337630001E4FE /* profileInfoStruct.swift in Sources */,
 				E1AAE5B123631ACE0001E4FE /* ViewController.swift in Sources */,
+				E10CCBB8236DDB300027C464 /* UserProfileVC.swift in Sources */,
 				E120DCA223670FB600151F64 /* MyProfileVC.swift in Sources */,
 				ACC5DBB6236B5A2B00C5CC1E /* TableVC.swift in Sources */,
 				E1AAE5C123631B5F0001E4FE /* API.swift in Sources */,

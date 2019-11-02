@@ -12,6 +12,7 @@ import AuthenticationServices
 var myInfo      : ProfileInfo?
 var profileInfo : ProfileInfo?
 var apiInfo = API()
+var userLogin = ""
 
 class ViewController: UIViewController {
 
@@ -19,8 +20,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-    
-
     
     @IBAction func loginButton(_ sender: UIButton) {
 

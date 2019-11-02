@@ -9,6 +9,7 @@
 import Foundation
 import AuthenticationServices
 
+
 class API: ViewController {
 
     var webAuthSession: ASWebAuthenticationSession?
@@ -121,5 +122,4 @@ class API: ViewController {
             profileInfo?.description()
         }.resume()
     }
-    
 }

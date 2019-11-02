@@ -19,6 +19,7 @@ struct ProfileInfo: Decodable {
     var location            : String?
     var image_url           : String?
     var campus              : [Campus?]
+    var wallet              : Int?
     
     mutating func description() {
         
@@ -40,6 +41,7 @@ struct ProfileInfo: Decodable {
             correction_point \(correction_point ?? -1)
             location \(location ?? "nil")
             image_url \(image_url ?? "nil")
+            wallet \(wallet ?? -123)
 
             cursus_users
             level \(cursus_users[0]?.level ?? -1)

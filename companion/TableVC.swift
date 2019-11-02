@@ -20,15 +20,18 @@ class TableVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
 }
 
 extension TableVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        
         guard let searchBarText = searchController.searchBar.text else { return }
         print(searchBarText)
-        
-        guard let url = NSURL(string: apiInfo.apiURL+"v2/users?range[login]=\(searchBarText),\(searchBarText)z&sort=login") else {
+        self.getRangeProfile(inputText: searchBarText)
+    }
+    
+    func getRangeProfile(inputText: String) {
+        guard let url = NSURL(string: apiInfo.apiURL+"v2/users?range[login]=\(inputText),\(inputText)z&sort=login") else {
             MyProfileVC().alert(title: "Error", message: "Wrong url")
             return
         }
@@ -40,9 +43,8 @@ extension TableVC: UISearchResultsUpdating {
             
             guard error == nil, let data = data else { MyProfileVC().alert(title: "Error", message: "Wrong url"); return }
             
-            let json = try? JSONSerialization.jsonObject(with: data, options: [])
-
-            print(json ?? "nil")
+//            let json = try? JSONSerialization.jsonObject(with: data, options: [])
+//            print(json ?? "nil")
             do {
                 self.matchingLogins = try JSONDecoder().decode([ParseProfile].self, from: data)
             } catch {
@@ -52,10 +54,18 @@ extension TableVC: UISearchResultsUpdating {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-
-            
         }.resume()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "UserProfileSegue" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                userLogin = matchingLogins[indexPath.row].login!
+                print(userLogin)
+            }
+        }
+    }
+    
 }
 
 extension TableVC {
@@ -63,12 +73,13 @@ extension TableVC {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingLogins.count
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
         let selectedItem = matchingLogins[indexPath.row]
         cell.textLabel?.text = selectedItem.login
         return cell
     }
+
 }
