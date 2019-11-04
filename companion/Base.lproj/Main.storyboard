@@ -102,7 +102,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="JS0-K2-sE4"/>
                     </view>
-                    <navigationItem key="navigationItem" id="gjH-f7-nod"/>
+                    <navigationItem key="navigationItem" id="gjH-f7-nod">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="2vm-PL-r6z">
+                            <connections>
+                                <segue destination="zED-jU-R5H" kind="show" id="8K4-lr-3fx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="roo-LX-WsO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -195,7 +201,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1084" y="392"/>
+            <point key="canvasLocation" x="1075" y="385"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="q1q-pR-rug">
@@ -237,4 +243,7 @@
     <resources>
         <image name="iconSearch" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="8K4-lr-3fx"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -9,20 +9,21 @@
 import UIKit
 
 struct ParseProfile: Decodable {
-    
+
     var login: String?
 }
 
 class TableVC: UITableViewController {
 
-    var matchingLogins: [ParseProfile] = []
-
+    var matchingLogins: [ParseProfile?] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 }
 
 extension TableVC: UISearchResultsUpdating {
+
     func updateSearchResults(for searchController: UISearchController) {
         
         guard let searchBarText = searchController.searchBar.text else { return }
@@ -31,24 +32,24 @@ extension TableVC: UISearchResultsUpdating {
     }
     
     func getRangeProfile(inputText: String) {
-        guard let url = NSURL(string: apiInfo.apiURL+"v2/users?range[login]=\(inputText),\(inputText)z&sort=login") else {
-            MyProfileVC().alert(title: "Error", message: "Wrong url")
+        guard let url = NSURL(string: API.shared.apiURL+"v2/users?range[login]=\(inputText),\(inputText)z&sort=login") else {
             return
         }
         
         let request = NSMutableURLRequest(url: url as URL)
-        request.setValue("Bearer " + apiInfo.bearer, forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer " + API.shared.bearer, forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, error) in
             
-            guard error == nil, let data = data else { MyProfileVC().alert(title: "Error", message: "Wrong url"); return }
+            guard error == nil, let data = data else { return }
             
 //            let json = try? JSONSerialization.jsonObject(with: data, options: [])
 //            print(json ?? "nil")
+
             do {
                 self.matchingLogins = try JSONDecoder().decode([ParseProfile].self, from: data)
-            } catch {
-                return
+            } catch let error {
+                return print("error getRangeProfile\n\t", error)
             }
             
             DispatchQueue.main.async {
@@ -60,7 +61,7 @@ extension TableVC: UISearchResultsUpdating {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "UserProfileSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                userLogin = matchingLogins[indexPath.row].login!
+                userLogin = (matchingLogins[indexPath.row]?.login!)!
                 print(userLogin)
             }
         }
@@ -78,7 +79,7 @@ extension TableVC {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
         let selectedItem = matchingLogins[indexPath.row]
-        cell.textLabel?.text = selectedItem.login
+        cell.textLabel?.text = selectedItem?.login
         return cell
     }
 

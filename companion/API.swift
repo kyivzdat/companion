@@ -10,14 +10,18 @@ import Foundation
 import AuthenticationServices
 
 
-class API: ViewController {
+class API {
 
+    static let shared = API()
+    
     var webAuthSession: ASWebAuthenticationSession?
     let callbackURI = "companion://companion"
     let UID = "c18f981eb10b97d638b8ecffa09a536e55d96a145895d3217234205f1a1682b6"
     let secret = "2dc221791978c281af5bf914f3b690d66feea3469c79d1a8d3c217b23531f402"
     let apiURL = "https://api.intra.42.fr/"
     var bearer = ""
+    
+    private init() {}
     
     func authorization() {
 

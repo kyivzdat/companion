@@ -17,7 +17,8 @@ class UserProfileVC: UIViewController {
         profile = userLogin
         
         if profile != nil {
-            apiInfo.getProfile(user: profile!)
+            API.shared.getProfile(user: profile!)
+//            apiInfo.getProfile(user: profile!)
             profileInfo?.description()
         }
     }

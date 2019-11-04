@@ -12,11 +12,7 @@ class MyProfileVC: UIViewController, UISearchBarDelegate {
 
 
     var resultSearchController: UISearchController?
-    var searchBar: UISearchBar?
-    
-    let iconSearch = UIImage(named: "iconSearch")
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,10 +24,9 @@ class MyProfileVC: UIViewController, UISearchBarDelegate {
         resultSearchController = UISearchController(searchResultsController: tableView)
         resultSearchController?.searchResultsUpdater = tableView
         
-        searchBar = resultSearchController?.searchBar
-        searchBar?.delegate = self
-        searchBar?.sizeToFit()
-        searchBar?.placeholder = "Search a user"
+        resultSearchController?.searchBar.delegate = self
+        resultSearchController?.searchBar.sizeToFit()
+        resultSearchController?.searchBar.placeholder = "Search a user"
         
         resultSearchController?.hidesNavigationBarDuringPresentation = true
         resultSearchController?.dimsBackgroundDuringPresentation = true
@@ -40,14 +35,14 @@ class MyProfileVC: UIViewController, UISearchBarDelegate {
     }
 
     @IBAction func tapSearchButton(_ sender: UIBarButtonItem) {
-        self.resultSearchController?.searchBar.becomeFirstResponder()
+        resultSearchController?.searchBar.becomeFirstResponder()
     }
 
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         guard searchBar.text?.isEmpty == false else { print("SearchBar is empty"); return }
-        apiInfo.getProfile(user: searchBar.text!.lowercased())
+        API.shared.getProfile(user: searchBar.text!.lowercased())
     }
 
     
