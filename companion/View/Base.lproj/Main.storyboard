@@ -10,27 +10,19 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="vc" id="BYZ-38-t0r" customClass="ViewController" customModule="companion" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="vc" id="BYZ-38-t0r" customClass="LoginVC" customModule="companion" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ai2-NA-xdH">
-                                <rect key="frame" x="184" y="438" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="188" y="438" width="38" height="30"/>
+                                <state key="normal" title="Login"/>
                                 <connections>
                                     <action selector="loginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BYR-UO-E7z"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XiB-B9-vyW">
-                                <rect key="frame" x="187" y="488" width="40" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Users"/>
-                                <connections>
-                                    <action selector="getUsers:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9WW-Gg-QEg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -42,7 +34,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <segue destination="zED-jU-R5H" kind="show" identifier="Segue" id="qJF-AI-dzU"/>
+                        <segue destination="zED-jU-R5H" kind="show" identifier="MainSegue" id="qJF-AI-dzU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -74,9 +66,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="Jeb-4K-mYf" kind="show" identifier="UserProfileSegue" id="RVP-bS-uNk"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -86,33 +75,12 @@
                     </tableView>
                     <connections>
                         <outlet property="tableView" destination="Ftp-me-4dZ" id="BsH-c1-776"/>
+                        <segue destination="zED-jU-R5H" kind="show" identifier="UserProfileSegue" id="4Bl-kb-2Ac"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MIy-k8-bRl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1075" y="-430"/>
-        </scene>
-        <!--User ProfileVC-->
-        <scene sceneID="YtT-fQ-0CS">
-            <objects>
-                <viewController id="nm8-sn-6so" customClass="UserProfileVC" customModule="companion" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Pwk-EA-aYb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="JS0-K2-sE4"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="gjH-f7-nod">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="2vm-PL-r6z">
-                            <connections>
-                                <segue destination="zED-jU-R5H" kind="show" id="8K4-lr-3fx"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="roo-LX-WsO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2830.434782608696" y="-431.25"/>
+            <point key="canvasLocation" x="1168" y="-439"/>
         </scene>
         <!--Profile-->
         <scene sceneID="56r-Bt-rdl">
@@ -188,6 +156,7 @@
                     </navigationItem>
                     <size key="freeformSize" width="414" height="1200"/>
                     <connections>
+                        <outlet property="loginLabel" destination="AFo-Dg-eLl" id="vSf-Vn-6t6"/>
                         <outlet property="searchDisplayController" destination="lyE-4K-Q90" id="QtP-ww-KHt"/>
                     </connections>
                 </viewController>
@@ -201,7 +170,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1075" y="385"/>
+            <point key="canvasLocation" x="1168" y="385"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="q1q-pR-rug">
@@ -221,29 +190,11 @@
             </objects>
             <point key="canvasLocation" x="332" y="284"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Qye-y6-J9c">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jeb-4K-mYf" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Nlp-3e-IqK">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="nm8-sn-6so" kind="relationship" relationship="rootViewController" id="6U4-9f-1lh"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aME-cy-aEJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1920.289855072464" y="-431.25"/>
-        </scene>
     </scenes>
     <resources>
         <image name="iconSearch" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8K4-lr-3fx"/>
+        <segue reference="4Bl-kb-2Ac"/>
     </inferredMetricsTieBreakers>
 </document>

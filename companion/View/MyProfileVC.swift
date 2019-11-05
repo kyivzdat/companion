@@ -10,41 +10,34 @@ import UIKit
 
 class MyProfileVC: UIViewController, UISearchBarDelegate {
 
-
     var resultSearchController: UISearchController?
-
+    var profile: Profile!
+    @IBOutlet weak var loginLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        profile.personInfo?.description()
+//        print(profile)
+//        print(profile.personInfo)
         setupSearchController()
     }
-
-    private func setupSearchController() {
-        let tableView = storyboard?.instantiateViewController(withIdentifier: "TableVC") as! TableVC
-        resultSearchController = UISearchController(searchResultsController: tableView)
-        resultSearchController?.searchResultsUpdater = tableView
-        
-        resultSearchController?.searchBar.delegate = self
-        resultSearchController?.searchBar.sizeToFit()
-        resultSearchController?.searchBar.placeholder = "Search a user"
-        
-        resultSearchController?.hidesNavigationBarDuringPresentation = true
-        resultSearchController?.dimsBackgroundDuringPresentation = true
-        definesPresentationContext = true
-        navigationItem.searchController = resultSearchController
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        print(profile?.personInfo)
+//        loginLabel.text = profile.personInfo?.login
     }
 
     @IBAction func tapSearchButton(_ sender: UIBarButtonItem) {
         resultSearchController?.searchBar.becomeFirstResponder()
     }
-
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        guard searchBar.text?.isEmpty == false else { print("SearchBar is empty"); return }
-        API.shared.getProfile(user: searchBar.text!.lowercased())
-    }
-
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//
+//        guard searchBar.text?.isEmpty == false else { print("SearchBar is empty"); return }
+//        API.shared.getProfile(user: searchBar.text!.lowercased())
+//    }
     
     func alert(title: String, message: String) {
         
@@ -59,6 +52,24 @@ class MyProfileVC: UIViewController, UISearchBarDelegate {
         }
     }
 
+}
+
+extension MyProfileVC {
+    private func setupSearchController() {
+        let tableView = storyboard?.instantiateViewController(withIdentifier: "TableVC") as! TableVC
+        tableView.profile = self.profile
+        resultSearchController = UISearchController(searchResultsController: tableView)
+        resultSearchController?.searchResultsUpdater = tableView
+        
+        resultSearchController?.searchBar.delegate = self
+        resultSearchController?.searchBar.sizeToFit()
+        resultSearchController?.searchBar.placeholder = "Search a user"
+        
+        resultSearchController?.hidesNavigationBarDuringPresentation = true
+        resultSearchController?.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+        navigationItem.searchController = resultSearchController
+    }
 }
 
 extension UIApplication {
