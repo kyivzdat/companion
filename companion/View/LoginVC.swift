@@ -35,8 +35,9 @@ class LoginVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if let navi = segue.destination as? UINavigationController {
-            if let myProfileVC = navi.viewControllers[0] as? MyProfileVC {
-                myProfileVC.profile = profile
+            if let profileVC = navi.viewControllers[0] as? ProfileVC {
+                profile.eventInfo.append("Event")
+                profileVC.profile = profile
             }
         }
     }

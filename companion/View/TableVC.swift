@@ -44,8 +44,9 @@ extension TableVC: UISearchResultsUpdating {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navi = segue.destination as? UINavigationController {
-            if let myProfileVC = navi.viewControllers[0] as? MyProfileVC {
-                myProfileVC.profile = self.profile
+            if let profileVC = navi.viewControllers[0] as? ProfileVC {
+                profile.eventInfo = []
+                profileVC.profile = self.profile
             }
         }
     }
@@ -69,7 +70,7 @@ extension TableVC {
         API.shared.getProfile(user: userLogin) { (profileInfo) in
             self.profile.personInfo = profileInfo
             self.performSegue(withIdentifier: "UserProfileSegue", sender: nil)
-                    
+
         }
     }
 

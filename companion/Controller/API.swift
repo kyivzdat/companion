@@ -82,7 +82,6 @@ extension API {
             guard let data = data else { return }
             do {
                 myInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
-                myInfo!.description()
                 DispatchQueue.main.async {
                     completion(myInfo!)
                 }
@@ -106,14 +105,13 @@ extension API {
             guard let data = data else { return print("data error") }
             do {
                 profileInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
-//                profileInfo?.description()
                 print("completion")
                 DispatchQueue.main.async {
                     completion(profileInfo!)
                 }
             } catch {
                 print("do catch\n", error)
-                MyProfileVC().alert(title: "Error", message: "Человечка не найти")
+                ProfileVC().alert(title: "Error", message: "Человечка не найти")
                 return
             }
         }.resume()
@@ -132,6 +130,47 @@ extension API {
             guard let data = data else { return }
             DispatchQueue.main.async {
                 completion(data)
+            }
+        }.resume()
+    }
+
+    
+}
+
+//Mark: Slots
+extension API {
+    public func getSlots() {
+        guard let url = NSURL(string: apiURL+"/v2/slots") else { return }
+        
+        let request = NSMutableURLRequest(url: url as URL)
+        request.setValue("Bearer " + bearer, forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
+            guard let data = data else { return }
+            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return }
+            print(json)
+        }.resume()
+    }
+    
+    public func s() {
+        
+        guard let url = NSURL(string: apiURL+"/v2/slots") else { return }
+        
+        let request = NSMutableURLRequest(url: url as URL)
+        request.httpMethod = "POST"
+        request.httpBody = "slots[user_id]=41821&slot[begin_at]=2019-11-07T15:30:00.000Z&slot[end_at]=2019-11-07T16:30:00.000Z".data(using: String.Encoding.utf8)
+        request.setValue("Bearer " + bearer, forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, error) in
+            
+            guard error == nil else { return print(error!) }
+            guard let data = data else { return }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
+                print(json!)
+            } catch let error {
+                print("getToken error:\n", error)
             }
         }.resume()
     }

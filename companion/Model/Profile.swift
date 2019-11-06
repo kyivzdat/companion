@@ -9,6 +9,10 @@
 import Foundation
 
 class Profile {
+
+    var isMyProfile: Bool {
+        return !(eventInfo.isEmpty)
+    }
     var personInfo:    ProfileInfo?
-//    var eventInfo:      EventInfo?
+    var eventInfo:     [String] = []
 }

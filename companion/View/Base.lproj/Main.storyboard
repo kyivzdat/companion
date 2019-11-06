@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,12 +13,16 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="vc" id="BYZ-38-t0r" customClass="LoginVC" customModule="companion" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="t02-93-BO9"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZAP-Tg-ZC4"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ai2-NA-xdH">
-                                <rect key="frame" x="188" y="438" width="38" height="30"/>
+                                <rect key="frame" x="188" y="433" width="38" height="30"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
                                     <action selector="loginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BYR-UO-E7z"/>
@@ -28,10 +31,9 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ai2-NA-xdH" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="KqQ-Yg-8PQ"/>
-                            <constraint firstItem="ai2-NA-xdH" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="TNU-nb-Asc"/>
+                            <constraint firstItem="ai2-NA-xdH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KqQ-Yg-8PQ"/>
+                            <constraint firstItem="ai2-NA-xdH" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="TNU-nb-Asc"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <segue destination="zED-jU-R5H" kind="show" identifier="MainSegue" id="qJF-AI-dzU"/>
@@ -85,7 +87,11 @@
         <!--Profile-->
         <scene sceneID="56r-Bt-rdl">
             <objects>
-                <viewController storyboardIdentifier="MyProfileVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rbj-45-vIs" customClass="MyProfileVC" customModule="companion" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyProfileVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rbj-45-vIs" customClass="ProfileVC" customModule="companion" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oPH-1A-I9X"/>
+                        <viewControllerLayoutGuide type="bottom" id="dGz-DP-n8Z"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="7WH-Bo-Mth">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="1200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -140,14 +146,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="T4k-Mc-j9h" firstAttribute="bottom" secondItem="SDR-hv-q0Y" secondAttribute="bottom" id="UvB-N5-d8G"/>
-                            <constraint firstItem="SDR-hv-q0Y" firstAttribute="top" secondItem="T4k-Mc-j9h" secondAttribute="top" id="Y3Z-wH-8gP"/>
-                            <constraint firstItem="SDR-hv-q0Y" firstAttribute="leading" secondItem="T4k-Mc-j9h" secondAttribute="leading" id="ZIc-mp-9ad"/>
-                            <constraint firstItem="T4k-Mc-j9h" firstAttribute="trailing" secondItem="SDR-hv-q0Y" secondAttribute="trailing" id="Zw7-Xx-XiV"/>
+                            <constraint firstItem="dGz-DP-n8Z" firstAttribute="top" secondItem="SDR-hv-q0Y" secondAttribute="bottom" id="UvB-N5-d8G"/>
+                            <constraint firstItem="SDR-hv-q0Y" firstAttribute="top" secondItem="oPH-1A-I9X" secondAttribute="bottom" id="Y3Z-wH-8gP"/>
+                            <constraint firstItem="SDR-hv-q0Y" firstAttribute="leading" secondItem="7WH-Bo-Mth" secondAttribute="leading" id="ZIc-mp-9ad"/>
+                            <constraint firstAttribute="trailing" secondItem="SDR-hv-q0Y" secondAttribute="trailing" id="Zw7-Xx-XiV"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="T4k-Mc-j9h"/>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="wF2-Ta-fnK">
+                        <barButtonItem key="leftBarButtonItem" image="iconBack" id="GKe-Gj-OCD">
+                            <connections>
+                                <action selector="tapBackBarButton:" destination="rbj-45-vIs" id="aP9-7V-9n5"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="iconSearch" id="YrX-FY-Zcz">
                             <connections>
                                 <action selector="tapSearchButton:" destination="rbj-45-vIs" id="zmW-pf-DzM"/>
@@ -156,8 +166,10 @@
                     </navigationItem>
                     <size key="freeformSize" width="414" height="1200"/>
                     <connections>
+                        <outlet property="backBarButton" destination="GKe-Gj-OCD" id="6AW-0j-Tz8"/>
                         <outlet property="loginLabel" destination="AFo-Dg-eLl" id="vSf-Vn-6t6"/>
                         <outlet property="searchDisplayController" destination="lyE-4K-Q90" id="QtP-ww-KHt"/>
+                        <segue destination="zED-jU-R5H" kind="show" identifier="backToMyProfileSegue" id="jbG-XF-FsF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rtR-FW-yep" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -170,7 +182,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1168" y="385"/>
+            <point key="canvasLocation" x="1236" y="400"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="q1q-pR-rug">
@@ -192,9 +204,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="iconBack" width="30" height="30"/>
         <image name="iconSearch" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4Bl-kb-2Ac"/>
+        <segue reference="eyG-uk-RBI"/>
+        <segue reference="jbG-XF-FsF"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -8,29 +8,48 @@
 
 import UIKit
 
-class MyProfileVC: UIViewController, UISearchBarDelegate {
+class ProfileVC: UIViewController, UISearchBarDelegate {
 
     var resultSearchController: UISearchController?
     var profile: Profile!
+
     @IBOutlet weak var loginLabel: UILabel!
+    @IBOutlet var backBarButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        profile.personInfo?.description()
-//        print(profile)
-//        print(profile.personInfo)
         setupSearchController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print(profile?.personInfo)
-//        loginLabel.text = profile.personInfo?.login
+        
+        hideLeftBarButton(isHide: profile.isMyProfile)
+        
+        print("Is my profile? - ", (profile.isMyProfile ? "true" : "false"))
+        profile.personInfo?.description()
+        loginLabel.text = profile.personInfo?.login
+        
     }
 
     @IBAction func tapSearchButton(_ sender: UIBarButtonItem) {
         resultSearchController?.searchBar.becomeFirstResponder()
+    }
+    
+    
+    @IBAction func tapBackBarButton(_ sender: UIBarButtonItem) {
+        profile.personInfo = myInfo
+        profile.eventInfo.append("Event")
+        performSegue(withIdentifier: "backToMyProfileSegue", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let navi = segue.destination as? UINavigationController {
+            if let vc = navi.viewControllers.first as? ProfileVC {
+                vc.profile = self.profile
+            }
+        }
     }
     
 //    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -54,7 +73,7 @@ class MyProfileVC: UIViewController, UISearchBarDelegate {
 
 }
 
-extension MyProfileVC {
+extension ProfileVC {
     private func setupSearchController() {
         let tableView = storyboard?.instantiateViewController(withIdentifier: "TableVC") as! TableVC
         tableView.profile = self.profile
@@ -70,6 +89,11 @@ extension MyProfileVC {
         definesPresentationContext = true
         navigationItem.searchController = resultSearchController
     }
+    
+    private func hideLeftBarButton(isHide: Bool) {
+        navigationItem.leftBarButtonItem = (isHide) ? nil : self.backBarButton
+    }
+    
 }
 
 extension UIApplication {
