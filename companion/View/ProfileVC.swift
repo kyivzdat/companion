@@ -12,8 +12,13 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
 
     var resultSearchController: UISearchController?
     var profile: Profile!
-
-    @IBOutlet weak var loginLabel: UILabel!
+    @IBOutlet weak var nameSurnameLabel: UILabel!
+    @IBOutlet weak var correctionPointsLabel: UILabel!
+    @IBOutlet weak var walletLabel: UILabel!
+    @IBOutlet weak var countryCityLabel: UILabel!
+    @IBOutlet weak var statusPesonLabel: UILabel!
+    @IBOutlet weak var profileImage: UIImageView!
+    
     @IBOutlet var backBarButton: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -29,8 +34,22 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
         
         print("Is my profile? - ", (profile.isMyProfile ? "true" : "false"))
         profile.personInfo?.description()
-        loginLabel.text = profile.personInfo?.login
         
+        guard let personInfo = profile.personInfo else { return }
+        DispatchQueue.main.async {
+            guard personInfo.image_url != nil else { return }
+            do {
+                guard let urlPhoto = URL(string: personInfo.image_url!) else { return }
+                self.profileImage.image = try UIImage(data: Data(contentsOf: urlPhoto))
+            } catch {
+                self.profileImage.image = UIImage(contentsOfFile: "noPhoto")
+            }
+        }
+        nameSurnameLabel.text = personInfo.first_name! + " " + personInfo.last_name!
+        correctionPointsLabel.text = "Correction Points: " + String(personInfo.correction_point!)
+        walletLabel.text = "Wallet: " + String(personInfo.wallet!)
+        countryCityLabel.text = (personInfo.campus[0]?.country)! + ", " + (personInfo.campus[0]?.city)!
+        statusPesonLabel.text = personInfo.location ?? "Unavailable"
     }
 
     @IBAction func tapSearchButton(_ sender: UIBarButtonItem) {
