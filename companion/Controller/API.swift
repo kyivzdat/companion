@@ -46,6 +46,7 @@ extension API {
         
         let request = NSMutableURLRequest(url: url as URL)
         request.httpMethod = "POST"
+        print(token)
         request.httpBody = "grant_type=authorization_code&client_id=\(UID)&client_secret=\(secret)&\(token)&redirect_uri=\(callbackURI)".data(using: String.Encoding.utf8)
         
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, error) in
@@ -58,6 +59,7 @@ extension API {
                 
                 if json!["error"] == nil {
                     self.bearer = json!["access_token"]! as! String
+                    print(self.bearer)
                     completion()
                 } else {
                     print(json!)

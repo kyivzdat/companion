@@ -27,15 +27,14 @@ extension TableVC: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
         
-        guard let searchBarText = searchController.searchBar.text else { return }
+        guard var searchBarText = searchController.searchBar.text else { return }
+        searchBarText = searchBarText.lowercased()
         print(searchBarText)
         API.shared.getRangeProfiles(inputText: searchBarText) { (json) in
             do {
                 let tmpArray = try JSONDecoder().decode([ParseProfile].self, from: json)
-                if tmpArray.isEmpty == false {
-                    self.matchingLogins = tmpArray
-                    self.tableView.reloadData()
-                }
+                self.matchingLogins = tmpArray
+                self.tableView.reloadData()
             } catch {
                 return print("error getRangeProfile\n\t", error)
             }
@@ -73,5 +72,4 @@ extension TableVC {
 
         }
     }
-
 }
