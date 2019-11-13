@@ -21,17 +21,29 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
     
     @IBOutlet var backBarButton: UIBarButtonItem!
     
+    
+//    @IBOutlet weak var skillsTableConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var projectsTableWidthConstraint: NSLayoutConstraint!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
+//        skillsTableConstraint.constant = self.view.bounds.width - 10
+//        projectsTableWidthConstraint.constant = skillsTableConstraint.constant
         
         setupSearchController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
+        putInfoOnView()
+        print("height = \(self.view.bounds.height), width = \(self.view.bounds.width)")
+    }
+    
+    private func putInfoOnView() {
         hideLeftBarButton(isHide: profile.isMyProfile)
-        
         print("Is my profile? - ", (profile.isMyProfile ? "true" : "false"))
         profile.personInfo?.description()
         
@@ -47,10 +59,11 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
         }
         nameSurnameLabel.text = personInfo.first_name! + " " + personInfo.last_name!
         correctionPointsLabel.text = "Correction Points: " + String(personInfo.correction_point!)
-        walletLabel.text = "Wallet: " + String(personInfo.wallet!)
+        walletLabel.text = "Wallet: " + String(personInfo.wallet!) + "₳"
         countryCityLabel.text = (personInfo.campus[0]?.country)! + ", " + (personInfo.campus[0]?.city)!
         statusPesonLabel.text = personInfo.location ?? "Unavailable"
     }
+    
 
     @IBAction func tapSearchButton(_ sender: UIBarButtonItem) {
         resultSearchController?.searchBar.becomeFirstResponder()
