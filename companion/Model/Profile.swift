@@ -13,6 +13,7 @@ class Profile {
     var isMyProfile: Bool {
         return !(eventInfo.isEmpty)
     }
+    var myInfo:        ProfileInfo?
     var personInfo:    ProfileInfo?
     var eventInfo:     [String] = []
 }

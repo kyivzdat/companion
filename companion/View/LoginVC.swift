@@ -9,8 +9,8 @@
 import UIKit
 import AuthenticationServices
 
-var myInfo      : ProfileInfo?
-var profileInfo : ProfileInfo?
+//var myInfo      : ProfileInfo?
+//var profileInfo : ProfileInfo?
 
 class LoginVC: UIViewController {
 
@@ -23,22 +23,29 @@ class LoginVC: UIViewController {
     
     @IBAction func loginButton(_ sender: UIButton) {
         let api = API.shared
-        
+
         api.authorization {
-            api.getMyInfo(completion: { (profileInfo) in
-                self.profile.personInfo = profileInfo
-                self.performSegue(withIdentifier: "MainSegue", sender: nil)
+            api.getMyInfo(completion: { (myInfo) in
+                self.profile.myInfo = myInfo
+                self.performSegue(withIdentifier: "LoginSegue", sender: nil)
             })
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-        if let navi = segue.destination as? UINavigationController {
-            if let profileVC = navi.viewControllers[0] as? ProfileVC {
-                profile.eventInfo.append("Event")
-                profileVC.profile = profile
+        if let tabBar = segue.destination as? UITabBarController {
+            if let navi = tabBar.viewControllers?[0] as? UINavigationController {
+                if let vc = navi.viewControllers[0] as? ProfileVC {
+                    profile.eventInfo.append("Event")
+                    vc.profile = profile
+                }
             }
         }
+//        if let navi = segue.destination as? UINavigationController {
+//            if let profileVC = navi.viewControllers[0] as? ProfileVC {
+//
+//            }
+//        }
     }
 }

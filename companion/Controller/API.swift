@@ -83,9 +83,9 @@ extension API {
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
             guard let data = data else { return }
             do {
-                myInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
+                let myInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
                 DispatchQueue.main.async {
-                    completion(myInfo!)
+                    completion(myInfo)
                 }
             } catch {
                 print(error)
@@ -106,10 +106,10 @@ extension API {
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
             guard let data = data else { return print("data error") }
             do {
-                profileInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
+                let profileInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
                 print("completion")
                 DispatchQueue.main.async {
-                    completion(profileInfo!)
+                    completion(profileInfo)
                 }
             } catch {
                 print("do catch\n", error)
