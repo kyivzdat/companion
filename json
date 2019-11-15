@@ -1,0 +1,1859 @@
+{
+    achievements =     (
+                {
+            description = "Valider 1 projet avec la note maximum.";
+            id = 17;
+            image = "/uploads/achievement/image/17/PRO005.svg";
+            kind = project;
+            name = "Bonus Hunter";
+            "nbr_of_success" = 1;
+            tier = easy;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/17/users";
+            visible = 1;
+        },
+                {
+            description = "Valider 3 projets avec la note maximum.";
+            id = 18;
+            image = "/uploads/achievement/image/18/PRO005.svg";
+            kind = project;
+            name = "Bonus Hunter";
+            "nbr_of_success" = 3;
+            tier = medium;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/18/users";
+            visible = 1;
+        },
+                {
+            description = "Valider son premier projet.";
+            id = 4;
+            image = "/uploads/achievement/image/4/PRO002.svg";
+            kind = project;
+            name = "Code Explorer";
+            "nbr_of_success" = 1;
+            tier = none;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/4/users";
+            visible = 1;
+        },
+                {
+            description = "Valider 3 projets.";
+            id = 5;
+            image = "/uploads/achievement/image/5/PRO002.svg";
+            kind = project;
+            name = "Code Explorer";
+            "nbr_of_success" = 3;
+            tier = none;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/5/users";
+            visible = 1;
+        },
+                {
+            description = "Valider 10 projets.";
+            id = 6;
+            image = "/uploads/achievement/image/6/PRO002.svg";
+            kind = project;
+            name = "Code Explorer";
+            "nbr_of_success" = 10;
+            tier = none;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/6/users";
+            visible = 1;
+        },
+                {
+            description = "S'\U00eatre logu\U00e9 une fois dans chaque cluster.";
+            id = 44;
+            image = "/uploads/achievement/image/44/SCO002.svg";
+            kind = scolarity;
+            name = "Curious wanderer";
+            "nbr_of_success" = "<null>";
+            tier = none;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/44/users";
+            visible = 1;
+        },
+                {
+            description = "Regarder 1 video sur l'e-learning.";
+            id = 46;
+            image = "/uploads/achievement/image/46/PED005.svg";
+            kind = pedagogy;
+            name = "Film buff";
+            "nbr_of_success" = 1;
+            tier = none;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/46/users";
+            visible = 1;
+        },
+                {
+            description = "Regarder 3 videos sur l'e-learning.";
+            id = 47;
+            image = "/uploads/achievement/image/47/PED005.svg";
+            kind = pedagogy;
+            name = "Film buff";
+            "nbr_of_success" = 3;
+            tier = none;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/47/users";
+            visible = 1;
+        },
+                {
+            description = "Regarder 10 videos sur l'e-learning.";
+            id = 48;
+            image = "/uploads/achievement/image/48/PED005.svg";
+            kind = pedagogy;
+            name = "Film buff";
+            "nbr_of_success" = 10;
+            tier = none;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/48/users";
+            visible = 1;
+        },
+                {
+            description = "Regarder 21 videos sur l'e-learning.";
+            id = 49;
+            image = "/uploads/achievement/image/49/PED005.svg";
+            kind = pedagogy;
+            name = "Film buff";
+            "nbr_of_success" = 21;
+            tier = none;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/49/users";
+            visible = 1;
+        },
+                {
+            description = "Regarder 42 videos sur l'e-learning.";
+            id = 50;
+            image = "/uploads/achievement/image/50/PED005.svg";
+            kind = pedagogy;
+            name = "Film buff";
+            "nbr_of_success" = 42;
+            tier = none;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/50/users";
+            visible = 1;
+        },
+                {
+            description = "S'\U00eatre logu\U00e9 dans le m\U00eame cluster un mois de suite.";
+            id = 45;
+            image = "/uploads/achievement/image/45/SCO002.svg";
+            kind = scolarity;
+            name = "Home is where the code is";
+            "nbr_of_success" = "<null>";
+            tier = none;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/45/users";
+            visible = 1;
+        },
+                {
+            description = "Faire une soutenance sans avoir valid\U00e9 le projet.";
+            id = 82;
+            image = "/uploads/achievement/image/82/PED011.svg";
+            kind = pedagogy;
+            name = "I have no idea what I'm doing";
+            "nbr_of_success" = "<null>";
+            tier = none;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/82/users";
+            visible = 1;
+        },
+                {
+            description = "Participer \U00e0 21 soutenances d'affil\U00e9e sans en manquer aucune.";
+            id = 84;
+            image = "/uploads/achievement/image/84/PED009.svg";
+            kind = pedagogy;
+            name = "I'm reliable !";
+            "nbr_of_success" = 21;
+            tier = easy;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/84/users";
+            visible = 1;
+        },
+                {
+            description = "Valider 3 projets d'affil\U00e9e (journ\U00e9es de piscines comprises).";
+            id = 25;
+            image = "/uploads/achievement/image/25/PRO010.svg";
+            kind = project;
+            name = "Rigorous Basterd";
+            "nbr_of_success" = 3;
+            tier = none;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/25/users";
+            visible = 1;
+        },
+                {
+            description = "Valider 10 projets d'affil\U00e9e (journ\U00e9es de piscines comprises).";
+            id = 26;
+            image = "/uploads/achievement/image/26/PRO010.svg";
+            kind = project;
+            name = "Rigorous Basterd";
+            "nbr_of_success" = 10;
+            tier = easy;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/26/users";
+            visible = 1;
+        },
+                {
+            description = "Valider 21 projets d'affil\U00e9e (journ\U00e9es de piscines comprises).";
+            id = 27;
+            image = "/uploads/achievement/image/27/PRO010.svg";
+            kind = project;
+            name = "Rigorous Basterd";
+            "nbr_of_success" = 21;
+            tier = medium;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/27/users";
+            visible = 1;
+        },
+                {
+            description = "Tu as r\U00e9ussi ta piscine C. Bienvenue \U00e0 42 !";
+            id = 1;
+            image = "/uploads/achievement/image/1/PRO001.svg";
+            kind = project;
+            name = "Welcome, Cadet !";
+            "nbr_of_success" = "<null>";
+            tier = none;
+            "users_url" = "https://api.intra.42.fr/v2/achievements/1/users";
+            visible = 1;
+        }
+    );
+    campus =     (
+                {
+            address = "Dorohozhytska St, 3";
+            city = Kyiv;
+            country = Ukraine;
+            facebook = "https://www.facebook.com/unit.factory/";
+            id = 8;
+            language =             {
+                "created_at" = "2016-08-21T11:42:57.272Z";
+                id = 5;
+                identifier = uk;
+                name = Ukrainian;
+                "updated_at" = "2019-10-11T11:09:06.137Z";
+            };
+            name = Kyiv;
+            "time_zone" = "Europe/Kiev";
+            twitter = "";
+            "users_count" = 2633;
+            "vogsphere_id" = 3;
+            website = "https://unit.ua/";
+            zip = 04119;
+        }
+    );
+    "campus_users" =     (
+                {
+            "campus_id" = 8;
+            id = 32255;
+            "is_primary" = 1;
+            "user_id" = 41821;
+        }
+    );
+    "correction_point" = 18;
+    "cursus_users" =     (
+                {
+            "begin_at" = "2018-10-22T06:42:00.000Z";
+            "blackholed_at" = "<null>";
+            cursus =             {
+                "created_at" = "2014-11-02T16:43:38.480Z";
+                id = 1;
+                name = 42;
+                slug = 42;
+            };
+            "cursus_id" = 1;
+            "end_at" = "<null>";
+            grade = Ensign;
+            "has_coalition" = 1;
+            id = 51459;
+            level = "9.08";
+            skills =             (
+                                {
+                    id = 1;
+                    level = "10.61";
+                    name = "Algorithms & AI";
+                },
+                                {
+                    id = 3;
+                    level = "4.26";
+                    name = Rigor;
+                },
+                                {
+                    id = 2;
+                    level = "4.18";
+                    name = "Imperative programming";
+                },
+                                {
+                    id = 14;
+                    level = "2.86";
+                    name = "Adaptation & creativity";
+                },
+                                {
+                    id = 7;
+                    level = "2.73";
+                    name = "Group & interpersonal";
+                },
+                                {
+                    id = 17;
+                    level = "2.53";
+                    name = "Object-oriented programming";
+                },
+                                {
+                    id = 15;
+                    level = "2.24";
+                    name = "Technology integration";
+                },
+                                {
+                    id = 5;
+                    level = "1.28";
+                    name = Graphics;
+                },
+                                {
+                    id = 13;
+                    level = "1.21";
+                    name = Organization;
+                },
+                                {
+                    id = 4;
+                    level = "1.17";
+                    name = Unix;
+                },
+                                {
+                    id = 9;
+                    level = "1.03";
+                    name = "Parallel computing";
+                }
+            );
+            user =             {
+                id = 41821;
+                login = vpalamar;
+                url = "https://api.intra.42.fr/v2/users/vpalamar";
+            };
+        },
+                {
+            "begin_at" = "2018-08-06T05:42:00.000Z";
+            "blackholed_at" = "<null>";
+            cursus =             {
+                "created_at" = "2015-05-01T17:46:08.433Z";
+                id = 4;
+                name = "Piscine C";
+                slug = "piscine-c";
+            };
+            "cursus_id" = 4;
+            "end_at" = "2018-08-31T15:42:00.000Z";
+            grade = "<null>";
+            "has_coalition" = 1;
+            id = 43737;
+            level = "2.48";
+            skills =             (
+                                {
+                    id = 1;
+                    level = "2.57";
+                    name = "Algorithms & AI";
+                },
+                                {
+                    id = 3;
+                    level = "2.51";
+                    name = Rigor;
+                },
+                                {
+                    id = 4;
+                    level = "2.24";
+                    name = Unix;
+                },
+                                {
+                    id = 7;
+                    level = "0.15";
+                    name = "Group & interpersonal";
+                }
+            );
+            user =             {
+                id = 41821;
+                login = vpalamar;
+                url = "https://api.intra.42.fr/v2/users/vpalamar";
+            };
+        }
+    );
+    displayname = "Vladyslav Palamarchuk";
+    email = "vpalamar@student.unit.ua";
+    "expertises_users" =     (
+    );
+    "first_name" = Vladyslav;
+    groups =     (
+    );
+    id = 41821;
+    "image_url" = "https://cdn.intra.42.fr/users/vpalamar.jpg";
+    "languages_users" =     (
+                {
+            "created_at" = "2019-09-30T11:54:04.020Z";
+            id = 204167;
+            "language_id" = 2;
+            position = 1;
+            "user_id" = 41821;
+        },
+                {
+            "created_at" = "2019-09-30T11:54:04.037Z";
+            id = 204168;
+            "language_id" = 5;
+            position = 2;
+            "user_id" = 41821;
+        },
+                {
+            "created_at" = "2019-09-30T11:54:04.055Z";
+            id = 204169;
+            "language_id" = 6;
+            position = 3;
+            "user_id" = 41821;
+        }
+    );
+    "last_name" = Palamarchuk;
+    location = e1r9p16;
+    login = vpalamar;
+    partnerships =     (
+    );
+    patroned =     (
+                {
+            "created_at" = "2018-11-05T16:55:33.220Z";
+            "godfather_id" = 33801;
+            id = 1446;
+            ongoing = 1;
+            "updated_at" = "2019-07-06T13:53:02.534Z";
+            "user_id" = 41821;
+        }
+    );
+    patroning =     (
+    );
+    phone = hidden;
+    "pool_month" = august;
+    "pool_year" = 2018;
+    "projects_users" =     (
+                {
+            "current_team_id" = 2837444;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1582727;
+            marked = 1;
+            "marked_at" = "2019-10-09T11:13:20.055Z";
+            occurrence = 0;
+            project =             {
+                id = 750;
+                name = "Day 05";
+                "parent_id" = 742;
+                slug = "piscine-swift-ios-day-05";
+            };
+            "retriable_at" = "2019-10-09T11:13:20.280Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2844838;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 0;
+            id = 1589204;
+            marked = 1;
+            "marked_at" = "2019-10-15T12:57:02.899Z";
+            occurrence = 0;
+            project =             {
+                id = 754;
+                name = "Day 09";
+                "parent_id" = 742;
+                slug = "piscine-swift-ios-day-09";
+            };
+            "retriable_at" = "2019-10-15T12:57:03.822Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2846443;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1588448;
+            marked = 1;
+            "marked_at" = "2019-10-14T16:01:08.507Z";
+            occurrence = 0;
+            project =             {
+                id = 755;
+                name = Rush01;
+                "parent_id" = 742;
+                slug = "piscine-swift-ios-rush01";
+            };
+            "retriable_at" = "2019-10-14T16:01:08.654Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2112500;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 30;
+            id = 971552;
+            marked = 1;
+            "marked_at" = "2018-08-08T17:40:50.012Z";
+            occurrence = 0;
+            project =             {
+                id = 154;
+                name = "Day 00";
+                "parent_id" = "<null>";
+                slug = "piscine-c-day-00";
+            };
+            "retriable_at" = "2018-08-08T17:40:50.167Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2115659;
+            "cursus_ids" =             (
+                1,
+                4
+            );
+            "final_mark" = 100;
+            id = 973674;
+            marked = 1;
+            "marked_at" = "2018-08-12T10:13:56.169Z";
+            occurrence = 0;
+            project =             {
+                id = 1049;
+                name = "UNIT Factory Harassment & Tolerance Policy";
+                "parent_id" = "<null>";
+                slug = "unit-factory-harassment-tolerance-policy";
+            };
+            "retriable_at" = "2018-08-12T10:13:56.223Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2115639;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 20;
+            id = 973656;
+            marked = 1;
+            "marked_at" = "2018-08-10T03:03:19.588Z";
+            occurrence = 0;
+            project =             {
+                id = 156;
+                name = "Day 02";
+                "parent_id" = "<null>";
+                slug = "piscine-c-day-02";
+            };
+            "retriable_at" = "2018-08-10T03:03:19.622Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2142579;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 998370;
+            marked = 1;
+            "marked_at" = "2018-08-17T20:31:39.312Z";
+            occurrence = 0;
+            project =             {
+                id = 161;
+                name = "Day 07";
+                "parent_id" = "<null>";
+                slug = "piscine-c-day-07";
+            };
+            "retriable_at" = "2018-08-17T20:31:39.365Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2117007;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 40;
+            id = 974758;
+            marked = 1;
+            "marked_at" = "2018-08-10T11:59:47.603Z";
+            occurrence = 0;
+            project =             {
+                id = 404;
+                name = Exam00;
+                "parent_id" = "<null>";
+                slug = "piscine-c-exam00";
+            };
+            "retriable_at" = "2018-08-10T11:59:47.717Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152635;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007721;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:20.245Z";
+            occurrence = 0;
+            project =             {
+                id = 200;
+                name = 16;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-16";
+            };
+            "retriable_at" = "2018-08-31T15:43:20.402Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2120329;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 65;
+            id = 978028;
+            marked = 1;
+            "marked_at" = "2018-08-11T18:02:09.310Z";
+            occurrence = 0;
+            project =             {
+                id = 157;
+                name = "Day 03";
+                "parent_id" = "<null>";
+                slug = "piscine-c-day-03";
+            };
+            "retriable_at" = "2018-08-11T18:02:09.540Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2120330;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 60;
+            id = 978029;
+            marked = 1;
+            "marked_at" = "2018-08-12T17:15:37.495Z";
+            occurrence = 0;
+            project =             {
+                id = 158;
+                name = "Day 04";
+                "parent_id" = "<null>";
+                slug = "piscine-c-day-04";
+            };
+            "retriable_at" = "2018-08-12T17:15:37.664Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2142578;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 20;
+            id = 998369;
+            marked = 1;
+            "marked_at" = "2018-08-16T20:45:31.716Z";
+            occurrence = 0;
+            project =             {
+                id = 160;
+                name = "Day 06";
+                "parent_id" = "<null>";
+                slug = "piscine-c-day-06";
+            };
+            "retriable_at" = "2018-08-16T20:45:31.759Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2156647;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007612;
+            marked = 1;
+            "marked_at" = "2018-08-22T08:06:53.995Z";
+            occurrence = 0;
+            project =             {
+                id = 169;
+                name = "Rush 01";
+                "parent_id" = "<null>";
+                slug = "piscine-c-rush-01";
+            };
+            "retriable_at" = "2018-08-22T08:06:54.049Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2145799;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 12;
+            id = 1001110;
+            marked = 1;
+            "marked_at" = "2018-08-18T12:48:24.457Z";
+            occurrence = 0;
+            project =             {
+                id = 167;
+                name = "Day 09";
+                "parent_id" = "<null>";
+                slug = "piscine-c-day-09";
+            };
+            "retriable_at" = "2018-08-18T12:48:24.506Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2145798;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1001109;
+            marked = 1;
+            "marked_at" = "2018-08-19T16:24:05.510Z";
+            occurrence = 0;
+            project =             {
+                id = 162;
+                name = "Day 08";
+                "parent_id" = "<null>";
+                slug = "piscine-c-day-08";
+            };
+            "retriable_at" = "2018-08-19T16:24:05.550Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2151971;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007101;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:50.162Z";
+            occurrence = 0;
+            project =             {
+                id = 175;
+                name = 00;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-00";
+            };
+            "retriable_at" = "2018-08-31T15:43:50.319Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152624;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007709;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:40.995Z";
+            occurrence = 0;
+            project =             {
+                id = 189;
+                name = 05;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-05";
+            };
+            "retriable_at" = "2018-08-31T15:43:41.221Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152634;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007720;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:22.312Z";
+            occurrence = 0;
+            project =             {
+                id = 199;
+                name = 15;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-15";
+            };
+            "retriable_at" = "2018-08-31T15:43:22.626Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152626;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007712;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:37.555Z";
+            occurrence = 0;
+            project =             {
+                id = 191;
+                name = 07;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-07";
+            };
+            "retriable_at" = "2018-08-31T15:43:37.715Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152636;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007722;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:17.963Z";
+            occurrence = 0;
+            project =             {
+                id = 201;
+                name = 17;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-17";
+            };
+            "retriable_at" = "2018-08-31T15:43:18.463Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152625;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007710;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:38.967Z";
+            occurrence = 0;
+            project =             {
+                id = 190;
+                name = 06;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-06";
+            };
+            "retriable_at" = "2018-08-31T15:43:39.248Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152631;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007717;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:28.113Z";
+            occurrence = 0;
+            project =             {
+                id = 196;
+                name = 12;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-12";
+            };
+            "retriable_at" = "2018-08-31T15:43:28.350Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152642;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007728;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:05.842Z";
+            occurrence = 0;
+            project =             {
+                id = 207;
+                name = 23;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-23";
+            };
+            "retriable_at" = "2018-08-31T15:43:06.039Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152620;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007705;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:46.250Z";
+            occurrence = 0;
+            project =             {
+                id = 186;
+                name = 02;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-02";
+            };
+            "retriable_at" = "2018-08-31T15:43:46.547Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152641;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007727;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:07.927Z";
+            occurrence = 0;
+            project =             {
+                id = 206;
+                name = 22;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-22";
+            };
+            "retriable_at" = "2018-08-31T15:43:08.256Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152632;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007718;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:25.804Z";
+            occurrence = 0;
+            project =             {
+                id = 197;
+                name = 13;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-13";
+            };
+            "retriable_at" = "2018-08-31T15:43:26.282Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152621;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007706;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:44.114Z";
+            occurrence = 0;
+            project =             {
+                id = 187;
+                name = 03;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-03";
+            };
+            "retriable_at" = "2018-08-31T15:43:44.451Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152619;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007704;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:48.087Z";
+            occurrence = 0;
+            project =             {
+                id = 185;
+                name = 01;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-01";
+            };
+            "retriable_at" = "2018-08-31T15:43:48.464Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152629;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007715;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:31.747Z";
+            occurrence = 0;
+            project =             {
+                id = 194;
+                name = 10;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-10";
+            };
+            "retriable_at" = "2018-08-31T15:43:32.075Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152638;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007724;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:14.599Z";
+            occurrence = 0;
+            project =             {
+                id = 203;
+                name = 19;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-19";
+            };
+            "retriable_at" = "2018-08-31T15:43:14.939Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2147910;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1002996;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:51.699Z";
+            occurrence = 0;
+            project =             {
+                id = 405;
+                name = Exam01;
+                "parent_id" = "<null>";
+                slug = "piscine-c-exam01";
+            };
+            "retriable_at" = "2018-08-31T15:43:51.960Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2127533;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 1;
+            id = 984022;
+            marked = 1;
+            "marked_at" = "2018-08-15T03:57:03.694Z";
+            occurrence = 0;
+            project =             {
+                id = 159;
+                name = "Day 05";
+                "parent_id" = "<null>";
+                slug = "piscine-c-day-05";
+            };
+            "retriable_at" = "2018-08-15T03:57:03.753Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2152630;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007716;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:29.958Z";
+            occurrence = 0;
+            project =             {
+                id = 195;
+                name = 11;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-11";
+            };
+            "retriable_at" = "2018-08-31T15:43:30.092Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152639;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007725;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:12.378Z";
+            occurrence = 0;
+            project =             {
+                id = 204;
+                name = 20;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-20";
+            };
+            "retriable_at" = "2018-08-31T15:43:12.717Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152637;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007723;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:16.469Z";
+            occurrence = 0;
+            project =             {
+                id = 202;
+                name = 18;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-18";
+            };
+            "retriable_at" = "2018-08-31T15:43:16.580Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152640;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007726;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:09.864Z";
+            occurrence = 0;
+            project =             {
+                id = 205;
+                name = 21;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-21";
+            };
+            "retriable_at" = "2018-08-31T15:43:10.333Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152628;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007714;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:33.880Z";
+            occurrence = 0;
+            project =             {
+                id = 193;
+                name = 09;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-09";
+            };
+            "retriable_at" = "2018-08-31T15:43:34.012Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152627;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007713;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:35.881Z";
+            occurrence = 0;
+            project =             {
+                id = 192;
+                name = 08;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-08";
+            };
+            "retriable_at" = "2018-08-31T15:43:36.032Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152633;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007719;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:24.289Z";
+            occurrence = 0;
+            project =             {
+                id = 198;
+                name = 14;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-14";
+            };
+            "retriable_at" = "2018-08-31T15:43:24.551Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2152623;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1007708;
+            marked = 1;
+            "marked_at" = "2018-08-31T15:43:42.853Z";
+            occurrence = 0;
+            project =             {
+                id = 188;
+                name = 04;
+                "parent_id" = 167;
+                slug = "piscine-c-day-09-04";
+            };
+            "retriable_at" = "2018-08-31T15:43:43.045Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2130911;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 55;
+            id = 982868;
+            marked = 1;
+            "marked_at" = "2018-08-15T22:02:13.863Z";
+            occurrence = 0;
+            project =             {
+                id = 168;
+                name = "Rush 00";
+                "parent_id" = "<null>";
+                slug = "piscine-c-rush-00";
+            };
+            "retriable_at" = "2018-08-15T22:02:14.073Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2156969;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1011310;
+            marked = 1;
+            "marked_at" = "2018-08-22T03:16:52.680Z";
+            occurrence = 0;
+            project =             {
+                id = 163;
+                name = "Day 10";
+                "parent_id" = "<null>";
+                slug = "piscine-c-day-10";
+            };
+            "retriable_at" = "2018-08-22T03:16:52.741Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2157723;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = "-42";
+            id = 1011707;
+            marked = 1;
+            "marked_at" = "2018-08-23T16:03:17.548Z";
+            occurrence = 0;
+            project =             {
+                id = 164;
+                name = "Day 11";
+                "parent_id" = "<null>";
+                slug = "piscine-c-day-11";
+            };
+            "retriable_at" = "2018-08-23T16:03:17.579Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2157724;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1011708;
+            marked = 1;
+            "marked_at" = "2018-08-24T18:58:47.340Z";
+            occurrence = 0;
+            project =             {
+                id = 165;
+                name = "Day 12";
+                "parent_id" = "<null>";
+                slug = "piscine-c-day-12";
+            };
+            "retriable_at" = "2018-08-24T18:58:47.406Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2158829;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1012503;
+            marked = 1;
+            "marked_at" = "2018-08-25T20:45:22.605Z";
+            occurrence = 0;
+            project =             {
+                id = 166;
+                name = "Day 13";
+                "parent_id" = "<null>";
+                slug = "piscine-c-day-13";
+            };
+            "retriable_at" = "2018-08-25T20:45:22.646Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2163643;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 0;
+            id = 1016621;
+            marked = 1;
+            "marked_at" = "2018-08-30T03:23:59.022Z";
+            occurrence = 0;
+            project =             {
+                id = 174;
+                name = BSQ;
+                "parent_id" = "<null>";
+                slug = bsq;
+            };
+            "retriable_at" = "2018-08-30T03:23:59.058Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2163752;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 27;
+            id = 1016783;
+            marked = 1;
+            "marked_at" = "2018-08-24T14:29:15.854Z";
+            occurrence = 0;
+            project =             {
+                id = 406;
+                name = Exam02;
+                "parent_id" = "<null>";
+                slug = "piscine-c-exam02";
+            };
+            "retriable_at" = "2018-08-24T14:29:16.010Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2168863;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = "-42";
+            id = 1020655;
+            marked = 1;
+            "marked_at" = "2018-08-29T08:55:48.427Z";
+            occurrence = 0;
+            project =             {
+                id = 170;
+                name = "Rush 02";
+                "parent_id" = "<null>";
+                slug = "piscine-c-rush-02";
+            };
+            "retriable_at" = "2018-08-29T08:55:48.507Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2173025;
+            "cursus_ids" =             (
+                4
+            );
+            "final_mark" = 36;
+            id = 1024513;
+            marked = 1;
+            "marked_at" = "2018-08-31T09:02:19.405Z";
+            occurrence = 0;
+            project =             {
+                id = 407;
+                name = "Exam Final";
+                "parent_id" = "<null>";
+                slug = "piscine-c-exam-final";
+            };
+            "retriable_at" = "2018-08-31T09:02:19.602Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2477656;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1208200;
+            marked = 1;
+            "marked_at" = "2019-03-12T16:37:12.490Z";
+            occurrence = 2;
+            project =             {
+                id = 540;
+                name = Fillit;
+                "parent_id" = "<null>";
+                slug = fillit;
+            };
+            "retriable_at" = "2019-03-14T16:37:12.688Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2533017;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1341188;
+            marked = 1;
+            "marked_at" = "2019-04-26T20:17:18.238Z";
+            occurrence = 0;
+            project =             {
+                id = 5;
+                name = "ft_printf";
+                "parent_id" = "<null>";
+                slug = "ft_printf";
+            };
+            "retriable_at" = "2019-04-30T20:17:18.526Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2886863;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = "<null>";
+            id = 1623084;
+            marked = 0;
+            "marked_at" = "<null>";
+            occurrence = 0;
+            project =             {
+                id = 536;
+                name = "Swifty Companion";
+                "parent_id" = "<null>";
+                slug = "swifty-companion";
+            };
+            "retriable_at" = "<null>";
+            status = "in_progress";
+            "validated?" = "<null>";
+        },
+                {
+            "current_team_id" = 2886866;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = "<null>";
+            id = 1623086;
+            marked = 0;
+            "marked_at" = "<null>";
+            occurrence = 0;
+            project =             {
+                id = 902;
+                name = "Curriculum Vitae";
+                "parent_id" = "<null>";
+                slug = "curriculum-vitae";
+            };
+            "retriable_at" = "<null>";
+            status = "in_progress";
+            "validated?" = "<null>";
+        },
+                {
+            "current_team_id" = 2599782;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1392688;
+            marked = 1;
+            "marked_at" = "2019-07-03T14:35:46.984Z";
+            occurrence = 0;
+            project =             {
+                id = 26;
+                name = Filler;
+                "parent_id" = "<null>";
+                slug = filler;
+            };
+            "retriable_at" = "2019-07-07T14:35:47.136Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2606447;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 122;
+            id = 1397886;
+            marked = 1;
+            "marked_at" = "2019-07-24T20:36:08.060Z";
+            occurrence = 0;
+            project =             {
+                id = 29;
+                name = "Lem_in";
+                "parent_id" = "<null>";
+                slug = "lem_in";
+            };
+            "retriable_at" = "2019-07-31T20:36:08.243Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2300262;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1139123;
+            marked = 1;
+            "marked_at" = "2018-10-22T08:45:06.383Z";
+            occurrence = 1;
+            project =             {
+                id = 817;
+                name = "42 Commandements";
+                "parent_id" = "<null>";
+                slug = "42-formation-pole-emploi-42-commandements";
+            };
+            "retriable_at" = "2018-10-22T08:45:06.462Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2314038;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1139253;
+            marked = 1;
+            "marked_at" = "2018-10-26T16:18:42.399Z";
+            occurrence = 2;
+            project =             {
+                id = 756;
+                name = "Piscine Reloaded";
+                "parent_id" = "<null>";
+                slug = "piscine-reloaded";
+            };
+            "retriable_at" = "2018-10-26T16:18:42.634Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2340734;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 125;
+            id = 1152314;
+            marked = 1;
+            "marked_at" = "2018-11-20T18:43:07.439Z";
+            occurrence = 2;
+            project =             {
+                id = 1;
+                name = Libft;
+                "parent_id" = "<null>";
+                slug = libft;
+            };
+            "retriable_at" = "2018-11-21T18:43:07.762Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2751931;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 85;
+            id = 1174096;
+            marked = 1;
+            "marked_at" = "2019-08-27T08:58:22.589Z";
+            occurrence = 5;
+            project =             {
+                id = 11;
+                name = "C Exam Alone In The Dark - Beginner";
+                "parent_id" = "<null>";
+                slug = "c-exam-alone-in-the-dark-beginner";
+            };
+            "retriable_at" = "2019-08-27T08:58:22.773Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2341396;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 125;
+            id = 1174744;
+            marked = 1;
+            "marked_at" = "2019-01-20T19:31:32.667Z";
+            occurrence = 0;
+            project =             {
+                id = 2;
+                name = "Get_Next_Line";
+                "parent_id" = "<null>";
+                slug = "get_next_line";
+            };
+            "retriable_at" = "2019-01-21T19:31:33.089Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2734068;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 125;
+            id = 1504871;
+            marked = 1;
+            "marked_at" = "2019-10-10T18:05:31.442Z";
+            occurrence = 0;
+            project =             {
+                id = 4;
+                name = FdF;
+                "parent_id" = "<null>";
+                slug = fdf;
+            };
+            "retriable_at" = "2019-10-14T18:05:31.632Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2831783;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 125;
+            id = 1572193;
+            marked = 1;
+            "marked_at" = "2019-09-29T21:35:31.775Z";
+            occurrence = 0;
+            project =             {
+                id = 22;
+                name = Corewar;
+                "parent_id" = "<null>";
+                slug = corewar;
+            };
+            "retriable_at" = "2019-10-06T21:35:32.551Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2832963;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1579091;
+            marked = 1;
+            "marked_at" = "2019-10-05T09:44:59.276Z";
+            occurrence = 0;
+            project =             {
+                id = 744;
+                name = "Day 01";
+                "parent_id" = 742;
+                slug = "piscine-swift-ios-day-01";
+            };
+            "retriable_at" = "2019-10-05T09:44:59.390Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2832961;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 114;
+            id = 1579089;
+            marked = 1;
+            "marked_at" = "2019-10-15T12:57:03.068Z";
+            occurrence = 0;
+            project =             {
+                id = 742;
+                name = "Piscine Swift iOS";
+                "parent_id" = "<null>";
+                slug = "piscine-swift-ios";
+            };
+            "retriable_at" = "2019-10-15T12:57:03.794Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2835046;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1580860;
+            marked = 1;
+            "marked_at" = "2019-10-05T09:45:39.351Z";
+            occurrence = 0;
+            project =             {
+                id = 747;
+                name = "Day 03";
+                "parent_id" = 742;
+                slug = "piscine-swift-ios-day-03";
+            };
+            "retriable_at" = "2019-10-05T09:45:39.469Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2835047;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 0;
+            id = 1580861;
+            marked = 1;
+            "marked_at" = "2019-10-15T12:56:59.433Z";
+            occurrence = 0;
+            project =             {
+                id = 748;
+                name = "Day 04";
+                "parent_id" = 742;
+                slug = "piscine-swift-ios-day-04";
+            };
+            "retriable_at" = "2019-10-15T12:56:59.586Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2835045;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1580859;
+            marked = 1;
+            "marked_at" = "2019-10-05T10:28:11.098Z";
+            occurrence = 0;
+            project =             {
+                id = 745;
+                name = "Day 02";
+                "parent_id" = 742;
+                slug = "piscine-swift-ios-day-02";
+            };
+            "retriable_at" = "2019-10-05T10:28:11.246Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2832962;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1579090;
+            marked = 1;
+            "marked_at" = "2019-10-03T13:01:47.798Z";
+            occurrence = 0;
+            project =             {
+                id = 743;
+                name = "Day 00";
+                "parent_id" = 742;
+                slug = "piscine-swift-ios-day-00";
+            };
+            "retriable_at" = "2019-10-03T13:01:47.930Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2837997;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 0;
+            id = 1580862;
+            marked = 1;
+            "marked_at" = "2019-10-10T19:37:27.828Z";
+            occurrence = 0;
+            project =             {
+                id = 749;
+                name = Rush00;
+                "parent_id" = 742;
+                slug = "piscine-swift-ios-rush00";
+            };
+            "retriable_at" = "2019-10-10T19:37:27.987Z";
+            status = finished;
+            "validated?" = 0;
+        },
+                {
+            "current_team_id" = 2840749;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1585526;
+            marked = 1;
+            "marked_at" = "2019-10-11T14:14:26.207Z";
+            occurrence = 0;
+            project =             {
+                id = 752;
+                name = "Day 07";
+                "parent_id" = 742;
+                slug = "piscine-swift-ios-day-07";
+            };
+            "retriable_at" = "2019-10-11T14:14:26.349Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2840750;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1585527;
+            marked = 1;
+            "marked_at" = "2019-10-15T12:56:15.096Z";
+            occurrence = 0;
+            project =             {
+                id = 753;
+                name = "Day 08";
+                "parent_id" = 742;
+                slug = "piscine-swift-ios-day-08";
+            };
+            "retriable_at" = "2019-10-15T12:56:15.318Z";
+            status = finished;
+            "validated?" = 1;
+        },
+                {
+            "current_team_id" = 2840746;
+            "cursus_ids" =             (
+                1
+            );
+            "final_mark" = 100;
+            id = 1585523;
+            marked = 1;
+            "marked_at" = "2019-10-10T11:03:24.153Z";
+            occurrence = 0;
+            project =             {
+                id = 751;
+                name = "Day 06";
+                "parent_id" = 742;
+                slug = "piscine-swift-ios-day-06";
+            };
+            "retriable_at" = "2019-10-10T11:03:24.303Z";
+            status = finished;
+            "validated?" = 1;
+        }
+    );
+    "staff?" = 0;
+    titles =     (
+    );
+    "titles_users" =     (
+    );
+    url = "https://api.intra.42.fr/v2/users/vpalamar";
+    wallet = 75;
+}
