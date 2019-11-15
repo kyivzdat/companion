@@ -75,7 +75,7 @@ class ProfileVC: UIViewController, UISearchBarDelegate, UIScrollViewDelegate {
                 self.betweenTableAndBottomConstraint.constant = 0.08 * self.view.bounds.height
             }
             
-            self.betweenImageAndInfoConstraint.constant = 0.024 * self.view.bounds.width
+//            self.betweenImageAndInfoConstraint.constant = 0.024 * self.view.bounds.width
         }
 
 

@@ -54,12 +54,6 @@
                                                 </constraints>
                                             </imageView>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="AK4-5c-BPE" secondAttribute="trailing" id="940-9e-qFn"/>
-                                            <constraint firstAttribute="bottom" secondItem="AK4-5c-BPE" secondAttribute="bottom" id="Xzw-Lf-1rc"/>
-                                            <constraint firstItem="AK4-5c-BPE" firstAttribute="top" secondItem="00g-Mh-a8x" secondAttribute="top" id="rRV-lj-T71"/>
-                                            <constraint firstItem="AK4-5c-BPE" firstAttribute="leading" secondItem="00g-Mh-a8x" secondAttribute="leading" id="vFQ-Wc-ncf"/>
-                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FCK-0A-yYm">
                                         <rect key="frame" x="151" y="0.0" width="733" height="175"/>
@@ -102,7 +96,6 @@
                                     <constraint firstAttribute="trailing" secondItem="FCK-0A-yYm" secondAttribute="trailing" id="RE3-XI-Qmb"/>
                                     <constraint firstItem="00g-Mh-a8x" firstAttribute="leading" secondItem="9ul-br-Wqn" secondAttribute="leading" id="ZCA-Eq-Hfg"/>
                                     <constraint firstAttribute="bottom" secondItem="00g-Mh-a8x" secondAttribute="bottom" id="cJJ-NW-hcR"/>
-                                    <constraint firstItem="FCK-0A-yYm" firstAttribute="leading" secondItem="00g-Mh-a8x" secondAttribute="trailing" constant="10" id="n7q-l2-Fz4"/>
                                     <constraint firstItem="FCK-0A-yYm" firstAttribute="height" secondItem="00g-Mh-a8x" secondAttribute="height" id="ojs-Tw-zZo"/>
                                 </constraints>
                             </stackView>
@@ -211,7 +204,6 @@
                     </navigationItem>
                     <size key="freeformSize" width="900" height="896"/>
                     <connections>
-                        <outlet property="betweenImageAndInfoConstraint" destination="n7q-l2-Fz4" id="8PB-NB-OIP"/>
                         <outlet property="betweenTableAndBottomConstraint" destination="mDp-9O-6uL" id="3GI-Bc-n3O"/>
                         <outlet property="correctionPointsLabel" destination="hUx-Nf-2FZ" id="yl4-ZH-LHw"/>
                         <outlet property="countryCityLabel" destination="Xid-9i-0US" id="HrN-mc-es7"/>
