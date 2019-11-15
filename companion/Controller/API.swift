@@ -121,10 +121,13 @@ extension API {
     
     public func getRangeProfiles(inputText: String, completion: @escaping (Data) -> ()) {
 
-        guard let url = NSURL(string: API.shared.apiURL+"v2/users?range[login]=\(inputText),\(inputText)z&sort=login") else {
-            return
-        }
-
+//        guard let url = NSURL(string: API.shared.apiURL+"v2/users?range[login]=\(inputText),\(inputText)z&sort=login") else {
+//            return
+//        }
+    
+    guard let url = NSURL(string: API.shared.apiURL+"v2/users?search[login]=\(inputText)&sort=login") else {
+    return
+    }
         let request = NSMutableURLRequest(url: url as URL)
         request.setValue("Bearer " + API.shared.bearer, forHTTPHeaderField: "Authorization")
         

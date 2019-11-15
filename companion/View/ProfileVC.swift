@@ -31,38 +31,72 @@ class ProfileVC: UIViewController, UISearchBarDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var pageController: UIPageControl!
     
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var projectsTableHeightContstraint: NSLayoutConstraint!
+    @IBOutlet weak var projectsTableWidthContstraint: NSLayoutConstraint!
+//    @IBOutlet weak var skillsTableHeightContstraint: NSLayoutConstraint!
+//    @IBOutlet weak var skillsTableWidthConstraint: NSLayoutConstraint!
+
+    @IBOutlet weak var topStackLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var betweenImageAndInfoConstraint: NSLayoutConstraint!
+    @IBOutlet weak var betweenTableAndBottomConstraint: NSLayoutConstraint!
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewForTable.layer.cornerRadius = 30
-        projectsTableView.layer.cornerRadius = 15
-        skillsTableView.layer.cornerRadius = 15
-        scrollView.isPagingEnabled = true
-        
-        pageController.numberOfPages = 2
-        
-        scrollView.delegate = self
-//        skillsTableConstraint.constant = self.view.bounds.width - 10
-//        projectsTableWidthConstraint.constant = skillsTableConstraint.constant
-        
+        DispatchQueue.main.async {
+            self.viewForTable.layer.cornerRadius = 30
+            self.projectsTableView.layer.cornerRadius = 6
+            self.skillsTableView.layer.cornerRadius = 6
+            self.scrollView.isPagingEnabled = true
+            
+            self.pageController.numberOfPages = 2
+            
+            self.scrollView.delegate = self
+            self.imageHeightConstraint.constant = 0.42 * self.view.bounds.width
+            self.imageWidthConstraint.constant = 0.34 * self.view.bounds.width
+            
+            if self.view.bounds.height == 568 {
+                self.projectsTableWidthContstraint.constant = 0.91 * self.view.bounds.width
+                self.projectsTableHeightContstraint.constant = 0.3 * self.view.bounds.height //0.44
+                self.betweenTableAndBottomConstraint.constant = 0.08 * self.view.bounds.height
+            }
+            if self.view.bounds.height == 667 {
+                self.projectsTableWidthContstraint.constant = 0.91 * self.view.bounds.width
+                self.projectsTableHeightContstraint.constant = 0.34 * self.view.bounds.height //0.44
+                self.betweenTableAndBottomConstraint.constant = 0.08 * self.view.bounds.height
+            }
+            if self.view.bounds.height == 736 {
+                self.projectsTableWidthContstraint.constant = 0.91 * self.view.bounds.width
+                self.projectsTableHeightContstraint.constant = 0.38 * self.view.bounds.height //0.44
+                self.betweenTableAndBottomConstraint.constant = 0.08 * self.view.bounds.height
+            }
+            
+            self.betweenImageAndInfoConstraint.constant = 0.024 * self.view.bounds.width
+        }
+
+
+
         setupSearchController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+
         putInfoOnView()
         print("height = \(self.view.bounds.height), width = \(self.view.bounds.width)")
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-        print("\(scrollView.contentOffset.x) / \(scrollView.frame.size.width) = \(pageNumber)")
         pageController.currentPage = Int(pageNumber)
     }
     
     private func putInfoOnView() {
-//        hideLeftBarButton(isHide: profile.isMyProfile)
+
         print("Is my profile? - ", (profile.isMyProfile ? "true" : "false"))
         profile.myInfo?.description()
         
@@ -105,12 +139,7 @@ class ProfileVC: UIViewController, UISearchBarDelegate, UIScrollViewDelegate {
             
         }
     }
-    
-//    @IBAction func tapBackBarButton(_ sender: UIBarButtonItem) {
-////        profile.personInfo = myInfo
-//        profile.eventInfo.append("Event")
-//        performSegue(withIdentifier: "backToMyProfileSegue", sender: nil)
-//    }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navi = segue.destination as? UINavigationController {
@@ -157,10 +186,7 @@ extension ProfileVC {
         definesPresentationContext = true
 //        navigationItem.searchController = resultSearchController
     }
-    
-//    private func hideLeftBarButton(isHide: Bool) {
-//        navigationItem.leftBarButtonItem = (isHide) ? nil : self.backBarButton
-//    }
+
     
 }
 
