@@ -20,6 +20,7 @@ struct ProfileInfo: Decodable {
     var image_url           : String?
     var campus              : [Campus?]
     var wallet              : Int?
+    var projects_users      : [ProjectsUsers?]
     
     mutating func description() {
         

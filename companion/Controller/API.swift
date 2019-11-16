@@ -84,6 +84,8 @@ extension API {
             guard let data = data else { return }
             do {
                 let myInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
+                print(myInfo)
                 DispatchQueue.main.async {
                     completion(myInfo)
                 }
@@ -138,8 +140,6 @@ extension API {
             }
         }.resume()
     }
-
-    
 }
 
 //Mark: Slots
@@ -157,7 +157,7 @@ extension API {
         }.resume()
     }
     
-    public func s() {
+    public func putSlots() {
         
         guard let url = NSURL(string: apiURL+"/v2/slots") else { return }
         
