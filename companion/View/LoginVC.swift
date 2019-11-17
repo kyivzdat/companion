@@ -9,9 +9,6 @@
 import UIKit
 import AuthenticationServices
 
-//var myInfo      : ProfileInfo?
-//var profileInfo : ProfileInfo?
-
 class LoginVC: UIViewController {
 
     var profile: Profile!
@@ -25,9 +22,15 @@ class LoginVC: UIViewController {
         let api = API.shared
 
         api.authorization {
-            api.getMyInfo(completion: { (myInfo) in
-                self.profile.myInfo = myInfo
-                self.performSegue(withIdentifier: "LoginSegue", sender: nil)
+            api.getMyInfo(completion: { (result) in
+                api.getDataOfProject(id: 11)
+                switch result {
+                case .success(let myInfo):
+                    self.profile.myInfo = myInfo
+                    self.performSegue(withIdentifier: "LoginSegue", sender: nil)
+                case .failure(let error):
+                    print("Failed to fetch self info: ", error)
+                }
             })
         }
     }
@@ -42,10 +45,5 @@ class LoginVC: UIViewController {
                 }
             }
         }
-//        if let navi = segue.destination as? UINavigationController {
-//            if let profileVC = navi.viewControllers[0] as? ProfileVC {
-//
-//            }
-//        }
     }
 }

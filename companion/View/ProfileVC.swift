@@ -36,8 +36,6 @@ class ProfileVC: UIViewController, UISearchBarDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var projectsTableHeightContstraint: NSLayoutConstraint!
     @IBOutlet weak var projectsTableWidthContstraint: NSLayoutConstraint!
-//    @IBOutlet weak var skillsTableHeightContstraint: NSLayoutConstraint!
-//    @IBOutlet weak var skillsTableWidthConstraint: NSLayoutConstraint!
 
     @IBOutlet weak var topStackLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var betweenImageAndInfoConstraint: NSLayoutConstraint!
@@ -74,12 +72,7 @@ class ProfileVC: UIViewController, UISearchBarDelegate, UIScrollViewDelegate {
                 self.projectsTableHeightContstraint.constant = 0.38 * self.view.bounds.height //0.44
                 self.betweenTableAndBottomConstraint.constant = 0.08 * self.view.bounds.height
             }
-            
-//            self.betweenImageAndInfoConstraint.constant = 0.024 * self.view.bounds.width
         }
-
-
-
         setupSearchController()
     }
     
@@ -98,10 +91,9 @@ class ProfileVC: UIViewController, UISearchBarDelegate, UIScrollViewDelegate {
     private func putInfoOnView() {
 
         print("Is my profile? - ", (profile.isMyProfile ? "true" : "false"))
-//        profile.myInfo?.description()
+        profile.myInfo?.description(withSkills: false, withProjects: true)
         
         guard let personInfo = profile.myInfo else { return }
-//        print(personInfo)
         DispatchQueue.main.async {
             guard personInfo.image_url != nil else { return }
             do {

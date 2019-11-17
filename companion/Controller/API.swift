@@ -46,7 +46,6 @@ extension API {
         
         let request = NSMutableURLRequest(url: url as URL)
         request.httpMethod = "POST"
-        print(token)
         request.httpBody = "grant_type=authorization_code&client_id=\(UID)&client_secret=\(secret)&\(token)&redirect_uri=\(callbackURI)".data(using: String.Encoding.utf8)
         
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, error) in
@@ -59,7 +58,7 @@ extension API {
                 
                 if json!["error"] == nil {
                     self.bearer = json!["access_token"]! as! String
-                    print(self.bearer)
+//                    print(self.bearer)
                     completion()
                 } else {
                     print(json!)
@@ -73,7 +72,7 @@ extension API {
 
 // MARK: Get Info
 extension API {
-    public func getMyInfo(completion: @escaping (ProfileInfo) -> ()) {
+    public func getMyInfo(completion: @escaping (Result<ProfileInfo, Error>) -> ()) {
 
         guard let url = NSURL(string: apiURL+"/v2/me") else { return }
         
@@ -92,14 +91,12 @@ extension API {
                     }
                 }
                 DispatchQueue.main.async {
-                    completion(myInfo)
+                    completion(.success(myInfo))
                 }
             } catch {
-                print(error)
+                completion(.failure(error))
                 return
             }
-//            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return }
-//            print(json)
         }.resume()
     }
 
@@ -127,14 +124,9 @@ extension API {
     }
     
     public func getRangeProfiles(inputText: String, completion: @escaping (Data) -> ()) {
-
-//        guard let url = NSURL(string: API.shared.apiURL+"v2/users?range[login]=\(inputText),\(inputText)z&sort=login") else {
-//            return
-//        }
-    
-    guard let url = NSURL(string: API.shared.apiURL+"v2/users?search[login]=\(inputText)&sort=login") else {
-    return
-    }
+        
+        let urlString = API.shared.apiURL+"v2/users?search[login]=\(inputText)&sort=login"
+        guard let url = NSURL(string: urlString) else { return }
         let request = NSMutableURLRequest(url: url as URL)
         request.setValue("Bearer " + API.shared.bearer, forHTTPHeaderField: "Authorization")
         
@@ -142,6 +134,43 @@ extension API {
             guard let data = data else { return }
             DispatchQueue.main.async {
                 completion(data)
+            }
+        }.resume()
+    }
+    
+    public func getProjectData() {
+        let urlString = API.shared.apiURL+"v2/project_data"
+        guard let url = NSURL(string: urlString) else { return }
+        let request = NSMutableURLRequest(url: url as URL)
+        request.setValue("Bearer " + API.shared.bearer, forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
+            guard let data = data else { return }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                print(json)
+            } catch {
+                print(error.localizedDescription)
+                return
+            }
+        }.resume()
+    }
+    
+    public func getDataOfProject(id: Int) {
+        let urlString = API.shared.apiURL+"/v2/projects/"+String(id)+"/users"
+        guard let url = NSURL(string: urlString) else { return }
+        let request = NSMutableURLRequest(url: url as URL)
+        request.setValue("Bearer " + API.shared.bearer, forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, err) in
+            guard err != nil else { return print(err)}
+            guard let data = data else { return }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                print(json)
+            } catch {
+                print(error.localizedDescription)
+                return
             }
         }.resume()
     }
