@@ -98,10 +98,10 @@ class ProfileVC: UIViewController, UISearchBarDelegate, UIScrollViewDelegate {
     private func putInfoOnView() {
 
         print("Is my profile? - ", (profile.isMyProfile ? "true" : "false"))
-        profile.myInfo?.description()
+//        profile.myInfo?.description()
         
         guard let personInfo = profile.myInfo else { return }
-        print(personInfo)
+//        print(personInfo)
         DispatchQueue.main.async {
             guard personInfo.image_url != nil else { return }
             do {

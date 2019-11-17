@@ -12,9 +12,7 @@ struct ProjectsUsers: Decodable {
     var status: String?
     var project: Project?
     var final_mark: Int?
-    
-    //
-    var "validated?": Int?
+    var validated: Int?
 }
 
 struct Project: Decodable {

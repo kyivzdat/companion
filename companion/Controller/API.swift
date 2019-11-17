@@ -83,9 +83,14 @@ extension API {
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
             guard let data = data else { return }
             do {
-                let myInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
+                var myInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
+                
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
-                print(myInfo)
+                if let arr = json!["projects_users"] as? [NSDictionary] {
+                    for i in 0..<arr.count {
+                        myInfo.projects_users[i]?.validated = arr[i]["validated?"] as? Int
+                    }
+                }
                 DispatchQueue.main.async {
                     completion(myInfo)
                 }
