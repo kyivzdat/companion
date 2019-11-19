@@ -41,7 +41,7 @@ extension ProfileInfo {
             print("\t\tlevel ", i?.level ?? "nil")
             
             if withSkills == true {
-                print("\n\t\tSkills")
+                print("\n\t\t🍳Skills🍳")
                 for j in i!.skills {
                     print("\t\t\tid ", j?.id ?? "nil")
                     print("\t\t\tlevel ", j?.level ?? "nil")
@@ -61,7 +61,7 @@ extension ProfileInfo {
         }
         
         if withProjects == true {
-            print("\n\tProjects_users")
+            print("\n\t📄Projects_users📄")
             for i in projects_users {
                 print("\t\tslug ", i?.project?.slug ?? "nil")
                 print("\t\tname ", i?.project?.name ?? "nil")
@@ -88,7 +88,7 @@ struct CursusUsers: Decodable {
     
     var cursus_id: Int?
     var level: Double?
-    var skills : [Skills?]
+    var skills: [Skills?]
 }
 
 struct Skills: Decodable {

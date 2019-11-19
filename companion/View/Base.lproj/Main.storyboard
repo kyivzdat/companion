@@ -144,13 +144,38 @@
                                                 <rect key="frame" x="420" y="8" width="380" height="400"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="G7C-cW-yOQ">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="skillCell" id="G7C-cW-yOQ" userLabel="Skills View Cell" customClass="SkillCell" customModule="companion" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="380" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="G7C-cW-yOQ" id="8Hn-Qe-MT7">
                                                             <rect key="frame" x="0.0" y="0.0" width="380" height="43.666666666666664"/>
                                                             <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DOc-bq-alt">
+                                                                    <rect key="frame" x="8" y="8" width="364" height="30.333333333333329"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skill" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sm4-vi-h41">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="364" height="20.333333333333332"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="mJd-3b-3W0">
+                                                                            <rect key="frame" x="0.0" y="28.333333333333336" width="364" height="2"/>
+                                                                        </progressView>
+                                                                    </subviews>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="DOc-bq-alt" firstAttribute="top" secondItem="8Hn-Qe-MT7" secondAttribute="top" constant="8" id="PMk-wD-fgM"/>
+                                                                <constraint firstAttribute="trailing" secondItem="DOc-bq-alt" secondAttribute="trailing" constant="8" id="nOK-mS-qpA"/>
+                                                                <constraint firstItem="DOc-bq-alt" firstAttribute="leading" secondItem="8Hn-Qe-MT7" secondAttribute="leading" constant="8" id="xAI-h4-H5G"/>
+                                                            </constraints>
                                                         </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="progressView" destination="mJd-3b-3W0" id="78Y-fH-1j8"/>
+                                                            <outlet property="skillLabel" destination="sm4-vi-h41" id="VFm-pj-gZs"/>
+                                                        </connections>
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>

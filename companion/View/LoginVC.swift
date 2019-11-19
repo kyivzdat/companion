@@ -42,6 +42,9 @@ class LoginVC: UIViewController {
                 if let vc = navi.viewControllers[0] as? ProfileVC {
                     profile.eventInfo.append("Event")
                     vc.profile = profile
+//                    if let tableVC = storyboard?.instantiateViewController(withIdentifier: "SkillsTableView") as? SkillCell {
+//                        tableVC.profile = profile
+//                    }
                 }
             }
         }

@@ -163,7 +163,7 @@ extension API {
         request.setValue("Bearer " + API.shared.bearer, forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, err) in
-            guard err != nil else { return print(err)}
+            guard err != nil else { return print(err ?? "getDataOfProject error ???")}
             guard let data = data else { return }
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
