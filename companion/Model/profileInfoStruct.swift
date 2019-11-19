@@ -21,6 +21,7 @@ struct ProfileInfo: Decodable {
     var campus              : [Campus?]
     var wallet              : Int?
     var projects_users      : [ProjectsUsers?]
+    var passedExams         : Int?
 }
 
 extension ProfileInfo {
@@ -34,6 +35,7 @@ extension ProfileInfo {
         print("\tlocation ", location ?? "nil")
         print("\timage_url ", image_url ?? "nil")
         print("\twallet ", wallet ?? "nil")
+        print("\tpassedExams ", passedExams ?? "nil")
         
         print("\n\tCursus_users")
         for i in cursus_users {

@@ -130,13 +130,42 @@
                                                     <constraint firstAttribute="width" constant="380" id="fDw-Ah-fsR"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Ssv-92-Sq6">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" id="Ssv-92-Sq6" customClass="ProjectCell" customModule="companion" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="380" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ssv-92-Sq6" id="xh8-Rf-6kN">
                                                             <rect key="frame" x="0.0" y="0.0" width="380" height="43.666666666666664"/>
                                                             <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GNa-PE-lU3">
+                                                                    <rect key="frame" x="28" y="11" width="324" height="22"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Project" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fo1-ZB-afH" userLabel="Project">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="54.333333333333336" height="22"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mark" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDd-6w-nML" userLabel="Mark">
+                                                                            <rect key="frame" x="285.33333333333331" y="0.0" width="38.666666666666686" height="22"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="trailingMargin" secondItem="GNa-PE-lU3" secondAttribute="trailing" constant="8" id="8QD-cj-MAn"/>
+                                                                <constraint firstItem="GNa-PE-lU3" firstAttribute="leading" secondItem="xh8-Rf-6kN" secondAttribute="leadingMargin" constant="8" id="N3j-iE-ik1"/>
+                                                                <constraint firstItem="GNa-PE-lU3" firstAttribute="top" secondItem="xh8-Rf-6kN" secondAttribute="topMargin" id="b3X-gc-llm"/>
+                                                                <constraint firstAttribute="bottomMargin" secondItem="GNa-PE-lU3" secondAttribute="bottom" id="fPq-en-Hns"/>
+                                                            </constraints>
                                                         </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="markLabel" destination="HDd-6w-nML" id="mN1-A9-3Ke"/>
+                                                            <outlet property="projectLabel" destination="Fo1-ZB-afH" id="dw7-C1-5Zs"/>
+                                                        </connections>
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>

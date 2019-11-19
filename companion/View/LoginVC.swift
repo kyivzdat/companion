@@ -23,7 +23,6 @@ class LoginVC: UIViewController {
 
         api.authorization {
             api.getMyInfo(completion: { (result) in
-                api.getDataOfProject(id: 11)
                 switch result {
                 case .success(let myInfo):
                     self.profile.myInfo = myInfo

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileVC: UIViewController, UISearchBarDelegate, UIScrollViewDelegate {
+class ProfileVC: UIViewController, UISearchBarDelegate {
 
     var resultSearchController: UISearchController?
     var profile: Profile!
@@ -37,7 +37,6 @@ class ProfileVC: UIViewController, UISearchBarDelegate, UIScrollViewDelegate {
     @IBOutlet weak var projectsTableWidthContstraint: NSLayoutConstraint!
 
     @IBOutlet weak var topStackLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var betweenImageAndInfoConstraint: NSLayoutConstraint!
     @IBOutlet weak var betweenTableAndBottomConstraint: NSLayoutConstraint!
     
 
@@ -45,53 +44,13 @@ class ProfileVC: UIViewController, UISearchBarDelegate, UIScrollViewDelegate {
         super.viewDidLoad()
         
         print("Is my profile? - ", (profile.isMyProfile ? "true" : "false"))
-//        profile.myInfo?.description(withSkills: true, withProjects: false)
+        profile.myInfo?.description(withSkills: false, withProjects: true)
 
-        skillsTableView.delegate = self
-        skillsTableView.dataSource = self
-        
-        DispatchQueue.main.async {
-            self.viewForTable.layer.cornerRadius = 30
-            self.projectsTableView.layer.cornerRadius = 6
-            self.skillsTableView.layer.cornerRadius = 6
-            self.scrollView.isPagingEnabled = true
-            
-            self.pageController.numberOfPages = 2
-            
-            self.scrollView.delegate = self
-            self.imageHeightConstraint.constant = 0.42 * self.view.bounds.width
-            self.imageWidthConstraint.constant = 0.34 * self.view.bounds.width
-            
-            if self.view.bounds.height == 568 {
-                self.projectsTableWidthContstraint.constant = 0.91 * self.view.bounds.width
-                self.projectsTableHeightContstraint.constant = 0.3 * self.view.bounds.height
-                self.betweenTableAndBottomConstraint.constant = 0.08 * self.view.bounds.height
-            }
-            if self.view.bounds.height == 667 {
-                self.projectsTableWidthContstraint.constant = 0.91 * self.view.bounds.width
-                self.projectsTableHeightContstraint.constant = 0.34 * self.view.bounds.height
-                self.betweenTableAndBottomConstraint.constant = 0.08 * self.view.bounds.height
-            }
-            if self.view.bounds.height == 736 {
-                self.projectsTableWidthContstraint.constant = 0.91 * self.view.bounds.width
-                self.projectsTableHeightContstraint.constant = 0.38 * self.view.bounds.height
-                self.betweenTableAndBottomConstraint.constant = 0.08 * self.view.bounds.height
-            }
-        }
+        viewSetup()
+        setupAdaptiveLayout()
         setupSearchController()
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-
         putInfoOnView()
         print("📏height = \(self.view.bounds.height), width = \(self.view.bounds.width)📏")
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-        pageController.currentPage = Int(pageNumber)
     }
     
     private func putInfoOnView() {
@@ -115,7 +74,6 @@ class ProfileVC: UIViewController, UISearchBarDelegate, UIScrollViewDelegate {
         progressView.progress = Float(Float((personInfo.cursus_users[0]?.level)!) - Float(Int((personInfo.cursus_users[0]?.level)!)))
     }
     
-
     @IBAction func tapSearchButton(_ sender: UIBarButtonItem) {
         DispatchQueue.main.async {
             self.topStackTopConstraint.constant += 20
@@ -131,10 +89,8 @@ class ProfileVC: UIViewController, UISearchBarDelegate, UIScrollViewDelegate {
             self.topStackTopConstraint.constant -= 20
             self.navigationItem.searchController = nil
             self.searchButton.isEnabled = true
-            
         }
     }
-
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navi = segue.destination as? UINavigationController {
@@ -162,9 +118,9 @@ class ProfileVC: UIViewController, UISearchBarDelegate, UIScrollViewDelegate {
             UIApplication.topViewController()?.present(alert, animated: true)
         }
     }
-
 }
 
+//MARK: Initial Setup
 extension ProfileVC {
     private func setupSearchController() {
         let tableView = storyboard?.instantiateViewController(withIdentifier: "TableVC") as! TableVC
@@ -181,8 +137,44 @@ extension ProfileVC {
         definesPresentationContext = true
 //        navigationItem.searchController = resultSearchController
     }
+    
+    private func setupAdaptiveLayout() {
+        self.imageHeightConstraint.constant = 0.42 * self.view.bounds.width
+        self.imageWidthConstraint.constant = 0.34 * self.view.bounds.width
+        
+        if self.view.bounds.height == 568 {
+            self.projectsTableWidthContstraint.constant = 0.91 * self.view.bounds.width
+            self.projectsTableHeightContstraint.constant = 0.3 * self.view.bounds.height
+            self.betweenTableAndBottomConstraint.constant = 0.08 * self.view.bounds.height
+        }
+        if self.view.bounds.height == 667 {
+            self.projectsTableWidthContstraint.constant = 0.91 * self.view.bounds.width
+            self.projectsTableHeightContstraint.constant = 0.34 * self.view.bounds.height
+            self.betweenTableAndBottomConstraint.constant = 0.08 * self.view.bounds.height
+        }
+        if self.view.bounds.height == 736 {
+            self.projectsTableWidthContstraint.constant = 0.91 * self.view.bounds.width
+            self.projectsTableHeightContstraint.constant = 0.38 * self.view.bounds.height
+            self.betweenTableAndBottomConstraint.constant = 0.08 * self.view.bounds.height
+        }
+    }
+    
+    private func viewSetup() {
+        skillsTableView.delegate = self
+        skillsTableView.dataSource = self
+        projectsTableView.delegate = self
+        projectsTableView.dataSource = self
+        self.scrollView.delegate = self
+        
+        self.viewForTable.layer.cornerRadius = 30
+        self.projectsTableView.layer.cornerRadius = 6
+        self.skillsTableView.layer.cornerRadius = 6
+        self.scrollView.isPagingEnabled = true
+        self.pageController.numberOfPages = 2
+    }
 }
 
+//MARK: Table Output
 extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
@@ -190,7 +182,14 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         case skillsTableView:
             return profile.myInfo?.cursus_users[0]?.skills.count ?? 0
         case projectsTableView:
-            return 0
+            guard let projects = profile.myInfo?.projects_users else { return 0 }
+            var counter = 0
+            for i in projects {
+                if i?.project?.slug?.contains("day") == false && i?.project?.slug?.contains("0") == false {
+                    counter += 1
+                }
+            }
+            return counter
         default:
             return 0
         }
@@ -203,17 +202,41 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         case skillsTableView:
             let cell = skillsTableView.dequeueReusableCell(withIdentifier: "skillCell", for: indexPath) as! SkillCell
             
-            if let arrayofSkills = profile.myInfo?.cursus_users[0]?.skills {
-                cell.skillLabel.text = arrayofSkills[indexPath.row]?.name
-                cell.progressView.progress = Float(arrayofSkills[indexPath.row]?.level ?? 0) * 5 / 100
+            if let arrayOfSkills = profile.myInfo?.cursus_users[0]?.skills {
+                cell.skillLabel.text = arrayOfSkills[indexPath.row]?.name
+                cell.progressView.progress = Float(arrayOfSkills[indexPath.row]?.level ?? 0) * 5 / 100
             }
             return cell
         case projectsTableView:
-            return tmp
+            let cell = projectsTableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as! ProjectCell
+            
+            if let project = profile.myInfo?.projects_users {
+                var index = project.count - 1
+                var counter = 0
+                
+                while index >= 0 {
+                    if project[index]?.project?.slug?.contains("day") == false && project[index]?.project?.slug?.contains("0") == false {
+                        if counter == indexPath.row {
+                            break
+                        }
+                        counter += 1
+                    }
+                    index -= 1
+                }
+                cell.projectLabel.text = project[index]?.project?.slug ?? "nil"
+                cell.markLabel.text = String(project[index]?.final_mark ?? -1)
+            }
+            return cell
         default:
             return tmp
         }
     }
-    
-    
+}
+
+//MARK: Scroll View
+extension ProfileVC: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+        pageController.currentPage = Int(pageNumber)
+    }
 }

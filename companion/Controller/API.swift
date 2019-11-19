@@ -58,7 +58,7 @@ extension API {
                 
                 if json!["error"] == nil {
                     self.bearer = json!["access_token"]! as! String
-//                    print(self.bearer)
+                    print("😝Bearer - ", self.bearer)
                     completion()
                 } else {
                     print(json!)
@@ -90,16 +90,47 @@ extension API {
                         myInfo.projects_users[i]?.validated = arr[i]["validated?"] as? Int
                     }
                 }
-                DispatchQueue.main.async {
-                    completion(.success(myInfo))
-                }
+                self.getDataOfProject(id: "11", userId: myInfo.id!, completion: { (passedExams) in
+                    myInfo.passedExams = passedExams
+                    DispatchQueue.main.async {
+                        completion(.success(myInfo))
+                    }
+                })
+
+                
             } catch {
                 completion(.failure(error))
                 return
             }
         }.resume()
     }
-
+    
+    public func getDataOfProject(id: String, userId: Int, completion: @escaping(Int) -> ()) {
+        let urlString = API.shared.apiURL+"/v2/projects_users?filter[project_id]=\(id)&user_id=\(userId)" //project_id = 212, 118
+        guard let url = NSURL(string: urlString) else { return }
+        let request = NSMutableURLRequest(url: url as URL)
+        request.setValue("Bearer " + API.shared.bearer, forHTTPHeaderField: "Authorization")
+        print("🤪getDataOfProject🤪")
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
+            guard let data = data else { return }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [NSDictionary]
+                
+                let teams = json![0]["teams"] as! [NSDictionary]
+                var passedExams = 0
+                teams.forEach({ (i) in
+                    if i["validated?"] as? Int == 1 {
+                        passedExams += 1
+                    }
+                })
+                completion(passedExams)
+            } catch {
+                print(error.localizedDescription)
+                return
+            }
+        }.resume()
+    }
+    
     public func getProfile(user: String, completion: @escaping (ProfileInfo) -> ()) {
         
         print("getProfile")
@@ -144,37 +175,20 @@ extension API {
         let request = NSMutableURLRequest(url: url as URL)
         request.setValue("Bearer " + API.shared.bearer, forHTTPHeaderField: "Authorization")
         
+        print("🤪getProjectData")
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
-            guard let data = data else { return }
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-            } catch {
-                print(error.localizedDescription)
-                return
-            }
-        }.resume()
-    }
-    
-    public func getDataOfProject(id: Int) {
-        let urlString = API.shared.apiURL+"/v2/projects/"+String(id)+"/users"
-        guard let url = NSURL(string: urlString) else { return }
-        let request = NSMutableURLRequest(url: url as URL)
-        request.setValue("Bearer " + API.shared.bearer, forHTTPHeaderField: "Authorization")
-        
-        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, err) in
-            guard err != nil else { return print(err ?? "getDataOfProject error ???")}
-            guard let data = data else { return }
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-            } catch {
-                print(error.localizedDescription)
-                return
-            }
+//            guard let data = data else { return }
+//            do {
+//                let json = try JSONSerialization.jsonObject(with: data, options: [])
+//
+//            } catch {
+//                print(error.localizedDescription)
+//                return
+//            }
         }.resume()
     }
 }
+
 
 //Mark: Slots
 extension API {

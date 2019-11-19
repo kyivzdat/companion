@@ -1,0 +1,215 @@
+(
+        {
+        "current_team_id" = 2751931;
+        "cursus_ids" =         (
+            1
+        );
+        "final_mark" = 85;
+        id = 1174096;
+        marked = 1;
+        "marked_at" = "2019-08-27T08:58:22.589Z";
+        occurrence = 5;
+        project =         {
+            id = 11;
+            name = "C Exam Alone In The Dark - Beginner";
+            "parent_id" = "<null>";
+            slug = "c-exam-alone-in-the-dark-beginner";
+        };
+        "retriable_at" = "2019-08-27T08:58:22.773Z";
+        status = finished;
+        teams =         (
+                        {
+                "closed?" = 1;
+                "closed_at" = "2018-11-20T11:58:05.737Z";
+                "created_at" = "2018-11-19T16:42:15.226Z";
+                "final_mark" = 48;
+                id = 2339909;
+                "locked?" = 1;
+                "locked_at" = "2018-11-19T16:42:15.282Z";
+                name = "vpalamar's group";
+                "project_gitlab_path" = "<null>";
+                "project_id" = 11;
+                "project_session_id" = 2643;
+                "repo_url" = "<null>";
+                "repo_uuid" = "intra-uuid-38827152-3762-424f-9307-05cad5027fdc-2339909";
+                status = finished;
+                "terminating_at" = "<null>";
+                "updated_at" = "2018-11-20T11:58:06.064Z";
+                url = "https://api.intra.42.fr/v2/teams/2339909";
+                users =                 (
+                                        {
+                        id = 41821;
+                        leader = 1;
+                        login = vpalamar;
+                        occurrence = 0;
+                        "projects_user_id" = 1174096;
+                        url = "https://api.intra.42.fr/v2/users/vpalamar";
+                        validated = 1;
+                    }
+                );
+                "validated?" = 0;
+            },
+                        {
+                "closed?" = 1;
+                "closed_at" = "2019-07-09T10:09:08.392Z";
+                "created_at" = "2019-03-12T08:06:04.999Z";
+                "final_mark" = 75;
+                id = 2477453;
+                "locked?" = 1;
+                "locked_at" = "2019-03-12T08:06:05.102Z";
+                name = "vpalamar's group-1";
+                "project_gitlab_path" = "<null>";
+                "project_id" = 11;
+                "project_session_id" = 2643;
+                "repo_url" = "<null>";
+                "repo_uuid" = "intra-uuid-f2b226a9-ee43-423c-943a-98eb6e75093d-2477453";
+                status = finished;
+                "terminating_at" = "<null>";
+                "updated_at" = "2019-07-09T10:09:08.638Z";
+                url = "https://api.intra.42.fr/v2/teams/2477453";
+                users =                 (
+                                        {
+                        id = 41821;
+                        leader = 1;
+                        login = vpalamar;
+                        occurrence = 1;
+                        "projects_user_id" = 1174096;
+                        url = "https://api.intra.42.fr/v2/users/vpalamar";
+                        validated = 1;
+                    }
+                );
+                "validated?" = 1;
+            },
+                        {
+                "closed?" = 1;
+                "closed_at" = "2019-08-06T11:00:09.389Z";
+                "created_at" = "2019-07-09T10:16:24.638Z";
+                "final_mark" = 80;
+                id = 2623100;
+                "locked?" = 1;
+                "locked_at" = "2019-07-09T10:16:24.669Z";
+                name = "vpalamar's group-2";
+                "project_gitlab_path" = "<null>";
+                "project_id" = 11;
+                "project_session_id" = 2643;
+                "repo_url" = "<null>";
+                "repo_uuid" = "intra-uuid-0e1672c8-0a1e-4263-8bfe-c5ddf0873e67-2623100";
+                status = finished;
+                "terminating_at" = "<null>";
+                "updated_at" = "2019-08-06T11:00:09.663Z";
+                url = "https://api.intra.42.fr/v2/teams/2623100";
+                users =                 (
+                                        {
+                        id = 41821;
+                        leader = 1;
+                        login = vpalamar;
+                        occurrence = 2;
+                        "projects_user_id" = 1174096;
+                        url = "https://api.intra.42.fr/v2/users/vpalamar";
+                        validated = 1;
+                    }
+                );
+                "validated?" = 1;
+            },
+                        {
+                "closed?" = 1;
+                "closed_at" = "2019-08-13T08:29:26.620Z";
+                "created_at" = "2019-08-06T08:32:20.989Z";
+                "final_mark" = 95;
+                id = 2706695;
+                "locked?" = 1;
+                "locked_at" = "2019-08-06T08:32:21.019Z";
+                name = "vpalamar's group-3";
+                "project_gitlab_path" = "<null>";
+                "project_id" = 11;
+                "project_session_id" = 2643;
+                "repo_url" = "<null>";
+                "repo_uuid" = "intra-uuid-6869f394-711e-40a2-aa95-55d9cb16a30e-2706695";
+                status = finished;
+                "terminating_at" = "<null>";
+                "updated_at" = "2019-08-13T08:29:26.932Z";
+                url = "https://api.intra.42.fr/v2/teams/2706695";
+                users =                 (
+                                        {
+                        id = 41821;
+                        leader = 1;
+                        login = vpalamar;
+                        occurrence = 3;
+                        "projects_user_id" = 1174096;
+                        url = "https://api.intra.42.fr/v2/users/vpalamar";
+                        validated = 1;
+                    }
+                );
+                "validated?" = 1;
+            },
+                        {
+                "closed?" = 1;
+                "closed_at" = "2019-08-20T08:15:31.194Z";
+                "created_at" = "2019-08-13T08:43:57.955Z";
+                "final_mark" = 100;
+                id = 2733845;
+                "locked?" = 1;
+                "locked_at" = "2019-08-13T08:43:57.991Z";
+                name = "vpalamar's group-4";
+                "project_gitlab_path" = "<null>";
+                "project_id" = 11;
+                "project_session_id" = 2643;
+                "repo_url" = "<null>";
+                "repo_uuid" = "intra-uuid-bb5084d5-462e-4c7a-ad86-7991d7920780-2733845";
+                status = finished;
+                "terminating_at" = "<null>";
+                "updated_at" = "2019-08-20T08:15:31.453Z";
+                url = "https://api.intra.42.fr/v2/teams/2733845";
+                users =                 (
+                                        {
+                        id = 41821;
+                        leader = 1;
+                        login = vpalamar;
+                        occurrence = 4;
+                        "projects_user_id" = 1174096;
+                        url = "https://api.intra.42.fr/v2/users/vpalamar";
+                        validated = 1;
+                    }
+                );
+                "validated?" = 1;
+            },
+                        {
+                "closed?" = 1;
+                "closed_at" = "2019-08-27T11:00:08.733Z";
+                "created_at" = "2019-08-20T08:21:07.584Z";
+                "final_mark" = 75;
+                id = 2751931;
+                "locked?" = 1;
+                "locked_at" = "2019-08-20T08:21:07.622Z";
+                name = "vpalamar's group-5";
+                "project_gitlab_path" = "<null>";
+                "project_id" = 11;
+                "project_session_id" = 2643;
+                "repo_url" = "<null>";
+                "repo_uuid" = "intra-uuid-bcd16976-c4be-4e43-a68a-33bcf0bc78b1-2751931";
+                status = finished;
+                "terminating_at" = "<null>";
+                "updated_at" = "2019-08-27T11:00:09.003Z";
+                url = "https://api.intra.42.fr/v2/teams/2751931";
+                users =                 (
+                                        {
+                        id = 41821;
+                        leader = 1;
+                        login = vpalamar;
+                        occurrence = 5;
+                        "projects_user_id" = 1174096;
+                        url = "https://api.intra.42.fr/v2/users/vpalamar";
+                        validated = 1;
+                    }
+                );
+                "validated?" = 1;
+            }
+        );
+        user =         {
+            id = 41821;
+            login = vpalamar;
+            url = "https://api.intra.42.fr/v2/users/vpalamar";
+        };
+        "validated?" = 1;
+    }
+)
