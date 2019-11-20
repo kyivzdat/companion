@@ -43,14 +43,21 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Is my profile? - ", (profile.isMyProfile ? "true" : "false"))
-        profile.myInfo?.description(withSkills: false, withProjects: true)
-
         viewSetup()
         setupAdaptiveLayout()
         setupSearchController()
         putInfoOnView()
         print("📏height = \(self.view.bounds.height), width = \(self.view.bounds.width)📏")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        print("Is my profile? - ", (profile.isMyProfile ? "true" : "false"))
+        if profile.isMyProfile {
+            profile.myInfo?.description(withSkills: false, withProjects: false)
+        } else {
+            profile.personInfo?.description(withSkills: false, withProjects: false)
+        }
     }
     
     private func putInfoOnView() {
@@ -176,6 +183,11 @@ extension ProfileVC {
 
 //MARK: Table Output
 extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
+    
+    private func filterForProjectTable(slug: String) -> Bool {
+        return !slug.contains("day") && !slug.contains("0") && !slug.contains("piscine-c")
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         switch tableView {
@@ -185,7 +197,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
             guard let projects = profile.myInfo?.projects_users else { return 0 }
             var counter = 0
             for i in projects {
-                if i?.project?.slug?.contains("day") == false && i?.project?.slug?.contains("0") == false {
+                if filterForProjectTable(slug: i?.project?.slug ?? "") {
                     counter += 1
                 }
             }
@@ -215,7 +227,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
                 var counter = 0
                 
                 while index >= 0 {
-                    if project[index]?.project?.slug?.contains("day") == false && project[index]?.project?.slug?.contains("0") == false {
+                    if filterForProjectTable(slug: project[index]?.project?.slug ?? "") {
                         if counter == indexPath.row {
                             break
                         }
@@ -223,8 +235,15 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
                     }
                     index -= 1
                 }
-                cell.projectLabel.text = project[index]?.project?.slug ?? "nil"
-                cell.markLabel.text = String(project[index]?.final_mark ?? -1)
+                cell.projectLabel.text = project[index]?.project?.name ?? "nil"
+                let mark = String(project[index]?.final_mark ?? -1)
+                if mark != "-1" {
+                    cell.markLabel.text = mark
+                    cell.markLabel.textColor = (project[index]?.validated == 1) ? UIColor.green : UIColor.red
+                } else if project[index]?.status == "in_progress" {
+                    cell.markLabel.text = "In progress"
+                     cell.markLabel.textColor = .blue
+                }
             }
             return cell
         default:

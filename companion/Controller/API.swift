@@ -115,7 +115,6 @@ extension API {
             guard let data = data else { return }
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as? [NSDictionary]
-                
                 let teams = json![0]["teams"] as! [NSDictionary]
                 var passedExams = 0
                 teams.forEach({ (i) in
@@ -132,17 +131,15 @@ extension API {
     }
     
     public func getProfile(user: String, completion: @escaping (ProfileInfo) -> ()) {
-        
-        print("getProfile")
-        print("!\(user)!")
         guard let url = NSURL(string: apiURL+"v2/users/"+user) else { return print("url Error")}
         let request = NSMutableURLRequest(url: url as URL)
         request.setValue("Bearer " + bearer, forHTTPHeaderField: "Authorization")
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
             guard let data = data else { return print("data error") }
             do {
+//                let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
+//                print("🏋️‍♀️\n", json ?? "nil")
                 let profileInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
-                print("completion")
                 DispatchQueue.main.async {
                     completion(profileInfo)
                 }
@@ -166,25 +163,6 @@ extension API {
             DispatchQueue.main.async {
                 completion(data)
             }
-        }.resume()
-    }
-    
-    public func getProjectData() {
-        let urlString = API.shared.apiURL+"v2/project_data"
-        guard let url = NSURL(string: urlString) else { return }
-        let request = NSMutableURLRequest(url: url as URL)
-        request.setValue("Bearer " + API.shared.bearer, forHTTPHeaderField: "Authorization")
-        
-        print("🤪getProjectData")
-        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
-//            guard let data = data else { return }
-//            do {
-//                let json = try JSONSerialization.jsonObject(with: data, options: [])
-//
-//            } catch {
-//                print(error.localizedDescription)
-//                return
-//            }
         }.resume()
     }
 }

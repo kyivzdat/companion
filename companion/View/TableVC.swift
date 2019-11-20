@@ -42,10 +42,14 @@ extension TableVC: UISearchResultsUpdating {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let navi = segue.destination as? UINavigationController {
-            if let profileVC = navi.viewControllers[0] as? ProfileVC {
-                profile.eventInfo = []
-                profileVC.profile = self.profile
+        
+        if let tabBar = segue.destination as? UITabBarController {
+            tabBar.selectedIndex = 3
+            if let navi = tabBar.viewControllers?.first as? UINavigationController {
+                if let profileVC = navi.viewControllers[0] as? ProfileVC {
+                    profile.eventInfo = []
+                    profileVC.profile = self.profile
+                }
             }
         }
     }
@@ -65,11 +69,12 @@ extension TableVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let userLogin = (matchingLogins[indexPath.row]?.login!)!
-        API.shared.getProfile(user: userLogin) { (profileInfo) in
-            self.profile.personInfo = profileInfo
-            self.performSegue(withIdentifier: "UserProfileSegue", sender: nil)
 
+        if let userLogin = matchingLogins[indexPath.row]?.login {
+            API.shared.getProfile(user: userLogin) { (profileInfo) in
+                self.profile.personInfo = profileInfo
+                self.performSegue(withIdentifier: "UserProfileSegue", sender: nil)
+            }
         }
     }
 }

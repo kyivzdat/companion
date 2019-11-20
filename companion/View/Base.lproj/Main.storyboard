@@ -137,7 +137,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="380" height="43.666666666666664"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GNa-PE-lU3">
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GNa-PE-lU3">
                                                                     <rect key="frame" x="28" y="11" width="324" height="22"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Project" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fo1-ZB-afH" userLabel="Project">
@@ -148,6 +148,9 @@
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mark" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDd-6w-nML" userLabel="Mark">
                                                                             <rect key="frame" x="285.33333333333331" y="0.0" width="38.666666666666686" height="22"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="38" id="Nrb-Sj-zbc"/>
+                                                                            </constraints>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -322,7 +325,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="TcQ-cj-8ma">
             <objects>
-                <tabBarController id="4f5-Lb-zaC" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="4f5-Lb-zaC" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Y2d-QI-D0m">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -373,11 +376,12 @@
                     </tableView>
                     <connections>
                         <outlet property="tableView" destination="Ftp-me-4dZ" id="BsH-c1-776"/>
+                        <segue destination="4f5-Lb-zaC" kind="show" identifier="UserProfileSegue" id="Eeg-vw-euG"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MIy-k8-bRl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="561" y="518"/>
+            <point key="canvasLocation" x="-1462" y="483"/>
         </scene>
         <!--Home-->
         <scene sceneID="F7a-GC-I2r">
@@ -466,13 +470,35 @@
                     <view key="view" contentMode="scaleToFill" id="IsU-h9-xJB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="D85-oh-x8O">
+                                <rect key="frame" x="0.0" y="88" width="414" height="84"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="595952829.71362901">
+                                    <!--2019-11-20 14:27:09 +0000-->
+                                </date>
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
+                                    <!--1970-01-01 11:00:00 +0000-->
+                                </date>
+                            </datePicker>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="5ll-av-auc">
+                                <rect key="frame" x="0.0" y="180" width="414" height="84"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="595952829.71362901">
+                                    <!--2019-11-20 14:27:09 +0000-->
+                                </date>
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
+                                    <!--1970-01-01 11:00:00 +0000-->
+                                </date>
+                            </datePicker>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" title="Slots" id="Dc6-d0-wNq"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Ue-Y3-jRA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="606" y="2682"/>
+            <point key="canvasLocation" x="605.79710144927537" y="2681.9196428571427"/>
         </scene>
         <!--Slots-->
         <scene sceneID="9ol-TE-XLJ">
@@ -497,4 +523,7 @@
     <resources>
         <image name="iconSearch" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Eeg-vw-euG"/>
+    </inferredMetricsTieBreakers>
 </document>
