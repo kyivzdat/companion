@@ -82,21 +82,36 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
     }
     
     @IBAction func tapSearchButton(_ sender: UIBarButtonItem) {
-        DispatchQueue.main.async {
-            self.topStackTopConstraint.constant += 20
+//        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           options: .curveEaseInOut,
+                           animations: {
+                            self.view.frame.origin.y += 20
+
+            }, completion: { (finished) in
+            })
+            
             self.navigationItem.searchController = self.resultSearchController
             self.resultSearchController?.searchBar.becomeFirstResponder()
             self.searchButton.isEnabled = false
             
-        }
+//        }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        DispatchQueue.main.async {
-            self.topStackTopConstraint.constant -= 20
+//        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           options: .curveEaseInOut,
+                           animations: {
+                            self.view.frame.origin.y -= 50
+            }, completion: { (finished) in
+            })
+//            self.topStackTopConstraint.constant -= 20
             self.navigationItem.searchController = nil
             self.searchButton.isEnabled = true
-        }
+//        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -127,7 +142,7 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
     }
 }
 
-//MARK: Initial Setup
+//MARK: - Initial Setup
 extension ProfileVC {
     private func setupSearchController() {
         let tableView = storyboard?.instantiateViewController(withIdentifier: "TableVC") as! TableVC
@@ -171,17 +186,28 @@ extension ProfileVC {
         skillsTableView.dataSource = self
         projectsTableView.delegate = self
         projectsTableView.dataSource = self
-        self.scrollView.delegate = self
+        scrollView.delegate = self
         
-        self.viewForTable.layer.cornerRadius = 30
-        self.projectsTableView.layer.cornerRadius = 6
-        self.skillsTableView.layer.cornerRadius = 6
-        self.scrollView.isPagingEnabled = true
-        self.pageController.numberOfPages = 2
+        viewForTable.layer.cornerRadius = 30
+        projectsTableView.layer.cornerRadius = 6
+        skillsTableView.layer.cornerRadius = 6
+        
+        scrollView.isPagingEnabled = true
+        pageController.numberOfPages = 2
+        
+//        projectsTableView.layer.shadowRadius = 9
+//        projectsTableView.layer.shadowOpacity = 0.3
+//        projectsTableView.layer.shadowOffset = CGSize(width: 5, height: 8)
+//        projectsTableView.clipsToBounds = false
+        
+//        skillsTableView.layer.shadowRadius = 9
+//        skillsTableView.layer.shadowOpacity = 0.3
+//        skillsTableView.layer.shadowOffset = CGSize(width: 5, height: 8)
+//        skillsTableView.clipsToBounds = false
     }
 }
 
-//MARK: Table Output
+//MARK: - Table Output
 extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     
     private func filterForProjectTable(slug: String) -> Bool {
@@ -252,7 +278,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-//MARK: Scroll View
+//MARK: - Scroll View
 extension ProfileVC: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
