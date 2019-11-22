@@ -60,6 +60,14 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
         }
     }
     
+    @IBAction func unwindToHomeVC(_ unwindSegue: UIStoryboardSegue) {
+        print(1)
+        guard let sourceVC = unwindSegue.source as? TableVC else { return }
+        print(2)
+        tabBarController?.selectedIndex = 3
+    }
+    
+    
     private func putInfoOnView() {
         
         guard let personInfo = profile.myInfo else { return }
@@ -199,7 +207,7 @@ extension ProfileVC {
 //        projectsTableView.layer.shadowOpacity = 0.3
 //        projectsTableView.layer.shadowOffset = CGSize(width: 5, height: 8)
 //        projectsTableView.clipsToBounds = false
-        
+//
 //        skillsTableView.layer.shadowRadius = 9
 //        skillsTableView.layer.shadowOpacity = 0.3
 //        skillsTableView.layer.shadowOffset = CGSize(width: 5, height: 8)

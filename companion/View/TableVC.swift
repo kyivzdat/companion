@@ -73,7 +73,7 @@ extension TableVC {
         if let userLogin = matchingLogins[indexPath.row]?.login {
             API.shared.getProfile(user: userLogin) { (profileInfo) in
                 self.profile.personInfo = profileInfo
-                self.performSegue(withIdentifier: "UserProfileSegue", sender: nil)
+                self.performSegue(withIdentifier: "unwindSegue", sender: nil)
             }
         }
     }

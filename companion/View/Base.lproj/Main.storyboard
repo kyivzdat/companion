@@ -375,10 +375,11 @@
                     </tableView>
                     <connections>
                         <outlet property="tableView" destination="Ftp-me-4dZ" id="BsH-c1-776"/>
-                        <segue destination="4f5-Lb-zaC" kind="show" identifier="UserProfileSegue" id="Eeg-vw-euG"/>
+                        <segue destination="Gdp-N4-W3J" kind="unwind" identifier="unwindSegue" unwindAction="unwindToHomeVC:" id="oYQ-aV-aGE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MIy-k8-bRl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Gdp-N4-W3J" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-1462" y="483"/>
         </scene>
@@ -538,7 +539,4 @@
     <resources>
         <image name="iconSearch" width="30" height="30"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Eeg-vw-euG"/>
-    </inferredMetricsTieBreakers>
 </document>
