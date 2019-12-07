@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ProfileVC: UIViewController, UISearchBarDelegate {
 
@@ -42,28 +43,36 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let context = (UIApplication.shared.delegate as? AppDelegate)?.coreDataStack.persistentContainer.viewContext else { return }
+        let fetchRequest: NSFetchRequest<Token> = Token.fetchRequest()
+        do {
+            let get = try context.fetch(fetchRequest)
+            
+            print("🤩get\n", get[0])
+        } catch {
+            print(error)
+        }
         
         viewSetup()
         setupAdaptiveLayout()
         setupSearchController()
         putInfoOnView()
-        print("📏height = \(self.view.bounds.height), width = \(self.view.bounds.width)📏")
+//        print("📏height = \(self.view.bounds.height), width = \(self.view.bounds.width)📏")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print("Is my profile? - ", (profile.isMyProfile ? "true" : "false"))
-        if profile.isMyProfile {
-            profile.myInfo?.description(withSkills: false, withProjects: false)
-        } else {
-            profile.personInfo?.description(withSkills: false, withProjects: false)
-        }
+//        print("Is my profile? - ", (profile.isMyProfile ? "true" : "false"))
+//        if profile.isMyProfile {
+//            profile.myInfo?.description(withSkills: false, withProjects: false)
+//        } else {
+//            profile.personInfo?.description(withSkills: false, withProjects: false)
+//        }
     }
     
     @IBAction func unwindToHomeVC(_ unwindSegue: UIStoryboardSegue) {
-        print(1)
+
         guard let sourceVC = unwindSegue.source as? TableVC else { return }
-        print(2)
         tabBarController?.selectedIndex = 3
     }
     

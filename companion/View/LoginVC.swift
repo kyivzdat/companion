@@ -8,10 +8,12 @@
 
 import UIKit
 import AuthenticationServices
+import CoreData
 
 class LoginVC: UIViewController {
 
     var profile: Profile!
+    lazy var context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,17 +23,42 @@ class LoginVC: UIViewController {
     @IBAction func loginButton(_ sender: UIButton) {
         let api = API.shared
 
-        api.authorization {
-            api.getMyInfo(completion: { (result) in
-                switch result {
-                case .success(let myInfo):
-                    self.profile.myInfo = myInfo
-                    self.performSegue(withIdentifier: "LoginSegue", sender: nil)
-                case .failure(let error):
-                    print("Failed to fetch self info: ", error)
+        let fetchRequest: NSFetchRequest<Token> = Token.fetchRequest()
+        do {
+            let tokenArray = try context.fetch(fetchRequest)
+            
+            if tokenArray.count == 0 {
+                api.authorization {
+                    self.getInfo(api: api)
                 }
-            })
+            } else {
+                print("📅 Expired_at: ", NSDate(timeIntervalSince1970: TimeInterval(tokenArray[0].expires_at + 7200)))
+                print("📅 Current date: ", NSDate(timeIntervalSince1970: Date().timeIntervalSince1970 + 7200))
+
+                if tokenArray[0].expires_at > Int64(Date().timeIntervalSince1970) {
+                    self.getInfo(api: api)
+                } else {
+                    self.getInfo(api: api)
+                }
+            }
+
+        } catch {
+            print(error)
         }
+        
+    }
+    
+    
+    private func getInfo(api: API) {
+        api.getMyInfo(completion: { (result) in
+            switch result {
+                case .success(let myInfo):
+                self.profile.myInfo = myInfo
+                self.performSegue(withIdentifier: "LoginSegue", sender: nil)
+            case .failure(let error):
+                print("Failed to fetch self info: ", error)
+            }
+        })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

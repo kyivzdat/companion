@@ -14,6 +14,8 @@
 		E120DCA223670FB600151F64 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E120DCA123670FB600151F64 /* ProfileVC.swift */; };
 		E12852F32386B194000104EC /* SlotsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12852F22386B194000104EC /* SlotsVC.swift */; };
 		E15257AF2371B17200E87D32 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15257AE2371B17200E87D32 /* Profile.swift */; };
+		E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */; };
+		E176F440239BF5480028766A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E176F43F239BF5480028766A /* CoreDataStack.swift */; };
 		E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */; };
 		E1AAE5B123631ACE0001E4FE /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5B023631ACE0001E4FE /* LoginVC.swift */; };
 		E1AAE5B423631ACF0001E4FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1AAE5B223631ACF0001E4FE /* Main.storyboard */; };
@@ -31,6 +33,8 @@
 		E120DCA123670FB600151F64 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		E12852F22386B194000104EC /* SlotsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsVC.swift; sourceTree = "<group>"; };
 		E15257AE2371B17200E87D32 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompanionModel.xcdatamodel; sourceTree = "<group>"; };
+		E176F43F239BF5480028766A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E1AAE5AB23631ACE0001E4FE /* companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = companion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1AAE5B023631ACE0001E4FE /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -60,7 +64,6 @@
 				ACC5DBB5236B5A2B00C5CC1E /* TableVC.swift */,
 				E120DCA123670FB600151F64 /* ProfileVC.swift */,
 				E12852F22386B194000104EC /* SlotsVC.swift */,
-				E1AAE5B223631ACF0001E4FE /* Main.storyboard */,
 				E10B01F023841B5600A6A99E /* SkillCell.swift */,
 				E10B01F223846EC700A6A99E /* ProjectCell.swift */,
 			);
@@ -104,10 +107,13 @@
 		E1AAE5AD23631ACE0001E4FE /* companion */ = {
 			isa = PBXGroup;
 			children = (
+				E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */,
+				E176F43F239BF5480028766A /* CoreDataStack.swift */,
+				E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */,
 				E15257AC2371A1DD00E87D32 /* Model */,
 				E15257AB2371A19D00E87D32 /* View */,
 				E15257AD2371A1E900E87D32 /* Controller */,
-				E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */,
+				E1AAE5B223631ACF0001E4FE /* Main.storyboard */,
 				E1AAE5B523631AD60001E4FE /* Assets.xcassets */,
 				E1AAE5B723631AD60001E4FE /* LaunchScreen.storyboard */,
 				E1AAE5BA23631AD60001E4FE /* Info.plist */,
@@ -192,8 +198,10 @@
 				E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */,
 				E1AAE5B123631ACE0001E4FE /* LoginVC.swift in Sources */,
 				E12852F32386B194000104EC /* SlotsVC.swift in Sources */,
+				E176F440239BF5480028766A /* CoreDataStack.swift in Sources */,
 				E120DCA223670FB600151F64 /* ProfileVC.swift in Sources */,
 				ACC5DBB6236B5A2B00C5CC1E /* TableVC.swift in Sources */,
+				E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */,
 				E1AAE5C123631B5F0001E4FE /* API.swift in Sources */,
 				AC9590D823806CB00028F567 /* projectUsersStructAPI.swift in Sources */,
 				E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */,
@@ -396,6 +404,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */,
+			);
+			currentVersion = E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */;
+			path = CompanionModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E1AAE5A323631ACE0001E4FE /* Project object */;
 }

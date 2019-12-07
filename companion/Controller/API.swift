@@ -8,6 +8,7 @@
 
 import Foundation
 import AuthenticationServices
+import CoreData
 
 class API {
 
@@ -20,6 +21,8 @@ class API {
     private let apiURL = "https://api.intra.42.fr/"
     private var bearer = ""
     
+    lazy var context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
+    
     private init() {}
 }
 
@@ -27,12 +30,14 @@ class API {
 extension API {
 
     func authorization(completion: @escaping () -> ()) {
+        print("AUTHORIZATION")
         
         webAuthSession = ASWebAuthenticationSession(url:
             URL(string: apiURL+"oauth/authorize?client_id=\(UID)&redirect_uri=\(callbackURI)&response_type=code&scope=public+forum+projects+profile+elearning+tig")!,
             callbackURLScheme: callbackURI, completionHandler: { (url, error) in
                 guard error == nil else { return print(error!)}
                 guard let url = url else { return }
+                print("🍏 url", url)
                 self.getToken(token: url.query!, completion: { () in
                     completion()
                 })
@@ -41,6 +46,7 @@ extension API {
     }
     
     private func getToken(token: String, completion: @escaping () -> ()) {
+        print("GET TOKEN")
         
         guard let url = NSURL(string: apiURL+"oauth/token") else { return }
         
@@ -54,11 +60,26 @@ extension API {
             guard let data = data else { return }
             
             do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
+                let json = try JSONSerialization.jsonObject(with: data) as? NSDictionary
                 
                 if json!["error"] == nil {
                     self.bearer = json!["access_token"]! as! String
+                    print("🍉 json\n", json ?? "")
                     print("😝Bearer - ", self.bearer)
+                    DispatchQueue.main.async {
+                        let token = Token(context: self.context)
+                        token.access_token = json!["access_token"]! as? String
+                        token.expires_at = (json!["created_at"]! as! Int64) + 7200
+                        token.refresh_token = json!["refresh_token"]! as? String
+                        do {
+                            try self.context.save()
+                            print("Success save token! 👍")
+                            print(token)
+                        } catch {
+                            print("Fail to save token! 👎", error)
+                        }
+                    }
+                    
                     completion()
                 } else {
                     print(json!)
@@ -68,12 +89,70 @@ extension API {
             }
         }.resume()
     }
+    
+    public func refreshToken(complition: @escaping () -> ()) {
+        print("REFRESH TOKEN INFO")
+        let fetchRequest: NSFetchRequest<Token> = Token.fetchRequest()
+        do {
+            let tokenArray = try context.fetch(fetchRequest)
+            guard let token = tokenArray.first else { return }
+            updateTokenInfo(token: token) {
+                complition()
+            }
+        } catch {
+            print(error)
+            return
+        }
+    }
+    
+    private func updateTokenInfo(token: Token, complition: @escaping () -> ()) {
+        
+        guard let url = NSURL(string: apiURL+"oauth/token") else { return }
+        let request = NSMutableURLRequest(url: url as URL)
+        guard let refresh_token = token.access_token else { return }
+        
+        request.httpMethod = "POST"
+        request.httpBody = "grant_type=refresh_token&client_id=\(UID)&client_secret=\(secret)&refresh_token=\(refresh_token)".data(using: String.Encoding.utf8)
+        
+        URLSession.shared.dataTask(with: request as URLRequest) {
+            (data, _, error) in
+            guard error == nil else { return print(error!) }
+            
+            guard let data = data else { return }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
+                self.bearer = json["access_token"]! as! String
+                token.access_token = self.bearer
+                token.expires_at = (json["created_at"]! as! Int64) + 7200
+                token.refresh_token = json["refresh_token"]! as? String
+                print("Success to refresh token! 👍")
+                complition()
+            } catch {
+                print("Fail to refresh token! 👎", error)
+            }
+        }
+    }
+    
+    private func getBearer() {
+        let fetchRequest: NSFetchRequest<Token> = Token.fetchRequest()
+        do {
+            let tokenArray = try context.fetch(fetchRequest)
+            guard let access_token = tokenArray.first?.access_token else { return }
+            self.bearer = access_token
+        } catch {
+            print(error)
+        }
+    }
+    
 }
 
 // MARK: Get Info
 extension API {
     public func getMyInfo(completion: @escaping (Result<ProfileInfo, Error>) -> ()) {
 
+        if bearer == "" {
+            getBearer()
+        }
         guard let url = NSURL(string: apiURL+"/v2/me") else { return }
         
         let request = NSMutableURLRequest(url: url as URL)
@@ -84,7 +163,7 @@ extension API {
             do {
                 var myInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
                 
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
+                let json = try JSONSerialization.jsonObject(with: data) as? NSDictionary
                 if let arr = json!["projects_users"] as? [NSDictionary] {
                     for i in 0..<arr.count {
                         myInfo.projects_users[i]?.validated = arr[i]["validated?"] as? Int
@@ -114,7 +193,7 @@ extension API {
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
             guard let data = data else { return }
             do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [NSDictionary]
+                let json = try JSONSerialization.jsonObject(with: data) as? [NSDictionary]
                 let teams = json![0]["teams"] as! [NSDictionary]
                 var passedExams = 0
                 teams.forEach({ (i) in
