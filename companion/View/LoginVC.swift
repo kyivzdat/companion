@@ -38,7 +38,10 @@ class LoginVC: UIViewController {
                 if tokenArray[0].expires_at > Int64(Date().timeIntervalSince1970) {
                     self.getInfo(api: api)
                 } else {
-                    self.getInfo(api: api)
+                    api.refreshToken {
+                        self.getInfo(api: api)
+                    }
+                    
                 }
             }
 

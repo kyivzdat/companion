@@ -43,12 +43,19 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let context = (UIApplication.shared.delegate as? AppDelegate)?.coreDataStack.persistentContainer.viewContext else { return }
+        let context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<Token> = Token.fetchRequest()
+        
+        //This is expected behaviour, core data won't return full objects
+        //until you need to access the persistent values of the objects.
+        //Each of your returned objects will be a 'fault' until this point.
+        //You can force the fetch request to return full objects using
+        fetchRequest.returnsObjectsAsFaults = false
+
         do {
             let get = try context.fetch(fetchRequest)
-            
-            print("🤩get\n", get[0])
+            guard let token = get.first else { return }
+            print("🤩get\n", token)
         } catch {
             print(error)
         }
@@ -72,7 +79,7 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
     
     @IBAction func unwindToHomeVC(_ unwindSegue: UIStoryboardSegue) {
 
-        guard let sourceVC = unwindSegue.source as? TableVC else { return }
+//        guard let sourceVC = unwindSegue.source as? TableVC else { return }
         tabBarController?.selectedIndex = 3
     }
     

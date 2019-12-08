@@ -62,27 +62,10 @@ extension API {
             do {
                 let json = try JSONSerialization.jsonObject(with: data) as? NSDictionary
                 
-                if json!["error"] == nil {
-                    self.bearer = json!["access_token"]! as! String
-                    print("🍉 json\n", json ?? "")
-                    print("😝Bearer - ", self.bearer)
-                    DispatchQueue.main.async {
-                        let token = Token(context: self.context)
-                        token.access_token = json!["access_token"]! as? String
-                        token.expires_at = (json!["created_at"]! as! Int64) + 7200
-                        token.refresh_token = json!["refresh_token"]! as? String
-                        do {
-                            try self.context.save()
-                            print("Success save token! 👍")
-                            print(token)
-                        } catch {
-                            print("Fail to save token! 👎", error)
-                        }
-                    }
-                    
+                guard json!["error"] == nil else { return print("", json!)}
+                self.bearer = json!["access_token"]! as! String
+                self.successSaveNewToken(json: json!) {
                     completion()
-                } else {
-                    print(json!)
                 }
             } catch let error {
                 print("getToken error:\n", error)
@@ -90,12 +73,32 @@ extension API {
         }.resume()
     }
     
+    private func successSaveNewToken(json: NSDictionary, completion: @escaping() -> ()) {
+        DispatchQueue.main.async {
+            let token = Token(context: self.context)
+            token.access_token = json["access_token"]! as? String
+            token.expires_at = (json["created_at"]! as! Int64) + 7200
+            token.refresh_token = json["refresh_token"]! as? String
+            do {
+                try self.context.save()
+                print("Success save token! 👍")
+                print(token)
+                completion()
+            } catch {
+                print("Fail to save token! 👎", error)
+            }
+        }
+        
+    }
+    
     public func refreshToken(complition: @escaping () -> ()) {
-        print("REFRESH TOKEN INFO")
+
+        print("REFRESH TOKEN")
         let fetchRequest: NSFetchRequest<Token> = Token.fetchRequest()
         do {
             let tokenArray = try context.fetch(fetchRequest)
-            guard let token = tokenArray.first else { return }
+            guard let token = tokenArray.first else { return}
+            print(token)
             updateTokenInfo(token: token) {
                 complition()
             }
@@ -107,36 +110,48 @@ extension API {
     
     private func updateTokenInfo(token: Token, complition: @escaping () -> ()) {
         
+        print("UPDATE TOKEN INFO")
         guard let url = NSURL(string: apiURL+"oauth/token") else { return }
         let request = NSMutableURLRequest(url: url as URL)
-        guard let refresh_token = token.access_token else { return }
+        guard let refresh_token = token.refresh_token else { return }
         
         request.httpMethod = "POST"
         request.httpBody = "grant_type=refresh_token&client_id=\(UID)&client_secret=\(secret)&refresh_token=\(refresh_token)".data(using: String.Encoding.utf8)
         
-        URLSession.shared.dataTask(with: request as URLRequest) {
-            (data, _, error) in
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, error) in
             guard error == nil else { return print(error!) }
             
             guard let data = data else { return }
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
-                self.bearer = json["access_token"]! as! String
-                token.access_token = self.bearer
-                token.expires_at = (json["created_at"]! as! Int64) + 7200
-                token.refresh_token = json["refresh_token"]! as? String
+                
+                guard let newBearer = json["access_token"] as? String,
+                      let created_at = json["created_at"] as? Int64,
+                      let refresh_token = json["refresh_token"] as? String
+                      else { return }
+            
+                self.bearer = newBearer
+                let tokenUpdate = token as NSManagedObject
+                tokenUpdate.setValue(self.bearer,       forKey: "access_token")
+                tokenUpdate.setValue(created_at + 7200, forKey: "expires_at")
+                tokenUpdate.setValue(refresh_token,     forKey: "refresh_token")
+                
+                try self.context.save()
+                
                 print("Success to refresh token! 👍")
                 complition()
             } catch {
                 print("Fail to refresh token! 👎", error)
             }
-        }
+        }.resume()
     }
     
     private func getBearer() {
+        print("GET BEARER")
         let fetchRequest: NSFetchRequest<Token> = Token.fetchRequest()
         do {
             let tokenArray = try context.fetch(fetchRequest)
+            print("token: \n", tokenArray.first ?? "")
             guard let access_token = tokenArray.first?.access_token else { return }
             self.bearer = access_token
         } catch {
