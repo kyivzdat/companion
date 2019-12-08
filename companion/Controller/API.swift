@@ -64,7 +64,7 @@ extension API {
                 
                 guard json!["error"] == nil else { return print("", json!)}
                 self.bearer = json!["access_token"]! as! String
-                self.successSaveNewToken(json: json!) {
+                self.saveNewToken(json: json!) {
                     completion()
                 }
             } catch let error {
@@ -73,7 +73,7 @@ extension API {
         }.resume()
     }
     
-    private func successSaveNewToken(json: NSDictionary, completion: @escaping() -> ()) {
+    private func saveNewToken(json: NSDictionary, completion: @escaping() -> ()) {
         DispatchQueue.main.async {
             let token = Token(context: self.context)
             token.access_token = json["access_token"]! as? String
@@ -82,7 +82,6 @@ extension API {
             do {
                 try self.context.save()
                 print("Success save token! 👍")
-                print(token)
                 completion()
             } catch {
                 print("Fail to save token! 👎", error)
@@ -97,7 +96,7 @@ extension API {
         let fetchRequest: NSFetchRequest<Token> = Token.fetchRequest()
         do {
             let tokenArray = try context.fetch(fetchRequest)
-            guard let token = tokenArray.first else { return}
+            guard let token = tokenArray.first else { return }
             print(token)
             updateTokenInfo(token: token) {
                 complition()
@@ -161,7 +160,7 @@ extension API {
     
 }
 
-// MARK: Get Info
+// MARK: - Get Info
 extension API {
     public func getMyInfo(completion: @escaping (Result<ProfileInfo, Error>) -> ()) {
 
@@ -187,16 +186,109 @@ extension API {
                 self.getDataOfProject(id: "11", userId: myInfo.id!, completion: { (passedExams) in
                     myInfo.passedExams = passedExams
                     DispatchQueue.main.async {
-                        completion(.success(myInfo))
+                        self.saveNewUserToDB(myInfo: myInfo) {
+                            completion(.success(myInfo))
+                        }
                     }
                 })
-
-                
             } catch {
                 completion(.failure(error))
                 return
             }
         }.resume()
+    }
+    
+    private func saveNewUserToDB(myInfo: ProfileInfo, completion: @escaping() -> ()) {
+        
+        print("SAVE NEW USER TO DB\n")
+        let profileInfoDB = ProfileInfoDB(context: context)
+        
+        guard let corPoints = myInfo.correction_point,
+            let id = myInfo.id,
+            let wallet = myInfo.wallet,
+            let passedExams = myInfo.passedExams
+            else { return }
+        
+        profileInfoDB.correction_point = Int16(corPoints)
+        profileInfoDB.first_name = myInfo.first_name
+        profileInfoDB.id = Int32(id)
+        profileInfoDB.image_url = myInfo.image_url
+        profileInfoDB.last_name = myInfo.last_name
+        profileInfoDB.location = myInfo.location
+        profileInfoDB.login = myInfo.login
+        profileInfoDB.passedExams = Int16(passedExams)
+        profileInfoDB.wallet = Int16(wallet)
+        
+        // Campus
+        let campusDB = CampusDB(context: context)
+        guard let campus = myInfo.campus.first,
+            let campusId = campus?.id
+            else { return }
+        campusDB.address = campus?.address
+        campusDB.city = campus?.city
+        campusDB.country = campus?.country
+        campusDB.facebook = campus?.facebook
+        campusDB.website = campus?.website
+        campusDB.id = Int16(campusId)
+        profileInfoDB.campus = campusDB
+        
+        // Cursus users <- Skills
+        let mutableCursusUsersDB = profileInfoDB.cursusUsers?.mutableCopy() as? NSMutableSet
+        let cursusUsers = myInfo.cursus_users
+        cursusUsers.forEach { (cursus) in
+            let cursusUsersDB = CursusUsersDB(context: context)
+
+            guard let cursus_id = cursus?.cursus_id,
+                let level = cursus?.level
+                else { return }
+            cursusUsersDB.cursus_id = Int16(cursus_id)
+            cursusUsersDB.level = level
+
+
+//            guard let skills = myInfo.cursus_users[0]?.skills else { return }
+//            skills.forEach { (skill) in
+//                let skillsDB = SkillsDB(context: context)
+//
+//                guard let skillId = skill?.id,
+//                    let skillLevel = skill?.level
+//                    else { return }
+//
+//                skillsDB.id = Int16(skillId)
+//                skillsDB.level = skillLevel
+//                skillsDB.name = skill?.name
+//
+//                cursusUsersDB.addToSkills(skillsDB)
+//            }
+            mutableCursusUsersDB?.add(cursusUsersDB)
+        }
+        profileInfoDB.cursusUsers = mutableCursusUsersDB
+        
+        // Project Users
+//        let projectUsers = myInfo.projects_users
+//        projectUsers.forEach { (project) in
+//            let projectDB = ProjectUsersDB(context: context)
+//
+//            guard let mark = project?.final_mark,
+//                let parent_id = project?.project?.parent_id,
+//                let validated = project?.validated
+//                else { return }
+//
+//            projectDB.final_mark = Int16(mark)
+//            projectDB.name = project?.project?.name
+//            projectDB.parent_id = Int16(parent_id)
+//            projectDB.slug = project?.project?.slug
+//            projectDB.status = project?.status
+//            projectDB.validated = validated == 0 ? false : true
+//            profileInfoDB.projectUsers?.adding(projectDB)
+//        }
+
+        do {
+            try context.save()
+            print("Succes to save myInfo first time! 👍")
+            completion()
+        } catch {
+            print("Fail to save myInfo first time! 👎", error)
+        }
     }
     
     public func getDataOfProject(id: String, userId: Int, completion: @escaping(Int) -> ()) {

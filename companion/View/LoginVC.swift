@@ -51,7 +51,6 @@ class LoginVC: UIViewController {
         
     }
     
-    
     private func getInfo(api: API) {
         api.getMyInfo(completion: { (result) in
             switch result {
