@@ -233,7 +233,7 @@ extension API {
         profileInfoDB.campus = campusDB
         
         // Cursus users <- Skills
-        let mutableCursusUsersDB = profileInfoDB.cursusUsers?.mutableCopy() as? NSMutableSet
+//        let mutableCursusUsersDB = profileInfoDB.cursusUsers?.mutableCopy() as? NSMutableSet
         let cursusUsers = myInfo.cursus_users
         cursusUsers.forEach { (cursus) in
             let cursusUsersDB = CursusUsersDB(context: context)
@@ -259,9 +259,10 @@ extension API {
 //
 //                cursusUsersDB.addToSkills(skillsDB)
 //            }
-            mutableCursusUsersDB?.add(cursusUsersDB)
+//            mutableCursusUsersDB?.add(cursusUsersDB)
+            profileInfoDB.addToCursusUsers(cursusUsersDB)
         }
-        profileInfoDB.cursusUsers = mutableCursusUsersDB
+//        profileInfoDB.cursusUsers = mutableCursusUsersDB
         
         // Project Users
 //        let projectUsers = myInfo.projects_users

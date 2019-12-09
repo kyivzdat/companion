@@ -45,23 +45,28 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         let context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<Token> = Token.fetchRequest()
-        
-        let infoFetchRequest: NSFetchRequest<ProfileInfoDB> = ProfileInfoDB.fetchRequest()
-        infoFetchRequest.predicate = NSPredicate(format: "login = %@", "vpalamar")
-        infoFetchRequest.returnsObjectsAsFaults = false
         //This is expected behaviour, core data won't return full objects
         //until you need to access the persistent values of the objects.
         //Each of your returned objects will be a 'fault' until this point.
         //You can force the fetch request to return full objects using
         fetchRequest.returnsObjectsAsFaults = false
+        
+        let infoFetchRequest: NSFetchRequest<ProfileInfoDB> = ProfileInfoDB.fetchRequest()
+        infoFetchRequest.predicate = NSPredicate(format: "login = %@", "vpalamar")
+        infoFetchRequest.returnsObjectsAsFaults = false
 
+        let newFetch: NSFetchRequest<ProfileInfoDB> = NSFetchRequest(entityName: "ProfileInfoDB")
+        
         do {
             let get = try context.fetch(fetchRequest)
             guard let token = get.first else { return }
             print("🤩get\n", token)
+            
             let me = try context.fetch(infoFetchRequest)
             print("🍉me\n", me)
-            print("🍉me\n", me.first?.campus)
+//            print("🍉me\n", me.first?.campus)
+            
+            print(profile)
         } catch {
             print(error)
         }
