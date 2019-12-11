@@ -233,7 +233,6 @@ extension API {
         profileInfoDB.campus = campusDB
         
         // Cursus users <- Skills
-//        let mutableCursusUsersDB = profileInfoDB.cursusUsers?.mutableCopy() as? NSMutableSet
         let cursusUsers = myInfo.cursus_users
         cursusUsers.forEach { (cursus) in
             let cursusUsersDB = CursusUsersDB(context: context)
@@ -245,43 +244,41 @@ extension API {
             cursusUsersDB.level = level
 
 
-//            guard let skills = myInfo.cursus_users[0]?.skills else { return }
-//            skills.forEach { (skill) in
-//                let skillsDB = SkillsDB(context: context)
-//
-//                guard let skillId = skill?.id,
-//                    let skillLevel = skill?.level
-//                    else { return }
-//
-//                skillsDB.id = Int16(skillId)
-//                skillsDB.level = skillLevel
-//                skillsDB.name = skill?.name
-//
-//                cursusUsersDB.addToSkills(skillsDB)
-//            }
-//            mutableCursusUsersDB?.add(cursusUsersDB)
+            guard let skills = myInfo.cursus_users[0]?.skills else { return }
+            skills.forEach { (skill) in
+                let skillsDB = SkillsDB(context: context)
+
+                guard let skillId = skill?.id,
+                    let skillLevel = skill?.level
+                    else { return }
+
+                skillsDB.id = Int16(skillId)
+                skillsDB.level = skillLevel
+                skillsDB.name = skill?.name
+
+                cursusUsersDB.addToSkills(skillsDB)
+            }
             profileInfoDB.addToCursusUsers(cursusUsersDB)
         }
-//        profileInfoDB.cursusUsers = mutableCursusUsersDB
         
         // Project Users
-//        let projectUsers = myInfo.projects_users
-//        projectUsers.forEach { (project) in
-//            let projectDB = ProjectUsersDB(context: context)
-//
-//            guard let mark = project?.final_mark,
-//                let parent_id = project?.project?.parent_id,
-//                let validated = project?.validated
-//                else { return }
-//
-//            projectDB.final_mark = Int16(mark)
-//            projectDB.name = project?.project?.name
-//            projectDB.parent_id = Int16(parent_id)
-//            projectDB.slug = project?.project?.slug
-//            projectDB.status = project?.status
-//            projectDB.validated = validated == 0 ? false : true
-//            profileInfoDB.projectUsers?.adding(projectDB)
-//        }
+        let projectUsers = myInfo.projects_users
+        projectUsers.forEach { (project) in
+            let projectDB = ProjectUsersDB(context: context)
+
+            guard let mark = project?.final_mark,
+                let parent_id = project?.project?.parent_id,
+                let validated = project?.validated
+                else { return }
+
+            projectDB.final_mark = Int16(mark)
+            projectDB.name = project?.project?.name
+            projectDB.parent_id = Int16(parent_id)
+            projectDB.slug = project?.project?.slug
+            projectDB.status = project?.status
+            projectDB.validated = validated == 0 ? false : true
+            profileInfoDB.addToProjectUsers(projectDB)
+        }
 
         do {
             try context.save()

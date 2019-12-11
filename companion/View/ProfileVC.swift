@@ -52,21 +52,43 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
         fetchRequest.returnsObjectsAsFaults = false
         
         let infoFetchRequest: NSFetchRequest<ProfileInfoDB> = ProfileInfoDB.fetchRequest()
-        infoFetchRequest.predicate = NSPredicate(format: "login = %@", "vpalamar")
-        infoFetchRequest.returnsObjectsAsFaults = false
 
-        let newFetch: NSFetchRequest<ProfileInfoDB> = NSFetchRequest(entityName: "ProfileInfoDB")
-        
+//        let cursusFetchRequest: NSFetchRequest<CursusUsersDB> = CursusUsersDB.fetchRequest()
+
         do {
-            let get = try context.fetch(fetchRequest)
-            guard let token = get.first else { return }
-            print("🤩get\n", token)
+//            let get = try context.fetch(fetchRequest)
+//            guard let token = get.first else { return }
+//            print("🤩get\n", token)
+//
+
+            let users = try context.fetch(infoFetchRequest)
+            let user = users.last
             
-            let me = try context.fetch(infoFetchRequest)
-            print("🍉me\n", me)
-//            print("🍉me\n", me.first?.campus)
+            print("🍏\n", user)
             
-            print(profile)
+            let cursus: [CursusUsersDB] = user?.cursusUsers?.allObjects as! [CursusUsersDB]
+            for i in cursus {
+                print("📷", i)
+                print("📷", i.level)
+            }
+            
+            let skills = cursus[0].skills?.allObjects as! [SkillsDB]
+
+            for i in skills {
+                print("🏋️‍♀️", i)
+            }
+            
+            let projects = user?.projectUsers?.allObjects as! [ProjectUsersDB]
+            
+            for project in projects {
+                print("🏈", project)
+            }
+            
+//            let cursus = try context.fetch(cursusFetchRequest)
+//            for i in cursus {
+//                print("🏋️‍♀️", i)
+//            }
+
         } catch {
             print(error)
         }
