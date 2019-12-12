@@ -32,30 +32,28 @@ class LoginVC: UIViewController {
                     self.getInfo(api: api)
                 }
             } else {
-                print("📅 Expired_at: ", NSDate(timeIntervalSince1970: TimeInterval(tokenArray[0].expires_at + 7200)))
+                guard let token = tokenArray.first else { return }
+                print("📅 Expired_at: ", NSDate(timeIntervalSince1970: TimeInterval(token.expires_at + 7200)))
                 print("📅 Current date: ", NSDate(timeIntervalSince1970: Date().timeIntervalSince1970 + 7200))
-
-                if tokenArray[0].expires_at > Int64(Date().timeIntervalSince1970) {
-                    self.getInfo(api: api)
-                } else {
+                
+                if token.expires_at < Int64(Date().timeIntervalSince1970) {
                     api.refreshToken {
-                        self.getInfo(api: api)
+                        self.performSegue(withIdentifier: "LoginSegue", sender: nil)
                     }
-                    
                 }
+                self.performSegue(withIdentifier: "LoginSegue", sender: nil)
             }
-
         } catch {
             print(error)
         }
-        
     }
     
     private func getInfo(api: API) {
         api.getMyInfo(completion: { (result) in
             switch result {
-                case .success(let myInfo):
-                self.profile.myInfo = myInfo
+                case .success(let login):
+                let userDefaults = UserDefaults.standard
+                userDefaults.set(login, forKey: "login")
                 self.performSegue(withIdentifier: "LoginSegue", sender: nil)
             case .failure(let error):
                 print("Failed to fetch self info: ", error)
@@ -70,9 +68,7 @@ class LoginVC: UIViewController {
                 if let vc = navi.viewControllers[0] as? ProfileVC {
                     profile.eventInfo.append("Event")
                     vc.profile = profile
-//                    if let tableVC = storyboard?.instantiateViewController(withIdentifier: "SkillsTableView") as? SkillCell {
-//                        tableVC.profile = profile
-//                    }
+
                 }
             }
         }

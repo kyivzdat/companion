@@ -13,6 +13,8 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
 
     var resultSearchController: UISearchController?
     var profile: Profile!
+    var profileInfo: ProfileInfoDB?
+    
     @IBOutlet weak var nameSurnameLabel: UILabel!
     @IBOutlet weak var correctionPointsLabel: UILabel!
     @IBOutlet weak var walletLabel: UILabel!
@@ -44,53 +46,24 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         let context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<Token> = Token.fetchRequest()
-        //This is expected behaviour, core data won't return full objects
-        //until you need to access the persistent values of the objects.
-        //Each of your returned objects will be a 'fault' until this point.
-        //You can force the fetch request to return full objects using
-        fetchRequest.returnsObjectsAsFaults = false
+        let userDefaults = UserDefaults.standard
+        guard let login = userDefaults.object(forKey: "login") as? String else { return }
         
         let infoFetchRequest: NSFetchRequest<ProfileInfoDB> = ProfileInfoDB.fetchRequest()
-
-//        let cursusFetchRequest: NSFetchRequest<CursusUsersDB> = CursusUsersDB.fetchRequest()
+        infoFetchRequest.predicate = NSPredicate(format: "login = %@", login)
+        print("login - ", login)
+        infoFetchRequest.returnsObjectsAsFaults = false
 
         do {
-//            let get = try context.fetch(fetchRequest)
-//            guard let token = get.first else { return }
-//            print("🤩get\n", token)
-//
+
 
             let users = try context.fetch(infoFetchRequest)
-            let user = users.last
-            
-            print("🍏\n", user)
-            
-            let cursus: [CursusUsersDB] = user?.cursusUsers?.allObjects as! [CursusUsersDB]
-            for i in cursus {
-                print("📷", i)
-                print("📷", i.level)
-            }
-            
-            let skills = cursus[0].skills?.allObjects as! [SkillsDB]
+            profileInfo = users.first
 
-            for i in skills {
-                print("🏋️‍♀️", i)
-            }
-            
-            let projects = user?.projectUsers?.allObjects as! [ProjectUsersDB]
-            
-            for project in projects {
-                print("🏈", project)
-            }
-            
-//            let cursus = try context.fetch(cursusFetchRequest)
-//            for i in cursus {
-//                print("🏋️‍♀️", i)
-//            }
+            print("🍏\n", profileInfo)
 
         } catch {
-            print(error)
+            print("Error to fetch data from DB: ", error)
         }
         
         viewSetup()
@@ -98,16 +71,6 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
         setupSearchController()
         putInfoOnView()
 //        print("📏height = \(self.view.bounds.height), width = \(self.view.bounds.width)📏")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-//        print("Is my profile? - ", (profile.isMyProfile ? "true" : "false"))
-//        if profile.isMyProfile {
-//            profile.myInfo?.description(withSkills: false, withProjects: false)
-//        } else {
-//            profile.personInfo?.description(withSkills: false, withProjects: false)
-//        }
     }
     
     @IBAction func unwindToHomeVC(_ unwindSegue: UIStoryboardSegue) {
@@ -119,27 +82,28 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
     
     private func putInfoOnView() {
         
-        guard let personInfo = profile.myInfo else { return }
+
         DispatchQueue.main.async {
-            guard personInfo.image_url != nil else { return }
+            guard let image_url = self.profileInfo?.image_url else { return }
             do {
-                guard let urlPhoto = URL(string: personInfo.image_url!) else { return }
+                guard let urlPhoto = URL(string: image_url) else { return }
                 self.profileImage.image = try UIImage(data: Data(contentsOf: urlPhoto))
             } catch {
                 self.profileImage.image = UIImage(contentsOfFile: "noPhoto")
             }
         }
-        nameSurnameLabel.text = (personInfo.first_name ?? "nil") + " " + (personInfo.last_name  ?? "nil")
-        correctionPointsLabel.text = "Correction Points: " + String(personInfo.correction_point ?? -1)
-        walletLabel.text = "Wallet: " + String(personInfo.wallet ?? -1) + "₳"
-        countryCityLabel.text = (personInfo.campus[0]?.country ?? "nil") + ", " + (personInfo.campus[0]?.city ?? "nil")
-        statusPesonLabel.text = personInfo.location ?? "Unavailable"
-        levelLabel.text = "Level " + String(personInfo.cursus_users[0]?.level ?? -1)
-        progressView.progress = Float(Float((personInfo.cursus_users[0]?.level)!) - Float(Int((personInfo.cursus_users[0]?.level)!)))
+        nameSurnameLabel.text = (profileInfo?.first_name ?? "nil") + " " + (profileInfo?.last_name  ?? "nil")
+        correctionPointsLabel.text = "Correction Points: " + String(profileInfo?.correction_point ?? -1)
+        walletLabel.text = "Wallet: " + String(profileInfo?.wallet ?? -1) + "₳"
+        statusPesonLabel.text = profileInfo?.location ?? "Unavailable"
+        countryCityLabel.text = (profileInfo?.campus?.country ?? "nil") + ", " + (profileInfo?.campus?.city ?? "nil")
+        
+        guard let cursusUsers = profileInfo?.cursusUsers?.allObjects as? [CursusUsersDB] else { return }
+        levelLabel.text = "Level " + String(cursusUsers[0].level)
+        progressView.progress = Float(Float(cursusUsers[0].level) - Float(Int(cursusUsers[0].level)))
     }
     
     @IBAction func tapSearchButton(_ sender: UIBarButtonItem) {
-//        DispatchQueue.main.async {
             UIView.animate(withDuration: 0.5,
                            delay: 0,
                            options: .curveEaseInOut,
@@ -152,23 +116,18 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
             self.navigationItem.searchController = self.resultSearchController
             self.resultSearchController?.searchBar.becomeFirstResponder()
             self.searchButton.isEnabled = false
-            
-//        }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.5,
-                           delay: 0,
-                           options: .curveEaseInOut,
-                           animations: {
-                            self.view.frame.origin.y -= 50
-            }, completion: { (finished) in
-            })
-//            self.topStackTopConstraint.constant -= 20
-            self.navigationItem.searchController = nil
-            self.searchButton.isEnabled = true
-//        }
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       options: .curveEaseInOut,
+                       animations: {
+                        self.view.frame.origin.y -= 50
+        }, completion: { (finished) in
+        })
+        self.navigationItem.searchController = nil
+        self.searchButton.isEnabled = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -178,13 +137,7 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
             }
         }
     }
-    
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//
-//        guard searchBar.text?.isEmpty == false else { print("SearchBar is empty"); return }
-//        API.shared.getProfile(user: searchBar.text!.lowercased())
-//    }
-    
+
     func alert(title: String, message: String) {
         
         DispatchQueue.main.async {
@@ -197,10 +150,10 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
             UIApplication.topViewController()?.present(alert, animated: true)
         }
     }
-}
+
 
 //MARK: - Initial Setup
-extension ProfileVC {
+
     private func setupSearchController() {
         let tableView = storyboard?.instantiateViewController(withIdentifier: "TableVC") as! TableVC
         tableView.profile = self.profile
@@ -252,15 +205,6 @@ extension ProfileVC {
         scrollView.isPagingEnabled = true
         pageController.numberOfPages = 2
         
-//        projectsTableView.layer.shadowRadius = 9
-//        projectsTableView.layer.shadowOpacity = 0.3
-//        projectsTableView.layer.shadowOffset = CGSize(width: 5, height: 8)
-//        projectsTableView.clipsToBounds = false
-//
-//        skillsTableView.layer.shadowRadius = 9
-//        skillsTableView.layer.shadowOpacity = 0.3
-//        skillsTableView.layer.shadowOffset = CGSize(width: 5, height: 8)
-//        skillsTableView.clipsToBounds = false
     }
 }
 
@@ -275,15 +219,23 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
 
         switch tableView {
         case skillsTableView:
-            return profile.myInfo?.cursus_users[0]?.skills.count ?? 0
+            
+            guard let cursusUsersArray = profileInfo?.cursusUsers?.allObjects as? [CursusUsersDB] else { return 0 }
+            return cursusUsersArray[0].skills?.count ?? 0
         case projectsTableView:
-            guard let projects = profile.myInfo?.projects_users else { return 0 }
+            
+//            print("number of projectsTableView")
+            guard let projects = profileInfo?.projectUsers?.allObjects as? [ProjectUsersDB] else { return 0 }
+//            print("counter = 0")
             var counter = 0
-            for i in projects {
-                if filterForProjectTable(slug: i?.project?.slug ?? "") {
+            for (index, project) in projects.enumerated() {
+//                print(index)
+                if filterForProjectTable(slug: project.slug ?? "") {
                     counter += 1
                 }
             }
+//            print("!!!count = ", projects.count)
+//            print("counter = ", counter)
             return counter
         default:
             return 0
@@ -292,25 +244,29 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tmp = skillsTableView.dequeueReusableCell(withIdentifier: "skillCell", for: indexPath) as! SkillCell
-
+        
         switch tableView {
         case skillsTableView:
             let cell = skillsTableView.dequeueReusableCell(withIdentifier: "skillCell", for: indexPath) as! SkillCell
             
-            if let arrayOfSkills = profile.myInfo?.cursus_users[0]?.skills {
-                cell.skillLabel.text = arrayOfSkills[indexPath.row]?.name
-                cell.progressView.progress = Float(arrayOfSkills[indexPath.row]?.level ?? 0) * 5 / 100
-            }
+            guard let cursusUsersArray = profileInfo?.cursusUsers?.allObjects as? [CursusUsersDB],
+                var arrayOfSkills = cursusUsersArray[0].skills?.allObjects as? [SkillsDB]
+                else { return UITableViewCell()}
+            
+            arrayOfSkills.sort{$0.level > $1.level}
+            cell.skillLabel.text = arrayOfSkills[indexPath.row].name
+            cell.progressView.progress = Float(arrayOfSkills[indexPath.row].level) * 5 / 100
             return cell
         case projectsTableView:
             let cell = projectsTableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as! ProjectCell
             
-            if let project = profile.myInfo?.projects_users {
-                var index = project.count - 1
+
+            if let projects = profileInfo?.projectUsers?.allObjects as? [ProjectUsersDB] {
+                var index = projects.count - 1
                 var counter = 0
                 
                 while index >= 0 {
-                    if filterForProjectTable(slug: project[index]?.project?.slug ?? "") {
+                    if filterForProjectTable(slug: projects[index].slug ?? "nil") {
                         if counter == indexPath.row {
                             break
                         }
@@ -318,14 +274,14 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
                     }
                     index -= 1
                 }
-                cell.projectLabel.text = project[index]?.project?.name ?? "nil"
-                let mark = String(project[index]?.final_mark ?? -1)
+                cell.projectLabel.text = projects[index].name ?? "nil"
+                let mark = String(projects[index].final_mark)
                 if mark != "-1" {
                     cell.markLabel.text = mark
-                    cell.markLabel.textColor = (project[index]?.validated == 1) ? UIColor.green : UIColor.red
-                } else if project[index]?.status == "in_progress" {
+                    cell.markLabel.textColor = (projects[index].validated == true) ? UIColor.green : UIColor.red
+                } else if projects[index].status == "in_progress" {
                     cell.markLabel.text = "In progress"
-                     cell.markLabel.textColor = .blue
+                    cell.markLabel.textColor = .blue
                 }
             }
             return cell

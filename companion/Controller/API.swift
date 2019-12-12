@@ -26,9 +26,10 @@ class API {
     private init() {}
 }
 
-// MARK: Authorization
+
 extension API {
 
+    // MARK: - Authorization
     func authorization(completion: @escaping () -> ()) {
         print("AUTHORIZATION")
         
@@ -162,7 +163,7 @@ extension API {
 
 // MARK: - Get Info
 extension API {
-    public func getMyInfo(completion: @escaping (Result<ProfileInfo, Error>) -> ()) {
+    public func getMyInfo(completion: @escaping (Result<String, Error>) -> ()) {
 
         if bearer == "" {
             getBearer()
@@ -177,6 +178,7 @@ extension API {
             do {
                 var myInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
                 
+                print("Api count = ", myInfo.projects_users.count)
                 let json = try JSONSerialization.jsonObject(with: data) as? NSDictionary
                 if let arr = json!["projects_users"] as? [NSDictionary] {
                     for i in 0..<arr.count {
@@ -187,7 +189,8 @@ extension API {
                     myInfo.passedExams = passedExams
                     DispatchQueue.main.async {
                         self.saveNewUserToDB(myInfo: myInfo) {
-                            completion(.success(myInfo))
+                            guard let login = myInfo.login else { return }
+                            completion(.success(login))
                         }
                     }
                 })
@@ -209,13 +212,14 @@ extension API {
             let passedExams = myInfo.passedExams
             else { return }
         
-        profileInfoDB.correction_point = Int16(corPoints)
-        profileInfoDB.first_name = myInfo.first_name
-        profileInfoDB.id = Int32(id)
-        profileInfoDB.image_url = myInfo.image_url
-        profileInfoDB.last_name = myInfo.last_name
-        profileInfoDB.location = myInfo.location
+        // Main info
         profileInfoDB.login = myInfo.login
+        profileInfoDB.first_name = myInfo.first_name
+        profileInfoDB.last_name = myInfo.last_name
+        profileInfoDB.id = Int32(id)
+        profileInfoDB.correction_point = Int16(corPoints)
+        profileInfoDB.image_url = myInfo.image_url
+        profileInfoDB.location = myInfo.location
         profileInfoDB.passedExams = Int16(passedExams)
         profileInfoDB.wallet = Int16(wallet)
         
@@ -266,17 +270,26 @@ extension API {
         projectUsers.forEach { (project) in
             let projectDB = ProjectUsersDB(context: context)
 
-            guard let mark = project?.final_mark,
-                let parent_id = project?.project?.parent_id,
-                let validated = project?.validated
-                else { return }
-
-            projectDB.final_mark = Int16(mark)
             projectDB.name = project?.project?.name
-            projectDB.parent_id = Int16(parent_id)
             projectDB.slug = project?.project?.slug
             projectDB.status = project?.status
-            projectDB.validated = validated == 0 ? false : true
+            
+            if let mark = project?.final_mark {
+                projectDB.final_mark = Int16(mark)
+            } else {
+                projectDB.final_mark = -1
+            }
+            if let parent_id = project?.project?.parent_id {
+                projectDB.parent_id = Int16(parent_id)
+            } else {
+                projectDB.parent_id = -1
+            }
+            if let validated = project?.validated {
+                projectDB.validated = validated == 0 ? false : true
+            } else {
+                projectDB.validated = false
+            }
+            
             profileInfoDB.addToProjectUsers(projectDB)
         }
 
