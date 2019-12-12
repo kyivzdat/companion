@@ -16,9 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        if let loginVC = window?.rootViewController as? LoginVC {
-            loginVC.profile = Profile()
-        }
+
         // Override point for customization after application launch.
         return true
     }

@@ -12,7 +12,6 @@ import CoreData
 class ProfileVC: UIViewController, UISearchBarDelegate {
 
     var resultSearchController: UISearchController?
-    var profile: Profile!
     var profileInfo: ProfileInfoDB?
     
     @IBOutlet weak var nameSurnameLabel: UILabel!
@@ -60,7 +59,7 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
             let users = try context.fetch(infoFetchRequest)
             profileInfo = users.first
 
-            print("🍏\n", profileInfo)
+            print("🍏\n", profileInfo ?? "")
 
         } catch {
             print("Error to fetch data from DB: ", error)
@@ -131,11 +130,11 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let navi = segue.destination as? UINavigationController {
-            if let vc = navi.viewControllers.first as? ProfileVC {
-                vc.profile = self.profile
-            }
-        }
+//        if let navi = segue.destination as? UINavigationController {
+//            if let vc = navi.viewControllers.first as? ProfileVC {
+//                vc.profile = self.profile
+//            }
+//        }
     }
 
     func alert(title: String, message: String) {
@@ -156,7 +155,7 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
 
     private func setupSearchController() {
         let tableView = storyboard?.instantiateViewController(withIdentifier: "TableVC") as! TableVC
-        tableView.profile = self.profile
+//        tableView.profile = self.profile
         resultSearchController = UISearchController(searchResultsController: tableView)
         resultSearchController?.searchResultsUpdater = tableView
         
@@ -223,19 +222,16 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
             guard let cursusUsersArray = profileInfo?.cursusUsers?.allObjects as? [CursusUsersDB] else { return 0 }
             return cursusUsersArray[0].skills?.count ?? 0
         case projectsTableView:
-            
-//            print("number of projectsTableView")
+
             guard let projects = profileInfo?.projectUsers?.allObjects as? [ProjectUsersDB] else { return 0 }
-//            print("counter = 0")
+
             var counter = 0
-            for (index, project) in projects.enumerated() {
-//                print(index)
+            for project in projects {
                 if filterForProjectTable(slug: project.slug ?? "") {
                     counter += 1
                 }
             }
-//            print("!!!count = ", projects.count)
-//            print("counter = ", counter)
+
             return counter
         default:
             return 0

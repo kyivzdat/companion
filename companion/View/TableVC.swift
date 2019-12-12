@@ -16,7 +16,7 @@ struct ParseProfile: Decodable {
 class TableVC: UITableViewController {
 
     var matchingLogins: [ParseProfile?] = []
-    var profile: Profile!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,15 +43,15 @@ extension TableVC: UISearchResultsUpdating {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if let tabBar = segue.destination as? UITabBarController {
-            tabBar.selectedIndex = 3
-            if let navi = tabBar.viewControllers?.first as? UINavigationController {
-                if let profileVC = navi.viewControllers[0] as? ProfileVC {
-                    profile.eventInfo = []
-                    profileVC.profile = self.profile
-                }
-            }
-        }
+//        if let tabBar = segue.destination as? UITabBarController {
+//            tabBar.selectedIndex = 3
+//            if let navi = tabBar.viewControllers?.first as? UINavigationController {
+//                if let profileVC = navi.viewControllers[0] as? ProfileVC {
+//                    profile.eventInfo = []
+//                    profileVC.profile = self.profile
+//                }
+//            }
+//        }
     }
 }
 
@@ -72,7 +72,6 @@ extension TableVC {
 
         if let userLogin = matchingLogins[indexPath.row]?.login {
             API.shared.getProfile(user: userLogin) { (profileInfo) in
-                self.profile.personInfo = profileInfo
                 self.performSegue(withIdentifier: "unwindSegue", sender: nil)
             }
         }

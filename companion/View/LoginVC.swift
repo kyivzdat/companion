@@ -12,7 +12,6 @@ import CoreData
 
 class LoginVC: UIViewController {
 
-    var profile: Profile!
     lazy var context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
 
     override func viewDidLoad() {
@@ -61,16 +60,4 @@ class LoginVC: UIViewController {
         })
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        if let tabBar = segue.destination as? UITabBarController {
-            if let navi = tabBar.viewControllers?[0] as? UINavigationController {
-                if let vc = navi.viewControllers[0] as? ProfileVC {
-                    profile.eventInfo.append("Event")
-                    vc.profile = profile
-
-                }
-            }
-        }
-    }
 }
