@@ -23,6 +23,7 @@
 		E1AAE5B923631AD60001E4FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1AAE5B723631AD60001E4FE /* LaunchScreen.storyboard */; };
 		E1AAE5C123631B5F0001E4FE /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5C023631B5F0001E4FE /* API.swift */; };
 		E1AAE5C3236337630001E4FE /* profileInfoStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5C2236337630001E4FE /* profileInfoStruct.swift */; };
+		E1EB72CC23A407920092ECA0 /* MainTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EB72CB23A407920092ECA0 /* MainTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		E1AAE5BA23631AD60001E4FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1AAE5C023631B5F0001E4FE /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		E1AAE5C2236337630001E4FE /* profileInfoStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileInfoStruct.swift; sourceTree = "<group>"; };
+		E1EB72CB23A407920092ECA0 /* MainTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				E15257AC2371A1DD00E87D32 /* Model */,
 				E15257AB2371A19D00E87D32 /* View */,
 				E15257AD2371A1E900E87D32 /* Controller */,
+				E1EB72CB23A407920092ECA0 /* MainTVC.swift */,
 				E1AAE5B223631ACF0001E4FE /* Main.storyboard */,
 				E1AAE5B523631AD60001E4FE /* Assets.xcassets */,
 				E1AAE5B723631AD60001E4FE /* LaunchScreen.storyboard */,
@@ -202,6 +205,7 @@
 				E120DCA223670FB600151F64 /* ProfileVC.swift in Sources */,
 				ACC5DBB6236B5A2B00C5CC1E /* TableVC.swift in Sources */,
 				E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */,
+				E1EB72CC23A407920092ECA0 /* MainTVC.swift in Sources */,
 				E1AAE5C123631B5F0001E4FE /* API.swift in Sources */,
 				AC9590D823806CB00028F567 /* projectUsersStructAPI.swift in Sources */,
 				E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */,

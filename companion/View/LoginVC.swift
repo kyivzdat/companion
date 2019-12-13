@@ -35,12 +35,14 @@ class LoginVC: UIViewController {
                 print("📅 Expired_at: ", NSDate(timeIntervalSince1970: TimeInterval(token.expires_at + 7200)))
                 print("📅 Current date: ", NSDate(timeIntervalSince1970: Date().timeIntervalSince1970 + 7200))
                 
-                if token.expires_at < Int64(Date().timeIntervalSince1970) {
+                // + 10 min (600 sec)
+                if token.expires_at + 600 < Int64(Date().timeIntervalSince1970) {
                     api.refreshToken {
                         self.performSegue(withIdentifier: "LoginSegue", sender: nil)
                     }
+                } else {
+                    self.performSegue(withIdentifier: "LoginSegue", sender: nil)
                 }
-                self.performSegue(withIdentifier: "LoginSegue", sender: nil)
             }
         } catch {
             print(error)

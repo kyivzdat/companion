@@ -100,7 +100,9 @@ extension API {
             guard let token = tokenArray.first else { return }
             print(token)
             updateTokenInfo(token: token) {
-                complition()
+                DispatchQueue.main.async {
+                    complition()
+                }
             }
         } catch {
             print(error)
@@ -131,6 +133,7 @@ extension API {
                       else { return }
             
                 self.bearer = newBearer
+                print("bearer = ", self.bearer)
                 let tokenUpdate = token as NSManagedObject
                 tokenUpdate.setValue(self.bearer,       forKey: "access_token")
                 tokenUpdate.setValue(created_at + 7200, forKey: "expires_at")

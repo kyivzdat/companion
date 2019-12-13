@@ -52,10 +52,14 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
         infoFetchRequest.predicate = NSPredicate(format: "login = %@", login)
         print("login - ", login)
         infoFetchRequest.returnsObjectsAsFaults = false
+        
+        let tokenRequest: NSFetchRequest<Token> = Token.fetchRequest()
+        tokenRequest.returnsObjectsAsFaults = false
 
         do {
 
-
+            let tokens = try context.fetch(tokenRequest)
+            print("Token\n", tokens.first ?? "")
             let users = try context.fetch(infoFetchRequest)
             profileInfo = users.first
 
