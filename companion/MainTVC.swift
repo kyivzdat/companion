@@ -26,6 +26,10 @@ class MainTVC: UITableViewController {
     @IBOutlet weak var walletLabel: UILabel!
     @IBOutlet weak var poolDateLabel: UILabel!
     
+    // Calendar
+    @IBOutlet weak var calendarsCollectionView: UICollectionView!
+    @IBOutlet weak var monthCV: UICollectionView!
+    
     var profileInfo: ProfileInfoDB?
     let context = (UIApplication.shared.delegate as? AppDelegate)?.coreDataStack.persistentContainer.viewContext
     
@@ -33,6 +37,8 @@ class MainTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        monthCV.dataSource = self
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
         guard fetchData() == true else { return }
         fillLabel()
         
@@ -92,5 +98,34 @@ class MainTVC: UITableViewController {
         countryCityLabel.text = country + ", " + city
         
         walletLabel.text = "Wallet: " + String(profileInfo?.wallet ?? -1) + "₳"
+    }
+}
+
+extension MainTVC: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == calendarsCollectionView {
+            return 1
+        } else if collectionView == monthCV {
+            return 31
+        }
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if collectionView == calendarsCollectionView {
+            guard let cell = monthCV.dequeueReusableCell(withReuseIdentifier: "monthCell", for: indexPath) as? MonthCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.monthCollectionView = monthCV
+            return cell
+        } else if collectionView == monthCV {
+            guard let cell = monthCV.dequeueReusableCell(withReuseIdentifier: "dayCell", for: indexPath) as? DayCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.dayLabel.text = String(indexPath.row + 1)
+            return cell
+        }
+        
+        return UICollectionViewCell()
     }
 }

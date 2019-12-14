@@ -13,6 +13,8 @@
 		E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F223846EC700A6A99E /* ProjectCell.swift */; };
 		E120DCA223670FB600151F64 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E120DCA123670FB600151F64 /* ProfileVC.swift */; };
 		E12852F32386B194000104EC /* SlotsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12852F22386B194000104EC /* SlotsVC.swift */; };
+		E129BDA923A53DC0000F5FFD /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129BDA823A53DC0000F5FFD /* DayCollectionViewCell.swift */; };
+		E129BDAB23A54EDF000F5FFD /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129BDAA23A54EDF000F5FFD /* MonthCollectionViewCell.swift */; };
 		E15257AF2371B17200E87D32 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15257AE2371B17200E87D32 /* Profile.swift */; };
 		E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */; };
 		E176F440239BF5480028766A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E176F43F239BF5480028766A /* CoreDataStack.swift */; };
@@ -28,17 +30,19 @@
 
 /* Begin PBXFileReference section */
 		AC9590D723806CB00028F567 /* projectUsersStructAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectUsersStructAPI.swift; sourceTree = "<group>"; };
-		ACC5DBB5236B5A2B00C5CC1E /* TableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableVC.swift; sourceTree = "<group>"; };
+		ACC5DBB5236B5A2B00C5CC1E /* TableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TableVC.swift; path = ../View/TableVC.swift; sourceTree = "<group>"; };
 		E10B01F023841B5600A6A99E /* SkillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCell.swift; sourceTree = "<group>"; };
 		E10B01F223846EC700A6A99E /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
-		E120DCA123670FB600151F64 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
-		E12852F22386B194000104EC /* SlotsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsVC.swift; sourceTree = "<group>"; };
+		E120DCA123670FB600151F64 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = ../View/ProfileVC.swift; sourceTree = "<group>"; };
+		E12852F22386B194000104EC /* SlotsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SlotsVC.swift; path = ../View/SlotsVC.swift; sourceTree = "<group>"; };
+		E129BDA823A53DC0000F5FFD /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		E129BDAA23A54EDF000F5FFD /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
 		E15257AE2371B17200E87D32 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompanionModel.xcdatamodel; sourceTree = "<group>"; };
 		E176F43F239BF5480028766A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E1AAE5AB23631ACE0001E4FE /* companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = companion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E1AAE5B023631ACE0001E4FE /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		E1AAE5B023631ACE0001E4FE /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = ../View/LoginVC.swift; sourceTree = "<group>"; };
 		E1AAE5B323631ACF0001E4FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E1AAE5B523631AD60001E4FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1AAE5B823631AD60001E4FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -62,12 +66,10 @@
 		E15257AB2371A19D00E87D32 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E1AAE5B023631ACE0001E4FE /* LoginVC.swift */,
-				ACC5DBB5236B5A2B00C5CC1E /* TableVC.swift */,
-				E120DCA123670FB600151F64 /* ProfileVC.swift */,
-				E12852F22386B194000104EC /* SlotsVC.swift */,
 				E10B01F023841B5600A6A99E /* SkillCell.swift */,
 				E10B01F223846EC700A6A99E /* ProjectCell.swift */,
+				E129BDA823A53DC0000F5FFD /* DayCollectionViewCell.swift */,
+				E129BDAA23A54EDF000F5FFD /* MonthCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -85,6 +87,10 @@
 		E15257AD2371A1E900E87D32 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E1AAE5B023631ACE0001E4FE /* LoginVC.swift */,
+				ACC5DBB5236B5A2B00C5CC1E /* TableVC.swift */,
+				E120DCA123670FB600151F64 /* ProfileVC.swift */,
+				E12852F22386B194000104EC /* SlotsVC.swift */,
 				E1AAE5C023631B5F0001E4FE /* API.swift */,
 			);
 			path = Controller;
@@ -200,10 +206,12 @@
 				E15257AF2371B17200E87D32 /* Profile.swift in Sources */,
 				E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */,
 				E1AAE5B123631ACE0001E4FE /* LoginVC.swift in Sources */,
+				E129BDAB23A54EDF000F5FFD /* MonthCollectionViewCell.swift in Sources */,
 				E12852F32386B194000104EC /* SlotsVC.swift in Sources */,
 				E176F440239BF5480028766A /* CoreDataStack.swift in Sources */,
 				E120DCA223670FB600151F64 /* ProfileVC.swift in Sources */,
 				ACC5DBB6236B5A2B00C5CC1E /* TableVC.swift in Sources */,
+				E129BDA923A53DC0000F5FFD /* DayCollectionViewCell.swift in Sources */,
 				E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */,
 				E1EB72CC23A407920092ECA0 /* MainTVC.swift in Sources */,
 				E1AAE5C123631B5F0001E4FE /* API.swift in Sources */,
