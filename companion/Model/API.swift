@@ -7,14 +7,14 @@
 //
 
 import Foundation
-import AuthenticationServices
 import CoreData
+import AuthenticationServices
 
 class API {
-
+    
     static let shared = API()
     
-    private var webAuthSession: ASWebAuthenticationSession?
+    var webAuthSession: ASWebAuthenticationSession?
     private let callbackURI = "companion://companion"
     private let UID = "c18f981eb10b97d638b8ecffa09a536e55d96a145895d3217234205f1a1682b6"
     private let secret = "2dc221791978c281af5bf914f3b690d66feea3469c79d1a8d3c217b23531f402"
@@ -24,85 +24,54 @@ class API {
     lazy var context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
     
     private init() {}
+    
 }
 
-
 extension API {
-
+    
     // MARK: - Authorization
-    func authorization(completion: @escaping () -> ()) {
+    func authorization(urlContext: Any?, completion: @escaping () -> ()) {
         print("AUTHORIZATION")
         
-        webAuthSession = ASWebAuthenticationSession(url:
-            URL(string: apiURL+"oauth/authorize?client_id=\(UID)&redirect_uri=\(callbackURI)&response_type=code&scope=public+forum+projects+profile+elearning+tig")!,
-            callbackURLScheme: callbackURI, completionHandler: { (url, error) in
+        let clientID    = "client_id=" + UID
+        let redirectURI = "&redirect_uri=" + callbackURI
+        let scope       = "scope=public+forum+projects+profile+elearning+tig"
+        
+        guard let url   = URL(string: apiURL + "oauth/authorize?" + clientID + redirectURI + "&response_type=code&" + scope) else { return print("bad url")}
+        
+        webAuthSession = ASWebAuthenticationSession(url: url,
+                                                    callbackURLScheme: callbackURI,
+                                                    completionHandler:
+            { (url, error) in
                 guard error == nil else { return print(error!)}
-                guard let url = url else { return }
+                guard let url = url, let urlQuery = url.query else { return print("Error. API. makeAuthReqeust()")}
+                
                 print("🍏 url", url)
-                self.getToken(token: url.query!, completion: { () in
+                
+                // Get Token
+                self.makeTokenRequest(tokenDB: nil, preAccessToken: urlQuery) {
                     completion()
-                })
+                }
+                
         })
+        
+        if #available(iOS 13.0, *), let urlContext = urlContext as? ASWebAuthenticationPresentationContextProviding {
+            self.webAuthSession?.presentationContextProvider = urlContext
+        }
+        
         webAuthSession?.start()
     }
     
-    private func getToken(token: String, completion: @escaping () -> ()) {
-        print("GET TOKEN")
-        
-        guard let url = NSURL(string: apiURL+"oauth/token") else { return }
-        
-        let request = NSMutableURLRequest(url: url as URL)
-        request.httpMethod = "POST"
-        request.httpBody = "grant_type=authorization_code&client_id=\(UID)&client_secret=\(secret)&\(token)&redirect_uri=\(callbackURI)".data(using: String.Encoding.utf8)
-        
-        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, error) in
-            
-            guard error == nil else { return print(error!) }
-            guard let data = data else { return }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data) as? NSDictionary
-                
-                guard json!["error"] == nil else { return print("", json!)}
-                self.bearer = json!["access_token"]! as! String
-                self.saveNewToken(json: json!) {
-                    completion()
-                }
-            } catch let error {
-                print("getToken error:\n", error)
-            }
-        }.resume()
-    }
-    
-    private func saveNewToken(json: NSDictionary, completion: @escaping() -> ()) {
-        DispatchQueue.main.async {
-            let token = Token(context: self.context)
-            token.access_token = json["access_token"]! as? String
-            token.expires_at = (json["created_at"]! as! Int64) + 7200
-            token.refresh_token = json["refresh_token"]! as? String
-            do {
-                try self.context.save()
-                print("Success save token! 👍")
-                completion()
-            } catch {
-                print("Fail to save token! 👎", error)
-            }
-        }
-        
-    }
-    
-    public func refreshToken(complition: @escaping () -> ()) {
-
+    //MARK: - Refresh Token
+    public func refreshToken(completion: @escaping () -> ()) {
         print("REFRESH TOKEN")
-        let fetchRequest: NSFetchRequest<Token> = Token.fetchRequest()
+        let fetchRequest: NSFetchRequest<TokenDB> = TokenDB.fetchRequest()
         do {
             let tokenArray = try context.fetch(fetchRequest)
             guard let token = tokenArray.first else { return }
-            print(token)
-            updateTokenInfo(token: token) {
-                DispatchQueue.main.async {
-                    complition()
-                }
+
+            self.makeTokenRequest(tokenDB: token, preAccessToken: "") {
+                completion()
             }
         } catch {
             print(error)
@@ -110,67 +79,91 @@ extension API {
         }
     }
     
-    private func updateTokenInfo(token: Token, complition: @escaping () -> ()) {
+    // MARK: - Token Request
+    func makeTokenRequest(tokenDB: TokenDB?, preAccessToken: String, completion: @escaping () -> ()) {
         
-        print("UPDATE TOKEN INFO")
+        print("makeTokenRequest")
         guard let url = NSURL(string: apiURL+"oauth/token") else { return }
         let request = NSMutableURLRequest(url: url as URL)
-        guard let refresh_token = token.refresh_token else { return }
-        
         request.httpMethod = "POST"
-        request.httpBody = "grant_type=refresh_token&client_id=\(UID)&client_secret=\(secret)&refresh_token=\(refresh_token)".data(using: String.Encoding.utf8)
+        
+        // httpBody
+        let grantType = "grant_type=" + ((tokenDB == nil) ? "authorization_code" : "refresh_token")
+        var httpBody = grantType + "&client_id=\(UID)" + "&client_secret=\(secret)"
+        
+        if tokenDB == nil {
+            httpBody += "&redirect_uri=\(callbackURI)&" + preAccessToken
+        } else {
+            httpBody += "&refresh_token=\(tokenDB?.refreshToken ?? "")"
+        }
+        
+        request.httpBody = httpBody.data(using: .utf8)
+        
+        guard let tokenDB = (tokenDB == nil) ? TokenDB(context: context) : tokenDB else { return print("Error. makeTokenRequest") }
         
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, error) in
+            
             guard error == nil else { return print(error!) }
             
             guard let data = data else { return }
             do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
                 
-                guard let newBearer = json["access_token"] as? String,
-                      let created_at = json["created_at"] as? Int64,
-                      let refresh_token = json["refresh_token"] as? String
-                      else { return }
-            
-                self.bearer = newBearer
-                print("bearer = ", self.bearer)
-                let tokenUpdate = token as NSManagedObject
-                tokenUpdate.setValue(self.bearer,       forKey: "access_token")
-                tokenUpdate.setValue(created_at + 7200, forKey: "expires_at")
-                tokenUpdate.setValue(refresh_token,     forKey: "refresh_token")
+                let tokenModel = try JSONDecoder().decode(Token.self, from: data)
                 
-                try self.context.save()
-                
-                print("Success to refresh token! 👍")
-                complition()
+                DispatchQueue.main.async {
+                    self.saveTokenInDB(tokenModel: tokenModel, tokenSaveInDB: tokenDB) {
+                        print(preAccessToken == "" ? "Success to refresh token! 👍" : "Success to save new token! 👍")
+                        completion()
+                    }
+                }
             } catch {
-                print("Fail to refresh token! 👎", error)
+                let message = preAccessToken == "" ? "Fail to refresh token! 👎\n" : "Fail to save new token! 👎\n"
+                print(message, error)
             }
         }.resume()
     }
     
-    private func getBearer() {
-        print("GET BEARER")
-        let fetchRequest: NSFetchRequest<Token> = Token.fetchRequest()
+    // MARK: - Save Token In DB
+    private func saveTokenInDB(tokenModel: Token, tokenSaveInDB tokenDB: TokenDB, completion: @escaping() -> ()) {
+        
+        guard let access = tokenModel.access_token,
+            let refresh = tokenModel.refresh_token,
+            let created = tokenModel.created_at else { return }
+        
+        self.bearer = access
+        tokenDB.accessToken = access
+        tokenDB.refreshToken = refresh
+        tokenDB.createdAt = created
+        tokenDB.expiresIn = created + 7200
+        
         do {
-            let tokenArray = try context.fetch(fetchRequest)
-            print("token: \n", tokenArray.first ?? "")
-            guard let access_token = tokenArray.first?.access_token else { return }
-            self.bearer = access_token
+            try self.context.save()
+            print("Success save token! 👍")
+            completion()
         } catch {
-            print(error)
+            print("Fail to save token! 👎", error)
         }
     }
     
-}
-
-// MARK: - Get Info
-extension API {
+    // MARK: - get Bearer
+    private func getBearer() {
+        print("GET BEARER")
+        let fetchRequest: NSFetchRequest<TokenDB> = TokenDB.fetchRequest()
+        do {
+            let tokenArray = try context.fetch(fetchRequest)
+            
+            print("token: \n", tokenArray.first ?? "")
+            
+            guard let accessToken = tokenArray.first?.accessToken else { return }
+            self.bearer = accessToken
+        } catch {
+            print("Error. getBearer\n", error)
+        }
+    }
+    
+    // MARK: - Get Info
     public func getMyInfo(completion: @escaping (Result<String, Error>) -> ()) {
 
-        if bearer == "" {
-            getBearer()
-        }
         guard let url = NSURL(string: apiURL+"/v2/me") else { return }
         
         let request = NSMutableURLRequest(url: url as URL)
@@ -182,12 +175,13 @@ extension API {
                 var myInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
                 
                 print("Api count = ", myInfo.projects_users.count)
-                let json = try JSONSerialization.jsonObject(with: data) as? NSDictionary
-                if let arr = json!["projects_users"] as? [NSDictionary] {
-                    for i in 0..<arr.count {
-                        myInfo.projects_users[i]?.validated = arr[i]["validated?"] as? Int
-                    }
-                }
+//                let json = try JSONSerialization.jsonObject(with: data) as? NSDictionary
+//                if let arr = json!["projects_users"] as? [NSDictionary] {
+//                    for i in 0..<arr.count {
+//                        myInfo.projects_users[i]?.validated = arr[i]["validated?"] as? Int
+//                    }
+//                }
+                
                 self.getDataOfProject(id: "11", userId: myInfo.id!, completion: { (passedExams) in
                     myInfo.passedExams = passedExams
                     DispatchQueue.main.async {
@@ -204,6 +198,7 @@ extension API {
         }.resume()
     }
     
+    // MARK: - Save User Info To DB
     private func saveNewUserToDB(myInfo: ProfileInfo, completion: @escaping() -> ()) {
         
         print("SAVE NEW USER TO DB\n")
@@ -243,26 +238,26 @@ extension API {
         let cursusUsers = myInfo.cursus_users
         cursusUsers.forEach { (cursus) in
             let cursusUsersDB = CursusUsersDB(context: context)
-
+            
             guard let cursus_id = cursus?.cursus_id,
                 let level = cursus?.level
                 else { return }
             cursusUsersDB.cursus_id = Int16(cursus_id)
             cursusUsersDB.level = level
-
-
+            
+            
             guard let skills = myInfo.cursus_users[0]?.skills else { return }
             skills.forEach { (skill) in
                 let skillsDB = SkillsDB(context: context)
-
+                
                 guard let skillId = skill?.id,
                     let skillLevel = skill?.level
                     else { return }
-
+                
                 skillsDB.id = Int16(skillId)
                 skillsDB.level = skillLevel
                 skillsDB.name = skill?.name
-
+                
                 cursusUsersDB.addToSkills(skillsDB)
             }
             profileInfoDB.addToCursusUsers(cursusUsersDB)
@@ -272,7 +267,7 @@ extension API {
         let projectUsers = myInfo.projects_users
         projectUsers.forEach { (project) in
             let projectDB = ProjectUsersDB(context: context)
-
+            
             projectDB.name = project?.project?.name
             projectDB.slug = project?.project?.slug
             projectDB.status = project?.status
@@ -294,11 +289,12 @@ extension API {
             }
             
             profileInfoDB.addToProjectUsers(projectDB)
+            
         }
-
+        
         do {
             try context.save()
-            print("Succes to save myInfo first time! 👍")
+            print("Success to save myInfo first time! 👍")
             completion()
         } catch {
             print("Fail to save myInfo first time! 👎", error)
@@ -337,15 +333,15 @@ extension API {
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
             guard let data = data else { return print("data error") }
             do {
-//                let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
-//                print("🏋️‍♀️\n", json ?? "nil")
+                //                let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
+                //                print("🏋️‍♀️\n", json ?? "nil")
                 let profileInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
                 DispatchQueue.main.async {
                     completion(profileInfo)
                 }
             } catch {
                 print("do catch\n", error)
-                ProfileVC().alert(title: "Error", message: "Человечка не найти")
+                ProfileVC.alert(title: "Error", message: "Человечка не найти")
                 return
             }
         }.resume()
@@ -368,8 +364,8 @@ extension API {
 }
 
 
-//Mark: Slots
 extension API {
+    //MARK: - Get Slots
     public func getSlots() {
         guard let url = NSURL(string: apiURL+"/v2/slots") else { return }
         

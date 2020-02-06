@@ -28,7 +28,6 @@ class MainTVC: UITableViewController {
     
     // Calendar
     @IBOutlet weak var calendarsCollectionView: UICollectionView!
-    @IBOutlet weak var monthCV: UICollectionView!
     
     var profileInfo: ProfileInfoDB?
     let context = (UIApplication.shared.delegate as? AppDelegate)?.coreDataStack.persistentContainer.viewContext
@@ -37,7 +36,7 @@ class MainTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        monthCV.dataSource = self
+//        calendarsCollectionView.dataSource = self
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         guard fetchData() == true else { return }
         fillLabel()
@@ -51,7 +50,13 @@ class MainTVC: UITableViewController {
         let profileFetchRequest: NSFetchRequest<ProfileInfoDB> = ProfileInfoDB.fetchRequest()
         profileFetchRequest.predicate = NSPredicate(format: "login = %@", login)
         
+        let tokenFetchRequest: NSFetchRequest<TokenDB> = TokenDB.fetchRequest()
+        tokenFetchRequest.returnsObjectsAsFaults = false
+        
         do {
+            let token = try context?.fetch(tokenFetchRequest)
+            print(token?.first)
+            
             let profiles = try context?.fetch(profileFetchRequest)
             self.profileInfo = profiles?.first
             print("Successfully fetch profileInfo! 👍")
@@ -105,9 +110,7 @@ extension MainTVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == calendarsCollectionView {
-            return 1
-        } else if collectionView == monthCV {
-            return 31
+            return 3
         }
         return 0
     }
@@ -115,14 +118,12 @@ extension MainTVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == calendarsCollectionView {
-            guard let cell = monthCV.dequeueReusableCell(withReuseIdentifier: "monthCell", for: indexPath) as? MonthCollectionViewCell else { return UICollectionViewCell() }
-            
-            cell.monthCollectionView = monthCV
-            return cell
-        } else if collectionView == monthCV {
-            guard let cell = monthCV.dequeueReusableCell(withReuseIdentifier: "dayCell", for: indexPath) as? DayCollectionViewCell else { return UICollectionViewCell() }
-            
-            cell.dayLabel.text = String(indexPath.row + 1)
+            guard let cell = calendarsCollectionView.dequeueReusableCell(withReuseIdentifier: "calendarsCell", for: indexPath) as? CalendarsCollectionViewCell else { return UICollectionViewCell() }
+//            cell.topAnchor.constraint(equalTo: collectionView.topAnchor, constant: 0).isActive = true
+//            cell.translatesAutoresizingMaskIntoConstraints = false
+//            cell.heightAnchor.constraint(equalTo: collectionView.heightAnchor, constant: 0).isActive = true
+//            cell.widthAnchor.constraint(equalTo: collectionView.widthAnchor, constant: 0).isActive = true
+//            cell.monthCollectionView = monthCV
             return cell
         }
         

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CampusDB" representedClassName="CampusDB" syncable="YES" codeGenerationType="class">
+        <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="country" optional="YES" attributeType="String"/>
+        <attribute name="facebook" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="website" optional="YES" attributeType="String"/>
+        <relationship name="profileInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProfileInfoDB" inverseName="campus" inverseEntity="ProfileInfoDB"/>
+    </entity>
+    <entity name="CursusUsersDB" representedClassName="CursusUsersDB" syncable="YES" codeGenerationType="class">
+        <attribute name="cursus_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="level" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="profileInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProfileInfoDB" inverseName="cursusUsers" inverseEntity="ProfileInfoDB"/>
+        <relationship name="skills" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SkillsDB" inverseName="cursusUsers" inverseEntity="SkillsDB"/>
+    </entity>
+    <entity name="ProfileInfoDB" representedClassName="ProfileInfoDB" syncable="YES" codeGenerationType="class">
+        <attribute name="correction_point" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="first_name" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="image_url" optional="YES" attributeType="String"/>
+        <attribute name="last_name" optional="YES" attributeType="String"/>
+        <attribute name="location" optional="YES" attributeType="String"/>
+        <attribute name="login" optional="YES" attributeType="String"/>
+        <attribute name="passedExams" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="wallet" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="campus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CampusDB" inverseName="profileInfo" inverseEntity="CampusDB"/>
+        <relationship name="cursusUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CursusUsersDB" inverseName="profileInfo" inverseEntity="CursusUsersDB"/>
+        <relationship name="projectUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProjectUsersDB" inverseName="profileInfo" inverseEntity="ProjectUsersDB"/>
+    </entity>
+    <entity name="ProjectUsersDB" representedClassName="ProjectUsersDB" syncable="YES" codeGenerationType="class">
+        <attribute name="final_mark" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="parent_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="slug" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="validated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="profileInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProfileInfoDB" inverseName="projectUsers" inverseEntity="ProfileInfoDB"/>
+    </entity>
+    <entity name="SkillsDB" representedClassName="SkillsDB" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="level" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="cursusUsers" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CursusUsersDB" inverseName="skills" inverseEntity="CursusUsersDB"/>
+    </entity>
+    <entity name="TokenDB" representedClassName="TokenDB" syncable="YES" codeGenerationType="class">
+        <attribute name="accessToken" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="expiresIn" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="refreshToken" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="CampusDB" positionX="72.5390625" positionY="39.8125" width="128" height="148"/>
+        <element name="CursusUsersDB" positionX="73.140625" positionY="207.9140625" width="128" height="103"/>
+        <element name="ProfileInfoDB" positionX="-230.734375" positionY="87.97265625" width="128" height="223"/>
+        <element name="ProjectUsersDB" positionX="69.39453125" positionY="358.16796875" width="128" height="148"/>
+        <element name="SkillsDB" positionX="246.671875" positionY="207.85546875" width="128" height="105"/>
+        <element name="TokenDB" positionX="-231.92578125" positionY="-115.97265625" width="128" height="103"/>
+    </elements>
+</model>

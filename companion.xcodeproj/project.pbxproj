@@ -9,15 +9,17 @@
 /* Begin PBXBuildFile section */
 		AC9590D823806CB00028F567 /* projectUsersStructAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9590D723806CB00028F567 /* projectUsersStructAPI.swift */; };
 		ACC5DBB6236B5A2B00C5CC1E /* TableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC5DBB5236B5A2B00C5CC1E /* TableVC.swift */; };
+		E105469823EC52F6005F5593 /* newModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105469723EC52F6005F5593 /* newModel.swift */; };
 		E10B01F123841B5600A6A99E /* SkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F023841B5600A6A99E /* SkillCell.swift */; };
 		E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F223846EC700A6A99E /* ProjectCell.swift */; };
 		E120DCA223670FB600151F64 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E120DCA123670FB600151F64 /* ProfileVC.swift */; };
 		E12852F32386B194000104EC /* SlotsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12852F22386B194000104EC /* SlotsVC.swift */; };
-		E129BDA923A53DC0000F5FFD /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129BDA823A53DC0000F5FFD /* DayCollectionViewCell.swift */; };
-		E129BDAB23A54EDF000F5FFD /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129BDAA23A54EDF000F5FFD /* MonthCollectionViewCell.swift */; };
+		E129BDAB23A54EDF000F5FFD /* CalendarsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129BDAA23A54EDF000F5FFD /* CalendarsCollectionViewCell.swift */; };
 		E15257AF2371B17200E87D32 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15257AE2371B17200E87D32 /* Profile.swift */; };
 		E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */; };
 		E176F440239BF5480028766A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E176F43F239BF5480028766A /* CoreDataStack.swift */; };
+		E1A79E8823EAAE060022C633 /* DecodableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A79E8723EAAE060022C633 /* DecodableModel.swift */; };
+		E1A79E8A23EB2B5A0022C633 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A79E8923EB2B5A0022C633 /* UserProfileVC.swift */; };
 		E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */; };
 		E1AAE5B123631ACE0001E4FE /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5B023631ACE0001E4FE /* LoginVC.swift */; };
 		E1AAE5B423631ACF0001E4FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1AAE5B223631ACF0001E4FE /* Main.storyboard */; };
@@ -31,15 +33,17 @@
 /* Begin PBXFileReference section */
 		AC9590D723806CB00028F567 /* projectUsersStructAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectUsersStructAPI.swift; sourceTree = "<group>"; };
 		ACC5DBB5236B5A2B00C5CC1E /* TableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TableVC.swift; path = ../View/TableVC.swift; sourceTree = "<group>"; };
+		E105469723EC52F6005F5593 /* newModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newModel.swift; sourceTree = "<group>"; };
 		E10B01F023841B5600A6A99E /* SkillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCell.swift; sourceTree = "<group>"; };
 		E10B01F223846EC700A6A99E /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		E120DCA123670FB600151F64 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = ../View/ProfileVC.swift; sourceTree = "<group>"; };
 		E12852F22386B194000104EC /* SlotsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SlotsVC.swift; path = ../View/SlotsVC.swift; sourceTree = "<group>"; };
-		E129BDA823A53DC0000F5FFD /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
-		E129BDAA23A54EDF000F5FFD /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
+		E129BDAA23A54EDF000F5FFD /* CalendarsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarsCollectionViewCell.swift; sourceTree = "<group>"; };
 		E15257AE2371B17200E87D32 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompanionModel.xcdatamodel; sourceTree = "<group>"; };
 		E176F43F239BF5480028766A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		E1A79E8723EAAE060022C633 /* DecodableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableModel.swift; sourceTree = "<group>"; };
+		E1A79E8923EB2B5A0022C633 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		E1AAE5AB23631ACE0001E4FE /* companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = companion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1AAE5B023631ACE0001E4FE /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = ../View/LoginVC.swift; sourceTree = "<group>"; };
@@ -68,8 +72,7 @@
 			children = (
 				E10B01F023841B5600A6A99E /* SkillCell.swift */,
 				E10B01F223846EC700A6A99E /* ProjectCell.swift */,
-				E129BDA823A53DC0000F5FFD /* DayCollectionViewCell.swift */,
-				E129BDAA23A54EDF000F5FFD /* MonthCollectionViewCell.swift */,
+				E129BDAA23A54EDF000F5FFD /* CalendarsCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -77,9 +80,12 @@
 		E15257AC2371A1DD00E87D32 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */,
 				E1AAE5C2236337630001E4FE /* profileInfoStruct.swift */,
 				E15257AE2371B17200E87D32 /* Profile.swift */,
 				AC9590D723806CB00028F567 /* projectUsersStructAPI.swift */,
+				E1A79E8723EAAE060022C633 /* DecodableModel.swift */,
+				E1AAE5C023631B5F0001E4FE /* API.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -88,10 +94,10 @@
 			isa = PBXGroup;
 			children = (
 				E1AAE5B023631ACE0001E4FE /* LoginVC.swift */,
+				E1EB72CB23A407920092ECA0 /* MainTVC.swift */,
 				ACC5DBB5236B5A2B00C5CC1E /* TableVC.swift */,
 				E120DCA123670FB600151F64 /* ProfileVC.swift */,
 				E12852F22386B194000104EC /* SlotsVC.swift */,
-				E1AAE5C023631B5F0001E4FE /* API.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -99,6 +105,7 @@
 		E1AAE5A223631ACE0001E4FE = {
 			isa = PBXGroup;
 			children = (
+				E1A79E8923EB2B5A0022C633 /* UserProfileVC.swift */,
 				E1AAE5AD23631ACE0001E4FE /* companion */,
 				E1AAE5AC23631ACE0001E4FE /* Products */,
 			);
@@ -115,14 +122,13 @@
 		E1AAE5AD23631ACE0001E4FE /* companion */ = {
 			isa = PBXGroup;
 			children = (
-				E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */,
 				E176F43F239BF5480028766A /* CoreDataStack.swift */,
 				E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */,
 				E15257AC2371A1DD00E87D32 /* Model */,
 				E15257AB2371A19D00E87D32 /* View */,
 				E15257AD2371A1E900E87D32 /* Controller */,
-				E1EB72CB23A407920092ECA0 /* MainTVC.swift */,
 				E1AAE5B223631ACF0001E4FE /* Main.storyboard */,
+				E105469723EC52F6005F5593 /* newModel.swift */,
 				E1AAE5B523631AD60001E4FE /* Assets.xcassets */,
 				E1AAE5B723631AD60001E4FE /* LaunchScreen.storyboard */,
 				E1AAE5BA23631AD60001E4FE /* Info.plist */,
@@ -204,18 +210,20 @@
 				E1AAE5C3236337630001E4FE /* profileInfoStruct.swift in Sources */,
 				E10B01F123841B5600A6A99E /* SkillCell.swift in Sources */,
 				E15257AF2371B17200E87D32 /* Profile.swift in Sources */,
+				E1A79E8823EAAE060022C633 /* DecodableModel.swift in Sources */,
 				E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */,
 				E1AAE5B123631ACE0001E4FE /* LoginVC.swift in Sources */,
-				E129BDAB23A54EDF000F5FFD /* MonthCollectionViewCell.swift in Sources */,
+				E129BDAB23A54EDF000F5FFD /* CalendarsCollectionViewCell.swift in Sources */,
 				E12852F32386B194000104EC /* SlotsVC.swift in Sources */,
 				E176F440239BF5480028766A /* CoreDataStack.swift in Sources */,
 				E120DCA223670FB600151F64 /* ProfileVC.swift in Sources */,
 				ACC5DBB6236B5A2B00C5CC1E /* TableVC.swift in Sources */,
-				E129BDA923A53DC0000F5FFD /* DayCollectionViewCell.swift in Sources */,
 				E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */,
+				E105469823EC52F6005F5593 /* newModel.swift in Sources */,
 				E1EB72CC23A407920092ECA0 /* MainTVC.swift in Sources */,
 				E1AAE5C123631B5F0001E4FE /* API.swift in Sources */,
 				AC9590D823806CB00028F567 /* projectUsersStructAPI.swift in Sources */,
+				E1A79E8A23EB2B5A0022C633 /* UserProfileVC.swift in Sources */,
 				E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -365,6 +373,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZBUR45N368;
 				INFOPLIST_FILE = companion/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -383,6 +392,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZBUR45N368;
 				INFOPLIST_FILE = companion/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -8,12 +8,12 @@
 
 import Foundation
 
-class Profile {
-
-    var isMyProfile: Bool {
-        return !(eventInfo.isEmpty)
-    }
-    var myInfo:        ProfileInfo?
-    var personInfo:    ProfileInfo?
-    var eventInfo:     [String] = []
-}
+//class Profile {
+//
+//    var isMyProfile: Bool {
+//        return !(eventInfo.isEmpty)
+//    }
+//    var myInfo:        ProfileInfo?
+//    var personInfo:    ProfileInfo?
+//    var eventInfo:     [String] = []
+//}

@@ -8,15 +8,15 @@
 
 import Foundation
 
-struct ProjectsUsers: Decodable {
-    var status: String?
-    var project: Project?
-    var final_mark: Int?
-    var validated: Int?
-}
-
-struct Project: Decodable {
-    var name: String?
-    var parent_id: Int?
-    var slug: String?
-}
+//struct ProjectsUsers: Decodable {
+//    var status: String?
+//    var project: Project?
+//    var final_mark: Int?
+//    var validated: Int?
+//}
+//
+//struct Project: Decodable {
+//    var name: String?
+//    var parent_id: Int?
+//    var slug: String?
+//}

@@ -53,7 +53,7 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
         print("login - ", login)
         infoFetchRequest.returnsObjectsAsFaults = false
         
-        let tokenRequest: NSFetchRequest<Token> = Token.fetchRequest()
+        let tokenRequest: NSFetchRequest<TokenDB> = TokenDB.fetchRequest()
         tokenRequest.returnsObjectsAsFaults = false
 
         do {
@@ -141,7 +141,7 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
 //        }
     }
 
-    func alert(title: String, message: String) {
+    static func alert(title: String, message: String) {
         
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
@@ -151,6 +151,7 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
 //            UIApplication.topViewController()?.view.addSubview(UIView())
 //            turn off "animated:" for fix constraints
             UIApplication.topViewController()?.present(alert, animated: true)
+            UIApplication.topViewController()
         }
     }
 
@@ -168,7 +169,6 @@ class ProfileVC: UIViewController, UISearchBarDelegate {
         resultSearchController?.searchBar.placeholder = "Search a user"
         
         resultSearchController?.hidesNavigationBarDuringPresentation = false
-        resultSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
 //        navigationItem.searchController = resultSearchController
     }
