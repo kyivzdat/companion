@@ -11,8 +11,8 @@ import AuthenticationServices
 import CoreData
 
 /*
-Part-I  Time    id=1650 (dude who passed - mpillet)
-Part-II Time    id=1656 (all users status="in_progress")
+PartTime-I      id=1650 (dude who passed - mpillet)
+PartTime-II     id=1656 (all users status="in_progress")
 */
 
 class LoginVC: UIViewController {
@@ -28,13 +28,13 @@ class LoginVC: UIViewController {
     @IBAction func loginButton(_ sender: UIButton) {
         let api = API.shared
         
-        let fetchRequest: NSFetchRequest<TokenDB> = TokenDB.fetchRequest()
-        var tokenArray: [TokenDB] = []
-        do {
-            tokenArray = try context.fetch(fetchRequest)
-        } catch {
-            print(error)
-        }
+//        let fetchRequest: NSFetchRequest<TokenDB> = TokenDB.fetchRequest()
+//        var tokenArray: [TokenDB] = []
+//        do {
+//            tokenArray = try context.fetch(fetchRequest)
+//        } catch {
+//            print(error)
+//        }
         
         // If first launch
 //        if tokenArray.isEmpty {
@@ -60,7 +60,7 @@ class LoginVC: UIViewController {
     }
     
     private func getInfo() {
-        API.shared.getProfileInfo(userLogin: "me") { (result) in
+        API.shared.getProfileInfo(userLogin: "mpillet") { (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userData):
