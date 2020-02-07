@@ -39,7 +39,7 @@ struct UserData: Decodable {
     let patroned: [Patroned]?
     let phone, poolMonth: String?
     let poolYear: String?
-    let projectsUsers: [ProjectsUser]?
+    var projectsUsers: [ProjectsUser]?
     let staff: Bool?
     let url: String?
     let wallet: Int?
@@ -227,6 +227,7 @@ struct ProjectsUser: Decodable {
     let project: Cursus?
     let retriableAt, status: String?
     let validated: Bool?
+    let teams: [Team]?
 
     enum CodingKeys: String, CodingKey {
         case currentTeamID = "current_team_id"
@@ -239,5 +240,56 @@ struct ProjectsUser: Decodable {
         case retriableAt = "retriable_at"
         case status
         case validated = "validated?"
+        case teams
+    }
+    
+    struct Team: Decodable {
+        let id: Int?
+        let name: String?
+        let url: String?
+        let finalMark, projectID: Int?
+        let createdAt, updatedAt, status: String?
+//        let terminatingAt: JSONNull?
+        let users: [UserElement]?
+        let locked, validated, closed: Bool?
+//        let repoURL: JSONNull?
+        let repoUUID, lockedAt, closedAt: String?
+        let projectSessionID: Int?
+//        let projectGitlabPath: JSONNull?
+
+        enum CodingKeys: String, CodingKey {
+            case id, name, url
+            case finalMark = "final_mark"
+            case projectID = "project_id"
+            case createdAt = "created_at"
+            case updatedAt = "updated_at"
+            case status
+//            case terminatingAt = "terminating_at"
+            case users
+            case locked = "locked?"
+            case validated = "validated?"
+            case closed = "closed?"
+//            case repoURL = "repo_url"
+            case repoUUID = "repo_uuid"
+            case lockedAt = "locked_at"
+            case closedAt = "closed_at"
+            case projectSessionID = "project_session_id"
+//            case projectGitlabPath = "project_gitlab_path"
+        }
+        
+        struct UserElement: Codable {
+            let id: Int?
+            let login: String?
+            let url: String?
+            let leader: Bool?
+            let occurrence: Int?
+            let validated: Bool?
+            let projectsUserID: Int?
+
+            enum CodingKeys: String, CodingKey {
+                case id, login, url, leader, occurrence, validated
+                case projectsUserID = "projects_user_id"
+            }
+        }
     }
 }

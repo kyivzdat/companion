@@ -148,8 +148,10 @@ extension API {
     }
     
     // MARK: - Get Info
-    public func getProfileInfo(userLogin login: String, completion: @escaping (Result<String, Error>) -> ()) {
+    public func getProfileInfo(userLogin: String, completion: @escaping (Result<UserData, Error>) -> ()) {
 
+        let login = (userLogin == "me") ? userLogin : "users/" + userLogin
+        
         guard let url = NSURL(string: apiURL+"/v2/"+login) else { return }
         
         let request = NSMutableURLRequest(url: url as URL)
@@ -158,13 +160,17 @@ extension API {
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
             guard let data = data else { return }
             do {
-                let myInfo = try JSONDecoder().decode(UserData.self, from: data)
+                var userData = try JSONDecoder().decode(UserData.self, from: data)
                 
                 let examsId = "11"
-                self.getDataOfProject(id: examsId, userID: myInfo.id!, completion: { (passedExams) in
-                    DispatchQueue.main.async {
-                        completion(.success(myInfo.login ?? ""))
-                    }
+                self.getDataOfProject(id: examsId, userID: userData.id!, completion: { (passedExams) in
+//                    DispatchQueue.main.async {
+                        guard let passedExams = passedExams.first else { return print("Error. API. getProfileInfo(). No data of exams") }
+                        if let index = userData.projectsUsers?.firstIndex(where: { $0.project?.id == 11 }) {
+                            userData.projectsUsers?[index] = passedExams
+                        }
+                        completion(.success(userData))
+//                    }
                 })
             } catch {
                 completion(.failure(error))
@@ -278,8 +284,8 @@ extension API {
     
     
     // MARK: - Get Data of Project
-    public func getDataOfProject(id: String, userID: Int, completion: @escaping(Int) -> ()) {
-        let urlString = API.shared.apiURL+"/v2/projects_users?filter[project_id]=\(id)&user_id=\(userID)" //project_id = 212, 118
+    public func getDataOfProject(id: String, userID: Int, completion: @escaping([ProjectsUser]) -> ()) {
+        let urlString = API.shared.apiURL+"/v2/projects_users?filter[project_id]=\(id)&user_id=\(userID)"
         guard let url = NSURL(string: urlString) else { return }
         let request = NSMutableURLRequest(url: url as URL)
         request.setValue("Bearer " + API.shared.bearer, forHTTPHeaderField: "Authorization")
@@ -287,15 +293,9 @@ extension API {
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
             guard let data = data else { return }
             do {
-                let json = try JSONSerialization.jsonObject(with: data) as? [NSDictionary]
-                let teams = json![0]["teams"] as! [NSDictionary]
-                var passedExams = 0
-                teams.forEach({ (i) in
-                    if i["validated?"] as? Int == 1 {
-                        passedExams += 1
-                    }
-                })
-                completion(passedExams)
+                let projectDecode = try JSONDecoder().decode([ProjectsUser].self, from: data)
+
+                completion(projectDecode)
             } catch {
                 print(error.localizedDescription)
                 return

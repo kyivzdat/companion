@@ -27,19 +27,79 @@ class UserProfileVC: UITableViewController {
     @IBOutlet var examsImageViews: Array<UIImageView>!
     
     // Level outlet
-    @IBOutlet weak var level: UILabel!
+    @IBOutlet weak var levelLabel: UILabel!
     @IBOutlet weak var levelProgressView: UIProgressView!
     
     // All bg views
     @IBOutlet var bgViews: Array<UIView>!
     
-    
-    
-    
+    // MARK: - Passed Data from Login VC
+    var userData: UserData!
     
     // MARK: - view Did load
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        //Image
+//        #colorLiteral(red: 0.003921568627, green: 0.7294117647, blue: 0.737254902, alpha: 1)
+        fullName.text = userData.displayname
+        login.text = userData.login
+        correctionPoints.text = "Correction points: " + String(userData.correctionPoint ?? 0)
+        wallet.text = "Wallet " + String(userData.wallet ?? 0) + "₳"
+        if let poolMonth = userData.poolMonth, let poolYear = userData.poolYear {
+            yearOfpool.text = poolMonth + ", " + poolYear
+        }
+        isAvailableLabel.text = userData.location
+        
+        // Level
+        if let indexOfCursus = userData.cursusUsers?.firstIndex(where: { $0.cursusID == 1 }),
+            let level = userData.cursusUsers?[indexOfCursus].level {
+            levelLabel.text = String(level)
+            let progress = Float(Double(level) - Double(Int(level)))
+            levelProgressView.progress = progress
+        }
+        
+        // Exams
+        if let indexOfExams = userData.projectsUsers?.firstIndex(where: { $0.project?.id == 11 }),
+            let exams = self.userData.projectsUsers?[indexOfExams] {
+            
+            let passedImage =       UIImage(named: "passedExam")
+//            let notPassedImage =    UIImage(named: "notPassedExam")
+            
+            if exams.validated == true {
+                examsImageViews.forEach { (examViewImage) in
+                    examViewImage.image = passedImage
+                }
+            } else {
+                var counter = 0
+                exams.teams?.forEach({ (team) in
+                    if team.validated == true {
+                        examsImageViews[counter].image = passedImage
+                        counter += 1
+                    }
+                })
+            }
+        }
+        
+        // Internships
+        
+        if let indexOfFirstInternShip = userData.projectsUsers?.firstIndex(where: { $0.project?.id == 120 }),
+            self.userData.projectsUsers?[indexOfFirstInternShip].validated == true {
+            
+            self.internshipImageViews.first?.image = UIImage(named: "internshipPassed")
+        }
+        
+        if let indexOfFinalInternShip = userData.projectsUsers?.firstIndex(where: { $0.project?.id == 1650 }),
+            self.userData.projectsUsers?[indexOfFinalInternShip].validated == true {
+            
+            self.internshipImageViews[1].image = UIImage(named: "internshipPassed")
+        }
+        
+        if let indexOfFinalInternShip = userData.projectsUsers?.firstIndex(where: { $0.project?.id == 212 }),
+            self.userData.projectsUsers?[indexOfFinalInternShip].validated == true {
+            
+            self.internshipImageViews.last?.image = UIImage(named: "internshipPassed")
+        }
         
         
         bgViews.forEach { (view) in
@@ -51,6 +111,4 @@ class UserProfileVC: UITableViewController {
         }
         tableView.tableFooterView = UIView(frame: .zero)
     }
-
-
 }
