@@ -71,9 +71,9 @@ extension TableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         if let userLogin = matchingLogins[indexPath.row]?.login {
-            API.shared.getProfile(user: userLogin) { (profileInfo) in
-                self.performSegue(withIdentifier: "unwindSegue", sender: nil)
-            }
+//            API.shared.getProfile(user: userLogin) { (profileInfo) in
+//                self.performSegue(withIdentifier: "unwindSegue", sender: nil)
+//            }
         }
     }
 }

@@ -18,6 +18,7 @@
 		E15257AF2371B17200E87D32 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15257AE2371B17200E87D32 /* Profile.swift */; };
 		E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */; };
 		E176F440239BF5480028766A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E176F43F239BF5480028766A /* CoreDataStack.swift */; };
+		E19E1DE423ED34E8006F3594 /* JSONme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19E1DE323ED34E8006F3594 /* JSONme.swift */; };
 		E1A79E8823EAAE060022C633 /* DecodableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A79E8723EAAE060022C633 /* DecodableModel.swift */; };
 		E1A79E8A23EB2B5A0022C633 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A79E8923EB2B5A0022C633 /* UserProfileVC.swift */; };
 		E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */; };
@@ -42,6 +43,7 @@
 		E15257AE2371B17200E87D32 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompanionModel.xcdatamodel; sourceTree = "<group>"; };
 		E176F43F239BF5480028766A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		E19E1DE323ED34E8006F3594 /* JSONme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONme.swift; sourceTree = "<group>"; };
 		E1A79E8723EAAE060022C633 /* DecodableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableModel.swift; sourceTree = "<group>"; };
 		E1A79E8923EB2B5A0022C633 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		E1AAE5AB23631ACE0001E4FE /* companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = companion.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +88,7 @@
 				AC9590D723806CB00028F567 /* projectUsersStructAPI.swift */,
 				E1A79E8723EAAE060022C633 /* DecodableModel.swift */,
 				E1AAE5C023631B5F0001E4FE /* API.swift */,
+				E19E1DE323ED34E8006F3594 /* JSONme.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */,
 				E105469823EC52F6005F5593 /* newModel.swift in Sources */,
 				E1EB72CC23A407920092ECA0 /* MainTVC.swift in Sources */,
+				E19E1DE423ED34E8006F3594 /* JSONme.swift in Sources */,
 				E1AAE5C123631B5F0001E4FE /* API.swift in Sources */,
 				AC9590D823806CB00028F567 /* projectUsersStructAPI.swift in Sources */,
 				E1A79E8A23EB2B5A0022C633 /* UserProfileVC.swift in Sources */,

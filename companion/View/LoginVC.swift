@@ -30,6 +30,8 @@ class LoginVC: UIViewController {
             print(error)
         }
         
+        //MARK: - TODO login in UserDefaults
+        
         // If first launch
         if tokenArray.isEmpty {
             
@@ -54,7 +56,7 @@ class LoginVC: UIViewController {
     }
     
     private func getInfo() {
-        API.shared.getMyInfo(completion: { (result) in
+        API.shared.getProfileInfo(userLogin: "me") { (result) in
             switch result {
             case .success(let login):
                 let userDefaults = UserDefaults.standard
@@ -63,7 +65,7 @@ class LoginVC: UIViewController {
             case .failure(let error):
                 print("Failed to fetch self info: ", error)
             }
-        })
+        }
     }
     
 }

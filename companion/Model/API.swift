@@ -15,16 +15,15 @@ class API {
     static let shared = API()
     
     var webAuthSession: ASWebAuthenticationSession?
+    private let apiURL = "https://api.intra.42.fr/"
     private let callbackURI = "companion://companion"
     private let UID = "c18f981eb10b97d638b8ecffa09a536e55d96a145895d3217234205f1a1682b6"
     private let secret = "2dc221791978c281af5bf914f3b690d66feea3469c79d1a8d3c217b23531f402"
-    private let apiURL = "https://api.intra.42.fr/"
     private var bearer = ""
     
     lazy var context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
     
     private init() {}
-    
 }
 
 extension API {
@@ -52,7 +51,6 @@ extension API {
                 self.makeTokenRequest(tokenDB: nil, preAccessToken: urlQuery) {
                     completion()
                 }
-                
         })
         
         if #available(iOS 13.0, *), let urlContext = urlContext as? ASWebAuthenticationPresentationContextProviding {
@@ -112,12 +110,14 @@ extension API {
                 
                 DispatchQueue.main.async {
                     self.saveTokenInDB(tokenModel: tokenModel, tokenSaveInDB: tokenDB) {
-                        print(preAccessToken == "" ? "Success to refresh token! 👍" : "Success to save new token! 👍")
+                        print(preAccessToken == "" ?
+                            "Success to refresh token! 👍" : "Success to save new token! 👍")
                         completion()
                     }
                 }
             } catch {
-                let message = preAccessToken == "" ? "Fail to refresh token! 👎\n" : "Fail to save new token! 👎\n"
+                let message = preAccessToken == "" ?
+                    "Fail to refresh token! 👎\n" : "Fail to save new token! 👎\n"
                 print(message, error)
             }
         }.resume()
@@ -129,6 +129,8 @@ extension API {
         guard let access = tokenModel.access_token,
             let refresh = tokenModel.refresh_token,
             let created = tokenModel.created_at else { return }
+        
+        print("access_token =", access)
         
         self.bearer = access
         tokenDB.accessToken = access
@@ -145,26 +147,10 @@ extension API {
         }
     }
     
-    // MARK: - get Bearer
-    private func getBearer() {
-        print("GET BEARER")
-        let fetchRequest: NSFetchRequest<TokenDB> = TokenDB.fetchRequest()
-        do {
-            let tokenArray = try context.fetch(fetchRequest)
-            
-            print("token: \n", tokenArray.first ?? "")
-            
-            guard let accessToken = tokenArray.first?.accessToken else { return }
-            self.bearer = accessToken
-        } catch {
-            print("Error. getBearer\n", error)
-        }
-    }
-    
     // MARK: - Get Info
-    public func getMyInfo(completion: @escaping (Result<String, Error>) -> ()) {
+    public func getProfileInfo(userLogin login: String, completion: @escaping (Result<String, Error>) -> ()) {
 
-        guard let url = NSURL(string: apiURL+"/v2/me") else { return }
+        guard let url = NSURL(string: apiURL+"/v2/"+login) else { return }
         
         let request = NSMutableURLRequest(url: url as URL)
         request.setValue("Bearer " + bearer, forHTTPHeaderField: "Authorization")
@@ -172,23 +158,12 @@ extension API {
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
             guard let data = data else { return }
             do {
-                var myInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
+                let myInfo = try JSONDecoder().decode(UserData.self, from: data)
                 
-                print("Api count = ", myInfo.projects_users.count)
-//                let json = try JSONSerialization.jsonObject(with: data) as? NSDictionary
-//                if let arr = json!["projects_users"] as? [NSDictionary] {
-//                    for i in 0..<arr.count {
-//                        myInfo.projects_users[i]?.validated = arr[i]["validated?"] as? Int
-//                    }
-//                }
-                
-                self.getDataOfProject(id: "11", userId: myInfo.id!, completion: { (passedExams) in
-                    myInfo.passedExams = passedExams
+                let examsId = "11"
+                self.getDataOfProject(id: examsId, userID: myInfo.id!, completion: { (passedExams) in
                     DispatchQueue.main.async {
-                        self.saveNewUserToDB(myInfo: myInfo) {
-                            guard let login = myInfo.login else { return }
-                            completion(.success(login))
-                        }
+                        completion(.success(myInfo.login ?? ""))
                     }
                 })
             } catch {
@@ -199,110 +174,112 @@ extension API {
     }
     
     // MARK: - Save User Info To DB
-    private func saveNewUserToDB(myInfo: ProfileInfo, completion: @escaping() -> ()) {
-        
-        print("SAVE NEW USER TO DB\n")
-        let profileInfoDB = ProfileInfoDB(context: context)
-        
-        guard let corPoints = myInfo.correction_point,
-            let id = myInfo.id,
-            let wallet = myInfo.wallet,
-            let passedExams = myInfo.passedExams
-            else { return }
-        
-        // Main info
-        profileInfoDB.login = myInfo.login
-        profileInfoDB.first_name = myInfo.first_name
-        profileInfoDB.last_name = myInfo.last_name
-        profileInfoDB.id = Int32(id)
-        profileInfoDB.correction_point = Int16(corPoints)
-        profileInfoDB.image_url = myInfo.image_url
-        profileInfoDB.location = myInfo.location
-        profileInfoDB.passedExams = Int16(passedExams)
-        profileInfoDB.wallet = Int16(wallet)
-        
-        // Campus
-        let campusDB = CampusDB(context: context)
-        guard let campus = myInfo.campus.first,
-            let campusId = campus?.id
-            else { return }
-        campusDB.address = campus?.address
-        campusDB.city = campus?.city
-        campusDB.country = campus?.country
-        campusDB.facebook = campus?.facebook
-        campusDB.website = campus?.website
-        campusDB.id = Int16(campusId)
-        profileInfoDB.campus = campusDB
-        
-        // Cursus users <- Skills
-        let cursusUsers = myInfo.cursus_users
-        cursusUsers.forEach { (cursus) in
-            let cursusUsersDB = CursusUsersDB(context: context)
-            
-            guard let cursus_id = cursus?.cursus_id,
-                let level = cursus?.level
-                else { return }
-            cursusUsersDB.cursus_id = Int16(cursus_id)
-            cursusUsersDB.level = level
-            
-            
-            guard let skills = myInfo.cursus_users[0]?.skills else { return }
-            skills.forEach { (skill) in
-                let skillsDB = SkillsDB(context: context)
-                
-                guard let skillId = skill?.id,
-                    let skillLevel = skill?.level
-                    else { return }
-                
-                skillsDB.id = Int16(skillId)
-                skillsDB.level = skillLevel
-                skillsDB.name = skill?.name
-                
-                cursusUsersDB.addToSkills(skillsDB)
-            }
-            profileInfoDB.addToCursusUsers(cursusUsersDB)
-        }
-        
-        // Project Users
-        let projectUsers = myInfo.projects_users
-        projectUsers.forEach { (project) in
-            let projectDB = ProjectUsersDB(context: context)
-            
-            projectDB.name = project?.project?.name
-            projectDB.slug = project?.project?.slug
-            projectDB.status = project?.status
-            
-            if let mark = project?.final_mark {
-                projectDB.final_mark = Int16(mark)
-            } else {
-                projectDB.final_mark = -1
-            }
-            if let parent_id = project?.project?.parent_id {
-                projectDB.parent_id = Int16(parent_id)
-            } else {
-                projectDB.parent_id = -1
-            }
-            if let validated = project?.validated {
-                projectDB.validated = validated == 0 ? false : true
-            } else {
-                projectDB.validated = false
-            }
-            
-            profileInfoDB.addToProjectUsers(projectDB)
-            
-        }
-        
-        do {
-            try context.save()
-            print("Success to save myInfo first time! 👍")
-            completion()
-        } catch {
-            print("Fail to save myInfo first time! 👎", error)
-        }
+    private func saveNewUserToDB(myInfo: UserData, completion: @escaping() -> ()) {
+//
+//        print("SAVE NEW USER TO DB\n")
+//        let profileInfoDB = ProfileInfoDB(context: context)
+//
+//        guard let corPoints = myInfo.correction_point,
+//            let id = myInfo.id,
+//            let wallet = myInfo.wallet,
+//            let passedExams = myInfo.passedExams
+//            else { return }
+//
+//        // Main info
+//        profileInfoDB.login = myInfo.login
+//        profileInfoDB.first_name = myInfo.first_name
+//        profileInfoDB.last_name = myInfo.last_name
+//        profileInfoDB.id = Int32(id)
+//        profileInfoDB.correction_point = Int16(corPoints)
+//        profileInfoDB.image_url = myInfo.image_url
+//        profileInfoDB.location = myInfo.location
+//        profileInfoDB.passedExams = Int16(passedExams)
+//        profileInfoDB.wallet = Int16(wallet)
+//
+//        // Campus
+//        let campusDB = CampusDB(context: context)
+//        guard let campus = myInfo.campus.first,
+//            let campusId = campus?.id
+//            else { return }
+//        campusDB.address = campus?.address
+//        campusDB.city = campus?.city
+//        campusDB.country = campus?.country
+//        campusDB.facebook = campus?.facebook
+//        campusDB.website = campus?.website
+//        campusDB.id = Int16(campusId)
+//        profileInfoDB.campus = campusDB
+//
+//        // Cursus users <- Skills
+//        let cursusUsers = myInfo.cursus_users
+//        cursusUsers.forEach { (cursus) in
+//            let cursusUsersDB = CursusUsersDB(context: context)
+//
+//            guard let cursus_id = cursus?.cursus_id,
+//                let level = cursus?.level
+//                else { return }
+//            cursusUsersDB.cursus_id = Int16(cursus_id)
+//            cursusUsersDB.level = level
+//
+//
+//            guard let skills = myInfo.cursus_users[0]?.skills else { return }
+//            skills.forEach { (skill) in
+//                let skillsDB = SkillsDB(context: context)
+//
+//                guard let skillId = skill?.id,
+//                    let skillLevel = skill?.level
+//                    else { return }
+//
+//                skillsDB.id = Int16(skillId)
+//                skillsDB.level = skillLevel
+//                skillsDB.name = skill?.name
+//
+//                cursusUsersDB.addToSkills(skillsDB)
+//            }
+//            profileInfoDB.addToCursusUsers(cursusUsersDB)
+//        }
+//
+//        // Project Users
+//        let projectUsers = myInfo.projects_users
+//        projectUsers.forEach { (project) in
+//            let projectDB = ProjectUsersDB(context: context)
+//
+//            projectDB.name = project?.project?.name
+//            projectDB.slug = project?.project?.slug
+//            projectDB.status = project?.status
+//
+//            if let mark = project?.final_mark {
+//                projectDB.final_mark = Int16(mark)
+//            } else {
+//                projectDB.final_mark = -1
+//            }
+//            if let parent_id = project?.project?.parent_id {
+//                projectDB.parent_id = Int16(parent_id)
+//            } else {
+//                projectDB.parent_id = -1
+//            }
+//            if let validated = project?.validated {
+//                projectDB.validated = validated == 0 ? false : true
+//            } else {
+//                projectDB.validated = false
+//            }
+//
+//            profileInfoDB.addToProjectUsers(projectDB)
+//
+//        }
+//
+//        do {
+//            try context.save()
+//            print("Success to save myInfo first time! 👍")
+//            completion()
+//        } catch {
+//            print("Fail to save myInfo first time! 👎", error)
+//        }
     }
     
-    public func getDataOfProject(id: String, userId: Int, completion: @escaping(Int) -> ()) {
-        let urlString = API.shared.apiURL+"/v2/projects_users?filter[project_id]=\(id)&user_id=\(userId)" //project_id = 212, 118
+    
+    // MARK: - Get Data of Project
+    public func getDataOfProject(id: String, userID: Int, completion: @escaping(Int) -> ()) {
+        let urlString = API.shared.apiURL+"/v2/projects_users?filter[project_id]=\(id)&user_id=\(userID)" //project_id = 212, 118
         guard let url = NSURL(string: urlString) else { return }
         let request = NSMutableURLRequest(url: url as URL)
         request.setValue("Bearer " + API.shared.bearer, forHTTPHeaderField: "Authorization")
@@ -321,27 +298,6 @@ extension API {
                 completion(passedExams)
             } catch {
                 print(error.localizedDescription)
-                return
-            }
-        }.resume()
-    }
-    
-    public func getProfile(user: String, completion: @escaping (ProfileInfo) -> ()) {
-        guard let url = NSURL(string: apiURL+"v2/users/"+user) else { return print("url Error")}
-        let request = NSMutableURLRequest(url: url as URL)
-        request.setValue("Bearer " + bearer, forHTTPHeaderField: "Authorization")
-        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
-            guard let data = data else { return print("data error") }
-            do {
-                //                let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
-                //                print("🏋️‍♀️\n", json ?? "nil")
-                let profileInfo = try JSONDecoder().decode(ProfileInfo.self, from: data)
-                DispatchQueue.main.async {
-                    completion(profileInfo)
-                }
-            } catch {
-                print("do catch\n", error)
-                ProfileVC.alert(title: "Error", message: "Человечка не найти")
                 return
             }
         }.resume()
