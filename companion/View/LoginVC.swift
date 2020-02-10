@@ -12,7 +12,7 @@ import CoreData
 
 /*
 PartTime-I      id=1650 (dude who passed - mpillet)
-PartTime-II     id=1656 (all users status="in_progress")
+PartTime-II     id=1656 (all users in status="in_progress")
 */
 
 class LoginVC: UIViewController {
@@ -28,39 +28,39 @@ class LoginVC: UIViewController {
     @IBAction func loginButton(_ sender: UIButton) {
         let api = API.shared
         
-//        let fetchRequest: NSFetchRequest<TokenDB> = TokenDB.fetchRequest()
-//        var tokenArray: [TokenDB] = []
-//        do {
-//            tokenArray = try context.fetch(fetchRequest)
-//        } catch {
-//            print(error)
-//        }
+        let fetchRequest: NSFetchRequest<TokenDB> = TokenDB.fetchRequest()
+        var tokenArray: [TokenDB] = []
+        do {
+            tokenArray = try context.fetch(fetchRequest)
+        } catch {
+            print(error)
+        }
         
         // If first launch
-//        if tokenArray.isEmpty {
+        if tokenArray.isEmpty {
             
             api.authorization(urlContext: self) {
                 self.getInfo()
             }
-//        } else {
-//            guard let token = tokenArray.first else { return }
-//            // +7200 (2h) to Ukraine time
-//            print("📅 Current date: ", NSDate(timeIntervalSince1970: Date().timeIntervalSince1970 + 7200))
-//            print("📅 Expired_at: ", NSDate(timeIntervalSince1970: TimeInterval(token.expiresIn + 7200)))
-//
-//            // + 10 min (600 sec)
-//            if token.expiresIn < Int64(Date().timeIntervalSince1970) + 600 {
-//                api.refreshToken() {
-//                    self.performSegue(withIdentifier: "LoginSegue", sender: nil)
-//                }
-//            } else {
-//                self.performSegue(withIdentifier: "LoginSegue", sender: nil)
-//            }
-//        }
+        } else {
+            guard let token = tokenArray.first else { return }
+            // +7200 (2h) to Ukraine time
+            print("📅 Current date: ", NSDate(timeIntervalSince1970: Date().timeIntervalSince1970 + 7200))
+            print("📅 Expired_at: ", NSDate(timeIntervalSince1970: TimeInterval(token.expiresIn + 7200)))
+
+            // + 10 min (600 sec)
+            if token.expiresIn < Int64(Date().timeIntervalSince1970) + 600 {
+                api.refreshToken() {
+                    self.getInfo()
+                }
+            } else {
+                self.getInfo()
+            }
+        }
     }
     
     private func getInfo() {
-        API.shared.getProfileInfo(userLogin: "mpillet") { (result) in
+        API.shared.getProfileInfo(userLogin: "me") { (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userData):

@@ -11,6 +11,7 @@ import UIKit
 class SkillCell: UITableViewCell {
 
     @IBOutlet weak var skillLabel: UILabel!
+    @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
     
     override func awakeFromNib() {

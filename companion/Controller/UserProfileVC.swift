@@ -44,7 +44,7 @@ class UserProfileVC: UITableViewController {
         //Image
         if let urlImage = URL(string: userData.imageURL ?? "") {
             photoImageView.kf.indicatorType = .activity
-//            photoImageView.kf.setImage(with: urlImage)
+            //            photoImageView.kf.setImage(with: urlImage)
             photoImageView.kf.setImage(with: urlImage,
                                        placeholder: UIImage(named: "photoHolder"),
                                        options: [.transition(.fade(1))],
@@ -93,7 +93,7 @@ class UserProfileVC: UITableViewController {
         // Internships
         
         for imageID in 0..<internshipImageViews.count {
-            let idOfInternshipsProject = [120, 1650, 212] // First Internship, ParеTime-I, Final Intership
+            let idOfInternshipsProject = [120, 1650, 212] // First Internship, PartTime-I, Final Intership
             checkForPassedInternships(projectID: idOfInternshipsProject[imageID], imageID: imageID)
         }
         
@@ -117,38 +117,91 @@ class UserProfileVC: UITableViewController {
         }
     }
     
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "segueToProjectSkillAchTVC" {
+            
+            typealias AllowedTypes = Projects_Skills_AchievementsTVC.TypeOfData
+            
+            guard let dvc = segue.destination as? Projects_Skills_AchievementsTVC,
+                let tuple = sender as? (data: [Any], type: AllowedTypes) else { return print("Error. UserProfileVC. Prepare error casting") }
+            
+            dvc.array = tuple.data
+            dvc.getTypeOfData = tuple.type
+        }
+    }
+    
     // MARK: - TableView Delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        print("row -", indexPath.row)
+        
+        let courseID = 1
+        
+        var dataToPass: [Any] = []
         
         if indexPath.section == 1 {
+            typealias AllowedTypes = Projects_Skills_AchievementsTVC.TypeOfData
+            var typeOfData: AllowedTypes!
             switch indexPath.row {
             case 0:
-                
-                prepareProjects(forSchool: 1)
-                
+                print("Select projects")
+                dataToPass = prepareProjects(courseID)
+                typeOfData = .projects
             case 1:
-                guard let indexOfCursus = userData.cursusUsers?.firstIndex(where: { $0.cursusID == 1 }) else { return }
-                let skills = userData.cursusUsers?[indexOfCursus]
+                print("Select skills")
+                dataToPass = prepareSkills(courseID)
+                typeOfData = .skills
             case 2:
-                let achievments = userData.achievements
+                print("Select achievements")
+                dataToPass = prepareAchievements(courseID)
+                typeOfData = .achievements
             default:
                 return
             }
+            performSegue(withIdentifier: "segueToProjectSkillAchTVC", sender: (dataToPass, typeOfData))
         }
     }
     
-    func prepareProjects(forSchool: Int) {
-        guard let projects = userData.projectsUsers else { return }
-        var projectToPass: [ProjectsUser] = []
+    /**
+     - course ID
+     - 4 - Piscine C  (pool)
+     - 1 - school 42
+     */
+    func prepareProjects(_ courseID: Int) -> [ProjectsUser] {
+        guard let projects = userData.projectsUsers else { return [] }
+        var resultArray: [ProjectsUser] = []
         projects.forEach { (project) in
             // if project in school 42 and it's not pool
-            if let ids = project.cursusIDS?.first, ids == 1 && project.project?.parentID == nil {
-                projectToPass.append(project)
+            if let ids = project.cursusIDS?.first, ids == courseID && project.project?.parentID == nil {
+                resultArray.append(project)
             }
         }
+        resultArray.sort(by: { ($0.currentTeamID ?? 0) > ($1.currentTeamID ?? 0) })
+        return resultArray
     }
     
+    func prepareSkills(_ courseID: Int) -> [Skill] {
+        
+        guard let indexOfCursus = userData.cursusUsers?.firstIndex(where: { $0.cursusID == courseID }),
+            let skills = userData.cursusUsers?[indexOfCursus].skills else { return [] }
+        return skills
+    }
+    
+    func prepareAchievements(_ courseID: Int) -> [Achievement] {
+        
+        var resultArray: [Achievement] = []
+        guard let achievements = userData.achievements else { return [] }
+        
+        for i in 0..<(achievements.count - 1) {
+            if achievements[i].name != achievements[i + 1].name {
+                resultArray.append(achievements[i])
+            }
+        }
+        if resultArray.last?.name != achievements.last?.name, let lastElem = achievements.last {
+            resultArray.append(lastElem)
+        }
+        return resultArray
+    }
 }

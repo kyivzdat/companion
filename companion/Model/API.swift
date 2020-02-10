@@ -146,10 +146,36 @@ extension API {
             print("Fail to save token! 👎", error)
         }
     }
+   
+    // MARK: - Fetch AccessToken From DB
+    private func fetchAccessTokenFromDB() -> Bool {
+        print("😛fetchAccessTokenFromDB😛")
+        
+        let tokenRequest: NSFetchRequest<TokenDB> = TokenDB.fetchRequest()
+        
+        do {
+            let tokenObjs = try context.fetch(tokenRequest)
+            guard let accessToken = tokenObjs.first?.accessToken else {
+                print("Error. API. getAccessToken(). no token")
+                return false }
+
+            self.bearer = accessToken
+            return true
+        } catch {
+            print("Error. API. getAccessToken()\n", error)
+        }
+        return false
+    }
     
     // MARK: - Get Info
     public func getProfileInfo(userLogin: String, completion: @escaping (Result<UserData, Error>) -> ()) {
 
+        if self.bearer == "" {
+            guard fetchAccessTokenFromDB() else { return }
+        }
+        
+        print("access_token =", bearer)
+        
         let login = (userLogin == "me") ? userLogin : "users/" + userLogin
         
         guard let url = NSURL(string: apiURL+"/v2/"+login) else { return }

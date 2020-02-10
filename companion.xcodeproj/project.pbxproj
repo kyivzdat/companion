@@ -11,6 +11,8 @@
 		E105469823EC52F6005F5593 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105469723EC52F6005F5593 /* UserModel.swift */; };
 		E10B01F123841B5600A6A99E /* SkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F023841B5600A6A99E /* SkillCell.swift */; };
 		E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F223846EC700A6A99E /* ProjectCell.swift */; };
+		E10BF78123F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BF78023F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift */; };
+		E10BF78523F14B10009F9F53 /* AchievementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BF78423F14B10009F9F53 /* AchievementCell.swift */; };
 		E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */; };
 		E176F440239BF5480028766A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E176F43F239BF5480028766A /* CoreDataStack.swift */; };
 		E19E1DE423ED34E8006F3594 /* JSONme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19E1DE323ED34E8006F3594 /* JSONme.swift */; };
@@ -32,6 +34,8 @@
 		E105469723EC52F6005F5593 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		E10B01F023841B5600A6A99E /* SkillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCell.swift; sourceTree = "<group>"; };
 		E10B01F223846EC700A6A99E /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
+		E10BF78023F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Projects+Skills+AchievementsTVC.swift"; sourceTree = "<group>"; };
+		E10BF78423F14B10009F9F53 /* AchievementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementCell.swift; sourceTree = "<group>"; };
 		E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompanionModel.xcdatamodel; sourceTree = "<group>"; };
 		E176F43F239BF5480028766A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E19E1DE323ED34E8006F3594 /* JSONme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONme.swift; sourceTree = "<group>"; };
@@ -73,6 +77,7 @@
 			children = (
 				E10B01F023841B5600A6A99E /* SkillCell.swift */,
 				E10B01F223846EC700A6A99E /* ProjectCell.swift */,
+				E10BF78423F14B10009F9F53 /* AchievementCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -80,10 +85,10 @@
 		E15257AC2371A1DD00E87D32 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E1AAE5C023631B5F0001E4FE /* API.swift */,
 				E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */,
 				E1A79E8723EAAE060022C633 /* TokenModel.swift */,
 				E105469723EC52F6005F5593 /* UserModel.swift */,
-				E1AAE5C023631B5F0001E4FE /* API.swift */,
 				E19E1DE323ED34E8006F3594 /* JSONme.swift */,
 			);
 			path = Model;
@@ -94,6 +99,7 @@
 			children = (
 				E1AAE5B023631ACE0001E4FE /* LoginVC.swift */,
 				E1A79E8923EB2B5A0022C633 /* UserProfileVC.swift */,
+				E10BF78023F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift */,
 				ACC5DBB5236B5A2B00C5CC1E /* SearchTVC.swift */,
 			);
 			path = Controller;
@@ -266,10 +272,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E10B01F123841B5600A6A99E /* SkillCell.swift in Sources */,
+				E10BF78523F14B10009F9F53 /* AchievementCell.swift in Sources */,
 				E1A79E8823EAAE060022C633 /* TokenModel.swift in Sources */,
 				E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */,
 				E1AAE5B123631ACE0001E4FE /* LoginVC.swift in Sources */,
 				E176F440239BF5480028766A /* CoreDataStack.swift in Sources */,
+				E10BF78123F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift in Sources */,
 				ACC5DBB6236B5A2B00C5CC1E /* SearchTVC.swift in Sources */,
 				E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */,
 				E105469823EC52F6005F5593 /* UserModel.swift in Sources */,

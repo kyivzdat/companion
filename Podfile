@@ -7,5 +7,6 @@ target 'companion' do
 
   # Pods for companion
   pod 'Kingfisher', '~> 5.0'
+  pod 'SVGKit'
 
 end
