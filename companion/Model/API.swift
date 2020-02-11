@@ -11,6 +11,14 @@ import CoreData
 import AuthenticationServices
 import RealmSwift
 
+// MARK: - TODO Requests
+/*
+ https://api.intra.42.fr/v2/projects/29/ <- descriptions
+ https://api.intra.42.fr/v2/scale_teams?project_id=fdf&filter[team_id]=2734068 <- correction form + feedbacks
+ https://api.intra.42.fr/v2/projects_users/1504871/ <- teams
+ https://api.intra.42.fr/v2/users/vyunak/locations?page[size]=100 <- logtime
+ */
+
 class API {
     
     static let shared = API()
