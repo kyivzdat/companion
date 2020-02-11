@@ -77,12 +77,6 @@ extension Projects_Skills_AchievementsTVC: UITableViewDataSource {
             let project = array[indexPath.row] as? ProjectsUser else { return UITableViewCell() }
         
         cell.projectLabel.text = project.project?.name
-        
-//        if let mark = array[indexPath.row].finalMark {
-//            cell.markLabel.text = String(mark)
-//        } else if let status = array[indexPath.row].status {
-//            cell.markLabel.text = status
-//        }
         cell.formatingMarkLabel(mark: project.finalMark, isValidated: project.validated, status: project.status)
     
         return cell
@@ -118,6 +112,7 @@ extension Projects_Skills_AchievementsTVC: UITableViewDataSource {
         return cell
     }
     
+    // MARK: - heightForRowAt
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         switch getTypeOfData {
@@ -134,5 +129,9 @@ extension Projects_Skills_AchievementsTVC: UITableViewDataSource {
 }
 
 extension Projects_Skills_AchievementsTVC: UITableViewDelegate {
-    
+    // MARK: - TableView Delegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard getTypeOfData == TypeOfData.projects else { return }
+        print("project -\n", array![indexPath.row])
+    }
 }

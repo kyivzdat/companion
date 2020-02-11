@@ -12,18 +12,15 @@ import CoreData
 import RealmSwift
 
 /*
-PartTime-I      id=1650 (dude who passed - mpillet)
-PartTime-II     id=1656 (all users in status="in_progress")
-*/
-
-class Cat: Object {
-    @objc dynamic var name: String?
-    @objc dynamic var color: String?
-}
+ PartTime-I      id=1650 (dude who passed - mpillet)
+ PartTime-II     id=1656 (all users in status="in_progress")
+ */
 
 class LoginVC: UIViewController {
     
     lazy var context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
+    
+    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,33 +33,22 @@ class LoginVC: UIViewController {
         print("Realm path -", Realm.Configuration.defaultConfiguration.fileURL ?? "")
         
         let api = API.shared
-        
-        let fetchRequest: NSFetchRequest<TokenDB> = TokenDB.fetchRequest()
-        var tokenArray: [TokenDB] = []
-        do {
-            tokenArray = try context.fetch(fetchRequest)
-        } catch {
-            print(error)
-        }
-        
-        // If first launch
-        if tokenArray.isEmpty {
-            
-            api.authorization(urlContext: self) {
-                self.getInfo()
-            }
-        } else {
-            guard let token = tokenArray.first else { return }
-            // +7200 (2h) to Ukraine time
-            print("📅 Current date: ", NSDate(timeIntervalSince1970: Date().timeIntervalSince1970 + 7200))
-            print("📅 Expired_at: ", NSDate(timeIntervalSince1970: TimeInterval(token.expiresIn + 7200)))
 
-            // + 10 min (600 sec)
-            if token.expiresIn < Int64(Date().timeIntervalSince1970) + 600 {
+        let token = realm.objects(Token.self).first
+        
+        if let token = token {
+            print("📅 Current date: ", NSDate(timeIntervalSince1970: Date().timeIntervalSince1970 + 7200))
+            print("📅 Expired_at: ", NSDate(timeIntervalSince1970: TimeInterval(token.expires_in + 7200)))
+            
+            if token.expires_in < Int64(Date().timeIntervalSince1970) + 7600 {
                 api.refreshToken() {
                     self.getInfo()
                 }
             } else {
+                self.getInfo()
+            }
+        } else {
+            api.authorization(urlContext: self) {
                 self.getInfo()
             }
         }
@@ -90,7 +76,7 @@ class LoginVC: UIViewController {
             let naviContr = tabBar.viewControllers?.first as? UINavigationController,
             let dvc = naviContr.topViewController as? UserProfileVC ,
             let userData = sender as? UserData else { return print("Error. LoginVC. prepare()") }
-
+        
         dvc.userData = userData
     }
 }
