@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import RealmSwift
 
 // MARK: - Token
 
-struct Token: Decodable {
+class Token: Object, Decodable {
     
-    var refresh_token:  String?
-    var created_at:     Int64?
-    var access_token:   String?
-    var expires_in:     Int64?
+    @objc dynamic var refresh_token:  String?
+    @objc dynamic var access_token:   String?
+    @objc dynamic var created_at      = 0
+    @objc dynamic var expires_in      = 0
 }

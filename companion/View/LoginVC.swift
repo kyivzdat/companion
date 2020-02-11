@@ -9,11 +9,17 @@
 import UIKit
 import AuthenticationServices
 import CoreData
+import RealmSwift
 
 /*
 PartTime-I      id=1650 (dude who passed - mpillet)
 PartTime-II     id=1656 (all users in status="in_progress")
 */
+
+class Cat: Object {
+    @objc dynamic var name: String?
+    @objc dynamic var color: String?
+}
 
 class LoginVC: UIViewController {
     
@@ -26,6 +32,9 @@ class LoginVC: UIViewController {
     
     // MARK: - Login button
     @IBAction func loginButton(_ sender: UIButton) {
+        
+        print("Realm path -", Realm.Configuration.defaultConfiguration.fileURL ?? "")
+        
         let api = API.shared
         
         let fetchRequest: NSFetchRequest<TokenDB> = TokenDB.fetchRequest()

@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import AuthenticationServices
+import RealmSwift
 
 class API {
     
@@ -128,23 +129,31 @@ extension API {
         
         guard let access = tokenModel.access_token,
             let refresh = tokenModel.refresh_token,
-            let created = tokenModel.created_at else { return }
+            tokenModel.created_at != 0,
+            tokenModel.expires_in != 0 else { return print("Guard. API. SaveTokenInDB") }
         
         print("access_token =", access)
         
         self.bearer = access
-        tokenDB.accessToken = access
-        tokenDB.refreshToken = refresh
-        tokenDB.createdAt = created
-        tokenDB.expiresIn = created + 7200
         
-        do {
-            try self.context.save()
-            print("Success save token! 👍")
-            completion()
-        } catch {
-            print("Fail to save token! 👎", error)
+        let realm = try! Realm()
+        
+        try! realm.write {
+            realm.add(tokenModel)
         }
+        completion()
+//        tokenDB.accessToken = access
+//        tokenDB.refreshToken = refresh
+//        tokenDB.createdAt = tokenModel.created_at
+//        tokenDB.expiresIn = tokenModel.created_at + 7200
+        
+//        do {
+//            try self.context.save()
+//            print("Success save token! 👍")
+//            completion()
+//        } catch {
+//            print("Fail to save token! 👎", error)
+//        }
     }
    
     // MARK: - Fetch AccessToken From DB
