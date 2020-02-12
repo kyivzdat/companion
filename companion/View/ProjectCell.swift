@@ -12,7 +12,7 @@ class ProjectCell: UITableViewCell {
 
     @IBOutlet weak var projectLabel: UILabel!
     @IBOutlet weak var markLabel: UILabel!
-
+    
     func formatingMarkLabel(mark: Int?, isValidated: Bool?, status: String?) {
         if mark == nil && isValidated == nil && status == nil {
             

@@ -1443,7 +1443,7 @@ import Foundation
             "final_mark": 125,
             "status": "finished",
             "validated?": true,
-            "current_team_id": 2341396,
+            "current_team_id": 2 341396,
             "project": {
                 "id": 2,
                 "name": "Get_Next_Line",

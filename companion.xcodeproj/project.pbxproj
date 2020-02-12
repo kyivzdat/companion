@@ -13,6 +13,12 @@
 		E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F223846EC700A6A99E /* ProjectCell.swift */; };
 		E10BF78123F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BF78023F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift */; };
 		E10BF78523F14B10009F9F53 /* AchievementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BF78423F14B10009F9F53 /* AchievementCell.swift */; };
+		E10F921623F43A5800E37615 /* ProjectTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921523F43A5800E37615 /* ProjectTVC.swift */; };
+		E10F921823F4412400E37615 /* ProjectMainInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921723F4412400E37615 /* ProjectMainInfoCell.swift */; };
+		E10F921A23F4414A00E37615 /* ProjectDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921923F4414A00E37615 /* ProjectDescriptionCell.swift */; };
+		E10F921C23F4415B00E37615 /* ProjectTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921B23F4415B00E37615 /* ProjectTeamCell.swift */; };
+		E10F921E23F4416C00E37615 /* ProjectPoolDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921D23F4416C00E37615 /* ProjectPoolDayCell.swift */; };
+		E10F922123F4814B00E37615 /* ProjectTeamCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */; };
 		E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */; };
 		E176F440239BF5480028766A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E176F43F239BF5480028766A /* CoreDataStack.swift */; };
 		E19E1DE423ED34E8006F3594 /* JSONme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19E1DE323ED34E8006F3594 /* JSONme.swift */; };
@@ -36,6 +42,12 @@
 		E10B01F223846EC700A6A99E /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		E10BF78023F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Projects+Skills+AchievementsTVC.swift"; sourceTree = "<group>"; };
 		E10BF78423F14B10009F9F53 /* AchievementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementCell.swift; sourceTree = "<group>"; };
+		E10F921523F43A5800E37615 /* ProjectTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTVC.swift; sourceTree = "<group>"; };
+		E10F921723F4412400E37615 /* ProjectMainInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMainInfoCell.swift; sourceTree = "<group>"; };
+		E10F921923F4414A00E37615 /* ProjectDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescriptionCell.swift; sourceTree = "<group>"; };
+		E10F921B23F4415B00E37615 /* ProjectTeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTeamCell.swift; sourceTree = "<group>"; };
+		E10F921D23F4416C00E37615 /* ProjectPoolDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPoolDayCell.swift; sourceTree = "<group>"; };
+		E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTeamCVCell.swift; sourceTree = "<group>"; };
 		E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompanionModel.xcdatamodel; sourceTree = "<group>"; };
 		E176F43F239BF5480028766A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E19E1DE323ED34E8006F3594 /* JSONme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONme.swift; sourceTree = "<group>"; };
@@ -72,12 +84,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E10F921F23F4463600E37615 /* ProjectCells */ = {
+			isa = PBXGroup;
+			children = (
+				E10F921723F4412400E37615 /* ProjectMainInfoCell.swift */,
+				E10F921923F4414A00E37615 /* ProjectDescriptionCell.swift */,
+				E10F921B23F4415B00E37615 /* ProjectTeamCell.swift */,
+				E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */,
+				E10F921D23F4416C00E37615 /* ProjectPoolDayCell.swift */,
+			);
+			path = ProjectCells;
+			sourceTree = "<group>";
+		};
 		E15257AB2371A19D00E87D32 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				E10B01F023841B5600A6A99E /* SkillCell.swift */,
 				E10B01F223846EC700A6A99E /* ProjectCell.swift */,
 				E10BF78423F14B10009F9F53 /* AchievementCell.swift */,
+				E10F921F23F4463600E37615 /* ProjectCells */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -100,6 +125,7 @@
 				E1AAE5B023631ACE0001E4FE /* LoginVC.swift */,
 				E1A79E8923EB2B5A0022C633 /* UserProfileVC.swift */,
 				E10BF78023F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift */,
+				E10F921523F43A5800E37615 /* ProjectTVC.swift */,
 				ACC5DBB5236B5A2B00C5CC1E /* SearchTVC.swift */,
 			);
 			path = Controller;
@@ -277,12 +303,18 @@
 				E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */,
 				E1AAE5B123631ACE0001E4FE /* LoginVC.swift in Sources */,
 				E176F440239BF5480028766A /* CoreDataStack.swift in Sources */,
+				E10F921E23F4416C00E37615 /* ProjectPoolDayCell.swift in Sources */,
 				E10BF78123F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift in Sources */,
 				ACC5DBB6236B5A2B00C5CC1E /* SearchTVC.swift in Sources */,
+				E10F922123F4814B00E37615 /* ProjectTeamCVCell.swift in Sources */,
+				E10F921C23F4415B00E37615 /* ProjectTeamCell.swift in Sources */,
 				E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */,
 				E105469823EC52F6005F5593 /* UserModel.swift in Sources */,
+				E10F921623F43A5800E37615 /* ProjectTVC.swift in Sources */,
 				E19E1DE423ED34E8006F3594 /* JSONme.swift in Sources */,
+				E10F921823F4412400E37615 /* ProjectMainInfoCell.swift in Sources */,
 				E1AAE5C123631B5F0001E4FE /* API.swift in Sources */,
+				E10F921A23F4414A00E37615 /* ProjectDescriptionCell.swift in Sources */,
 				E1A79E8A23EB2B5A0022C633 /* UserProfileVC.swift in Sources */,
 				E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */,
 			);
