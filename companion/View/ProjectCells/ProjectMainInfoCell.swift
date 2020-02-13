@@ -34,8 +34,13 @@ class ProjectMainInfoCell: UITableViewCell {
         markBGView.layer.cornerRadius = 3
     }
     
-    func fillViews(_ projectsUsers: ProjectsUser, _ projectInfo: [ProjectInfo.ProjectSession]) {
-        fillMarkView(projectsUsers)
+    func fillViews(_ projectsUsers: ProjectsUser?, _ projectInfo: [ProjectInfo.ProjectSession]?) {
+        if let projectsUsers = projectsUsers {
+            fillMarkView(projectsUsers)
+        }
+        if let projectInfo = projectInfo {
+            fillGeneralView(projectInfo)
+        }
     }
     
     private func fillMarkView(_ projectsUsers: ProjectsUser) {

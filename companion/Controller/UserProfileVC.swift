@@ -34,7 +34,7 @@ class UserProfileVC: UITableViewController {
     // All bg views
     @IBOutlet var bgViews: Array<UIView>!
     
-    // MARK: - Passed Data from Login VC
+    // Passed Data from Login VC
     var userData: UserData!
     
     // MARK: - view Did load
@@ -174,7 +174,7 @@ class UserProfileVC: UITableViewController {
         var resultArray: [ProjectsUser] = []
         projects.forEach { (project) in
             // if project in school 42 and it's not pool
-            if let ids = project.cursusIDS?.first, ids == courseID && project.project?.parentID == nil {
+            if let ids = project.cursusIDS?.first, ids == courseID {
                 resultArray.append(project)
             }
         }

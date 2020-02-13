@@ -20,6 +20,8 @@ class Projects_Skills_AchievementsTVC: UIViewController {
     
     var array: [Any]!
     var getTypeOfData: TypeOfData!
+    
+    var poolDays: [ProjectsUser] = []
     var iconsArray: [UIImage?] = []
     
     @IBOutlet weak var tableView: UITableView!
@@ -32,19 +34,56 @@ class Projects_Skills_AchievementsTVC: UIViewController {
         
         iconsArray = Array<UIImage?>(repeating: nil, count: array.count)
         
+        if getTypeOfData == TypeOfData.projects, let allProjects = array as? [ProjectsUser] {
+            disperseProjects(allProjects)
+        }
+        
         tableView.delegate = self
         tableView.dataSource = self
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
+    /**
+     Disperse by projects and pool days
      */
+    func disperseProjects(_ allProjects: [ProjectsUser]) {
+        
+        var projectArray: [ProjectsUser] = []
+        allProjects.forEach { (project) in
+
+            if project.project?.parentID == nil {
+                projectArray.append(project)
+            } else {
+                poolDays.append(project)
+            }
+        }
+        projectArray.sort(by: { ($0.currentTeamID ?? 0) > ($1.currentTeamID ?? 0) })
+        array = projectArray
+    }
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToProjectTVC" {
+            guard let dvc = segue.destination as? ProjectTVC,
+                let projectToPass = sender as? ProjectsUser else { return print("Error. PrjSklAchvmntsTvC. prepare") }
+            dvc.inputProjectUsers = projectToPass
+            
+            if let projectID = projectToPass.project?.id {
+                
+                var currentPoolDays: [ProjectsUser] = []
+                poolDays.forEach { (project) in
+                    if let parentID = project.project?.parentID, projectID == parentID {
+                        currentPoolDays.append(project)
+                    }
+                }
+                dvc.poolDays = currentPoolDays
+            } else {
+                dvc.poolDays = []
+            }
+        }
+    }
+    
 }
 
 extension Projects_Skills_AchievementsTVC: UITableViewDataSource {
@@ -78,7 +117,7 @@ extension Projects_Skills_AchievementsTVC: UITableViewDataSource {
         
         cell.projectLabel.text = project.project?.name
         cell.formatingMarkLabel(mark: project.finalMark, isValidated: project.validated, status: project.status)
-    
+        
         return cell
     }
     
@@ -131,7 +170,12 @@ extension Projects_Skills_AchievementsTVC: UITableViewDataSource {
 extension Projects_Skills_AchievementsTVC: UITableViewDelegate {
     // MARK: - TableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         guard getTypeOfData == TypeOfData.projects else { return }
-        print("project -\n", array![indexPath.row])
+        
+        if let selectedProject = array?[indexPath.row] {
+            self.performSegue(withIdentifier: "segueToProjectTVC", sender: selectedProject)
+        }
+        //        print("project -\n", array![indexPath.row])
     }
 }

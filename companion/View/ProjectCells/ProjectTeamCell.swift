@@ -18,15 +18,16 @@ class ProjectTeamCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var projectsUsers: ProjectsUser!
+    var indexOfTeam: Int!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
     
-    func fillTeamUsers(_ projectsUser: ProjectsUser) {
+    func fillTeamUsers(_ projectsUser: ProjectsUser, _ indexOfTeam: Int) {
         
         self.projectsUsers = projectsUser
+        self.indexOfTeam = indexOfTeam
         collectionView.dataSource = self
     }
 }
@@ -34,12 +35,12 @@ class ProjectTeamCell: UITableViewCell {
 extension ProjectTeamCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (projectsUsers.teams?.first)?.users?.count ?? 0
+        return projectsUsers.teams?[indexOfTeam].users?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //https://cdn.intra.42.fr/users/vpelivan.jpg get image
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "projectTeamCVCell", for: indexPath) as? ProjectTeamCVCell, let team = projectsUsers.teams?.first else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "projectTeamCVCell", for: indexPath) as? ProjectTeamCVCell, let team = projectsUsers.teams?[indexOfTeam] else { return UICollectionViewCell() }
 
         // image
         if let login = team.users?[indexPath.row].login, let url = URL(string: "https://cdn.intra.42.fr/users/"+login+".jpg") {
@@ -58,8 +59,8 @@ extension ProjectTeamCell: UICollectionViewDataSource {
         if projectsUsers.status == "finished" {
             guard let isValidated = projectsUsers.validated else { print("bad json"); return }
             
-            teamLabel.backgroundColor = (isValidated) ? #colorLiteral(red: 0.3595471382, green: 0.7224514484, blue: 0.358512938, alpha: 1) : #colorLiteral(red: 0.8473085761, green: 0.3895412087, blue: 0.4345907271, alpha: 1)
-            teamLabel.text = String(team.finalMark ?? 0)
+            finalMarkLabel.backgroundColor = (isValidated) ? #colorLiteral(red: 0.3595471382, green: 0.7224514484, blue: 0.358512938, alpha: 1) : #colorLiteral(red: 0.8473085761, green: 0.3895412087, blue: 0.4345907271, alpha: 1)
+            finalMarkLabel.text = String(team.finalMark ?? 0)
         } else {
             // MARK: - TODO need to handle statuses
             switch projectsUsers.status {
@@ -68,8 +69,8 @@ extension ProjectTeamCell: UICollectionViewDataSource {
             case "searching_a_group":
                 fallthrough
             case "creating_group":
-                teamLabel.backgroundColor = UIColor.clear
-                teamLabel.text = "-"
+                finalMarkLabel.backgroundColor = UIColor.clear
+                finalMarkLabel.text = "-"
             default:
                 break
             }
