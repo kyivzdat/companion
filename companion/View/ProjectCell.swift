@@ -13,7 +13,14 @@ class ProjectCell: UITableViewCell {
     @IBOutlet weak var projectLabel: UILabel!
     @IBOutlet weak var markLabel: UILabel!
     
-    func formatingMarkLabel(mark: Int?, isValidated: Bool?, status: String?) {
+    func fillProjectInfo(_ project: ProjectsUser) {
+        
+        projectLabel.text = project.project?.name
+        
+        let mark = project.finalMark
+        let isValidated = project.validated
+        let status = project.status
+        
         if mark == nil && isValidated == nil && status == nil {
             
             print("Error. ProjectCell. formatingMarkLabel()")
@@ -33,7 +40,7 @@ class ProjectCell: UITableViewCell {
             case "finished":
                 markLabel.layer.backgroundColor = #colorLiteral(red: 0.8473085761, green: 0.3895412087, blue: 0.4345907271, alpha: 1)
                 projectLabel.textColor = #colorLiteral(red: 0.8473085761, green: 0.3895412087, blue: 0.4345907271, alpha: 1)
-                markLabel.text = String(mark ?? 0)
+                markLabel.text = " " + String(mark ?? 0) + " "
             case "in_progress":
                 fallthrough
             case "searching_a_group":
@@ -42,11 +49,10 @@ class ProjectCell: UITableViewCell {
                 markLabel.layer.backgroundColor = #colorLiteral(red: 0.002772599459, green: 0.7285055518, blue: 0.7355008125, alpha: 1)
                 projectLabel.textColor = #colorLiteral(red: 0.002772599459, green: 0.7285055518, blue: 0.7355008125, alpha: 1)
                 
-                markLabel.text = " " + ( status ?? "").replacingOccurrences(of: "_", with: " ").capitalized + " "
+                markLabel.text = " " + (status ?? "").replacingOccurrences(of: "_", with: " ").capitalized + " "
             default:
                 break
             }
         }
-        
     }
 }

@@ -74,13 +74,19 @@ class ProjectTVC: UITableViewController {
         getProjectsUsers()
         getProjectInfo()
         
+        poolDays.sort(by: { ($0.id ?? 0) < ($1.id ?? 0) })
     }
     
+    // MARK: - requests
     func getProjectsUsers() {
         if let userProjectID = inputProjectUsers.id {
             API.shared.getDataOfProject(projectID: userProjectID) { (newProjectsUsers) in
                 DispatchQueue.main.async {
-                    self.projectsUsers = newProjectsUsers
+                    
+                    let sortedTeams = newProjectsUsers.teams?.sorted(by: { ($0.id ?? 0) < ($1.id ?? 0) })
+                    var projectsWithSortedTeams = newProjectsUsers
+                    projectsWithSortedTeams.teams = sortedTeams
+                    self.projectsUsers = projectsWithSortedTeams
                 }
             }
         }
@@ -127,46 +133,65 @@ class ProjectTVC: UITableViewController {
         }
         
         let identifier = cellIdentifiers[index]
-        var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
         switch index {
         case 0:
-            guard let cell = cell as? ProjectMainInfoCell else { return UITableViewCell() }
-            cell.fillViews(inputProjectUsers, projectInfo?.projectSessions)
-            
+            return getMainInfoCell(cellIdentifier: identifier, indexPath)
         case 1:
-            guard let cell = cell as? ProjectDescriptionCell,
-                let projectSession = projectInfo?.projectSessions else { return UITableViewCell() }
-            cell.fillDescriptionLabel(projectSession)
-            
+            return getDescriptionCell(cellIdentifier: identifier, indexPath)
         case 2:
-            guard let cell = cell as? ProjectTeamCell,
-                let projectsUsers = projectsUsers,
-                let minOfRange = rangesForCell[2]?.first else { return UITableViewCell() }
-            
-            let indexOfTeam = indexPath.row - minOfRange
-            cell.fillTeamUsers(projectsUsers, indexOfTeam)
+            return getTeamCell(cellIdentifier: identifier, indexPath)
         case 3:
-            guard let cell = cell as? ProjectCell,
-            let minOfRange = rangesForCell[3]?.first else { return UITableViewCell() }
-            
-            let indexOfTeam = indexPath.row - minOfRange
-            if indexOfTeam < poolDays.count {
-                let day = poolDays[indexOfTeam]
-                let finalMark = day.finalMark
-                let isValidated = day.validated
-                let status = day.status
-                cell.formatingMarkLabel(mark: finalMark, isValidated: isValidated, status: status)
-                cell.projectLabel.text = day.project?.name
-            }
-            
+            return getPoolDayCell(cellIdentifier: identifier, indexPath)
         default:
-            print("default")
             return UITableViewCell()
         }
-        guard let definedCell = cell else { return UITableViewCell() }
+    }
+    
+    // MARK: - getMainInfoCell
+    private func getMainInfoCell(cellIdentifier identifier: String, _ indexPath: IndexPath) -> UITableViewCell {
         
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? ProjectMainInfoCell else { return UITableViewCell() }
         
-        return definedCell
+        cell.fillViews(inputProjectUsers, projectInfo?.projectSessions)
+        return cell
+    }
+    
+    // MARK: - getDescriptionCell
+    private func getDescriptionCell(cellIdentifier identifier: String, _ indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? ProjectDescriptionCell,
+            let projectSession = projectInfo?.projectSessions else { return UITableViewCell() }
+
+        cell.fillDescriptionLabel(projectSession)
+        return cell
+    }
+    
+    // MARK: - getTeamCell
+    private func getTeamCell(cellIdentifier identifier: String, _ indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? ProjectTeamCell,
+            let projectsUsers = projectsUsers,
+            let minOfRange = rangesForCell[2]?.first else { return UITableViewCell() }
+        
+        let indexOfTeam = indexPath.row - minOfRange
+        cell.fillTeamUsers(projectsUsers, indexOfTeam)
+        return cell
+    }
+    
+    // MARK: - getPoolDayCell
+    private func getPoolDayCell(cellIdentifier identifier: String, _ indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? ProjectCell,
+            let minOfRange = rangesForCell[3]?.first else { return UITableViewCell() }
+        
+        let indexOfTeam = indexPath.row - minOfRange
+        guard indexOfTeam < poolDays.count else { return UITableViewCell() }
+        
+        let day = poolDays[indexOfTeam]
+
+        cell.fillProjectInfo(day)
+        
+        return cell
     }
 }

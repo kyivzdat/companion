@@ -11,4 +11,46 @@ import UIKit
 class ProjectTeamCVCell: UICollectionViewCell {
     
     @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var loginLabel: UILabel!
+    @IBOutlet weak var leaderImageView: UIImageView!
+    
+    override func awakeFromNib() {
+        userImageView.layer.cornerRadius = 3
+        userImageView.clipsToBounds = true
+//        loginLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        loginLabel.text = ""
+    }
+    
+    func fillUserCVCell(_ user: ProjectsUser.Team.UserElement) {
+        
+        //https://cdn.intra.42.fr/users/vpelivan.jpg get image
+        // image
+        if let login = user.login, let url = URL(string: "https://cdn.intra.42.fr/users/"+login+".jpg") {
+            
+            userImageView.kf.setImage(with: url, placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil)
+            
+            loginLabel.text = login
+//            loginLabel.attributedText = outlineLabel(string: login, font: "AppleSDGothicNeo-Bold", size: 15, mainColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
+        }
+        leaderImageView.image = (user.leader ?? false) ? #imageLiteral(resourceName: "star") : nil
+    }
+    
+    private func outlineLabel(string: String, font: String?, size: Int, mainColor: UIColor?, foregroundColor: UIColor?) -> NSAttributedString {
+        
+        let strokeColor = (foregroundColor != nil) ? foregroundColor! : UIColor.black
+        let foregroundColor = (mainColor != nil) ? mainColor! : UIColor.white
+        
+        let font = (font == nil) ? "Arial Rounded MT Bold" : font
+        
+        if let font = UIFont(name: font!, size: CGFloat(size)) {
+            let attrString = NSAttributedString(string: string, attributes:
+                [NSAttributedString.Key.strokeColor:     strokeColor,
+                 NSAttributedString.Key.foregroundColor: foregroundColor,
+                 NSAttributedString.Key.strokeWidth:     -4.0,
+                 NSAttributedString.Key.font:            font])
+            return attrString
+        }
+        print("Font doesnt found -", font ?? "")
+        return NSAttributedString(string: string)
+    }
 }

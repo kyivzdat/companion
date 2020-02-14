@@ -17,7 +17,6 @@
 		E10F921823F4412400E37615 /* ProjectMainInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921723F4412400E37615 /* ProjectMainInfoCell.swift */; };
 		E10F921A23F4414A00E37615 /* ProjectDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921923F4414A00E37615 /* ProjectDescriptionCell.swift */; };
 		E10F921C23F4415B00E37615 /* ProjectTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921B23F4415B00E37615 /* ProjectTeamCell.swift */; };
-		E10F921E23F4416C00E37615 /* ProjectPoolDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921D23F4416C00E37615 /* ProjectPoolDayCell.swift */; };
 		E10F922123F4814B00E37615 /* ProjectTeamCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */; };
 		E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */; };
 		E176F440239BF5480028766A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E176F43F239BF5480028766A /* CoreDataStack.swift */; };
@@ -46,7 +45,6 @@
 		E10F921723F4412400E37615 /* ProjectMainInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMainInfoCell.swift; sourceTree = "<group>"; };
 		E10F921923F4414A00E37615 /* ProjectDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescriptionCell.swift; sourceTree = "<group>"; };
 		E10F921B23F4415B00E37615 /* ProjectTeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTeamCell.swift; sourceTree = "<group>"; };
-		E10F921D23F4416C00E37615 /* ProjectPoolDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPoolDayCell.swift; sourceTree = "<group>"; };
 		E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTeamCVCell.swift; sourceTree = "<group>"; };
 		E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompanionModel.xcdatamodel; sourceTree = "<group>"; };
 		E176F43F239BF5480028766A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -91,7 +89,6 @@
 				E10F921923F4414A00E37615 /* ProjectDescriptionCell.swift */,
 				E10F921B23F4415B00E37615 /* ProjectTeamCell.swift */,
 				E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */,
-				E10F921D23F4416C00E37615 /* ProjectPoolDayCell.swift */,
 			);
 			path = ProjectCells;
 			sourceTree = "<group>";
@@ -303,7 +300,6 @@
 				E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */,
 				E1AAE5B123631ACE0001E4FE /* LoginVC.swift in Sources */,
 				E176F440239BF5480028766A /* CoreDataStack.swift in Sources */,
-				E10F921E23F4416C00E37615 /* ProjectPoolDayCell.swift in Sources */,
 				E10BF78123F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift in Sources */,
 				ACC5DBB6236B5A2B00C5CC1E /* SearchTVC.swift in Sources */,
 				E10F922123F4814B00E37615 /* ProjectTeamCVCell.swift in Sources */,

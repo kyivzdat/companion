@@ -11,6 +11,8 @@ import Kingfisher
 
 class ProjectTeamCell: UITableViewCell {
     
+    @IBOutlet weak var bgView: UIView!
+    
     @IBOutlet weak var teamLabel: UILabel!
     @IBOutlet weak var closedTimeLabel: UILabel!
     @IBOutlet weak var finalMarkLabel: UILabel!
@@ -18,52 +20,58 @@ class ProjectTeamCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var projectsUsers: ProjectsUser!
-    var indexOfTeam: Int!
+    var team: ProjectsUser.Team?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        bgView.layer.cornerRadius = 3
+        finalMarkLabel.layer.cornerRadius = 3
+        finalMarkLabel.clipsToBounds = true
     }
     
+    // MARK: - fillTeamUsers
     func fillTeamUsers(_ projectsUser: ProjectsUser, _ indexOfTeam: Int) {
         
+        self.team = projectsUser.teams?[indexOfTeam]
         self.projectsUsers = projectsUser
-        self.indexOfTeam = indexOfTeam
+        
+        if let team = self.team {
+            teamLabel.text = team.name
+            
+            formatingMarkLabel(team)
+            formatingDate(team)
+        }
+
         collectionView.dataSource = self
     }
-}
-
-extension ProjectTeamCell: UICollectionViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return projectsUsers.teams?[indexOfTeam].users?.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //https://cdn.intra.42.fr/users/vpelivan.jpg get image
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "projectTeamCVCell", for: indexPath) as? ProjectTeamCVCell, let team = projectsUsers.teams?[indexOfTeam] else { return UICollectionViewCell() }
-
-        // image
-        if let login = team.users?[indexPath.row].login, let url = URL(string: "https://cdn.intra.42.fr/users/"+login+".jpg") {
-            cell.userImageView.kf.setImage(with: url, placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil)
+    private func formatingDate(_ team: ProjectsUser.Team) {
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatterGet.locale = Locale(identifier: "en_US_POSIX")
+        
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "dd MMM yyyy HH:mm"
+        
+        let time = team.closedAt?.split(separator: ".").first
+        if let date = dateFormatterGet.date(from: String(time ?? "")) {
+            closedTimeLabel.text = dateFormatterPrint.string(from: date)
+        } else {
+            closedTimeLabel.text = "-"
         }
-        
-        teamLabel.text = " "+(team.name ?? "")+" "
-
-        formatingMarkLabel(team)
-        closedTimeLabel.text = team.closedAt
-        
-        return cell
     }
-
+    
+    // MARK: - formatingMarkLabel
     private func formatingMarkLabel(_ team: ProjectsUser.Team) {
-        if projectsUsers.status == "finished" {
-            guard let isValidated = projectsUsers.validated else { print("bad json"); return }
+        if team.status == "finished" {
+            guard let isValidated = team.validated else { print("bad json"); return }
             
             finalMarkLabel.backgroundColor = (isValidated) ? #colorLiteral(red: 0.3595471382, green: 0.7224514484, blue: 0.358512938, alpha: 1) : #colorLiteral(red: 0.8473085761, green: 0.3895412087, blue: 0.4345907271, alpha: 1)
-            finalMarkLabel.text = String(team.finalMark ?? 0)
+            finalMarkLabel.text = " "+String(team.finalMark ?? 0)+" "
         } else {
             // MARK: - TODO need to handle statuses
-            switch projectsUsers.status {
+            switch team.status {
             case "in_progress":
                 fallthrough
             case "searching_a_group":
@@ -75,5 +83,22 @@ extension ProjectTeamCell: UICollectionViewDataSource {
                 break
             }
         }
+    }
+}
+
+extension ProjectTeamCell: UICollectionViewDataSource {
+    
+    // MARK: - ColectionView DataSource
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return team?.users?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "projectTeamCVCell", for: indexPath) as? ProjectTeamCVCell,
+            let user = team?.users?[indexPath.row] else { return UICollectionViewCell() }
+
+        cell.fillUserCVCell(user)
+        return cell
     }
 }

@@ -24,16 +24,20 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
     
-    // MARK: - Login button
-    @IBAction func loginButton(_ sender: UIButton) {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+        login()
+    }
+    
+    func login() {
         print("Realm path -", Realm.Configuration.defaultConfiguration.fileURL ?? "")
         
         let api = API.shared
-
+        
         let token = realm.objects(Token.self).first
         
         if let token = token {
@@ -52,6 +56,11 @@ class LoginVC: UIViewController {
                 self.getInfo()
             }
         }
+    }
+    
+    // MARK: - Login button
+    @IBAction func loginButton(_ sender: UIButton) {
+        login()
     }
     
     private func getInfo() {

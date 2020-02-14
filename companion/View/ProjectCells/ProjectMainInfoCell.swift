@@ -50,6 +50,7 @@ class ProjectMainInfoCell: UITableViewCell {
             
             statusImageView.image = (isValidated) ? #imageLiteral(resourceName: "checkmark") : #imageLiteral(resourceName: "fail")
             statusLabel.text = (isValidated) ? "success" : "fail"
+            markBGView.backgroundColor = (isValidated) ? #colorLiteral(red: 0.3595471382, green: 0.7224514484, blue: 0.358512938, alpha: 1) : #colorLiteral(red: 0.8473085761, green: 0.3895412087, blue: 0.4345907271, alpha: 1)
             finalMarkLabel.text = String(projectsUsers.finalMark ?? 0)
             
             bigStatusImageView.isHidden = true
@@ -65,6 +66,7 @@ class ProjectMainInfoCell: UITableViewCell {
                 statusLabel.text = "subscribed"
                 bigStatusImageView.image = #imageLiteral(resourceName: "flash")
                 
+                markBGView.backgroundColor = #colorLiteral(red: 0.002772599459, green: 0.7285055518, blue: 0.7355008125, alpha: 1)
                 finalMarkLabel.isHidden = true
                 ofMarkLabel.isHidden = true
             default:

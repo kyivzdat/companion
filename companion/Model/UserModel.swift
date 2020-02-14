@@ -228,7 +228,7 @@ struct ProjectsUser: Decodable {
     let project: Cursus?
     let retriableAt, status: String?
     let validated: Bool?
-    let teams: [Team]?
+    var teams: [Team]?
 
     enum CodingKeys: String, CodingKey {
         case currentTeamID = "current_team_id"

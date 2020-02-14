@@ -203,7 +203,7 @@ extension API {
     
     // MARK: - Get Data of Project
     public func getDataOfProject(projectID: Int, completion: @escaping(ProjectsUser) -> ()) {
-        print("🤪getDataOfProject🤪")
+//        print("🤪getDataOfProject🤪")
         
         let urlString = API.shared.apiURL+"/v2/projects_users/" + String(projectID)
         guard let url = NSURL(string: urlString) else { return }
@@ -226,7 +226,7 @@ extension API {
     
     // MARK: - getGeneralInfoOfProject
     public func getGeneralInfoOfProject(projectID: Int, completion: @escaping(ProjectInfo) -> ()) {
-        print("🤪getGeneralInfoOfProject🤪")
+//        print("🤪getGeneralInfoOfProject🤪")
         
         let urlString = API.shared.apiURL+"/v2/projects/" + String(projectID)
         guard let url = NSURL(string: urlString) else { return }

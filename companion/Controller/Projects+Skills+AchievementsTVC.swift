@@ -29,6 +29,8 @@ class Projects_Skills_AchievementsTVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = getTypeOfData.rawValue.capitalized
+        
         print("Projects_Skills_AchievementsTVC")
         print("TypeOfData -", getTypeOfData.rawValue)
         
@@ -115,9 +117,9 @@ extension Projects_Skills_AchievementsTVC: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath) as? ProjectCell,
             let project = array[indexPath.row] as? ProjectsUser else { return UITableViewCell() }
         
-        cell.projectLabel.text = project.project?.name
-        cell.formatingMarkLabel(mark: project.finalMark, isValidated: project.validated, status: project.status)
-        
+//        cell.projectLabel.text = project.project?.name
+//        cell.formatingMarkLabel(mark: project.finalMark, isValidated: project.validated, status: project.status)
+        cell.fillProjectInfo(project)
         return cell
     }
     
@@ -175,7 +177,7 @@ extension Projects_Skills_AchievementsTVC: UITableViewDelegate {
         
         if let selectedProject = array?[indexPath.row] {
             self.performSegue(withIdentifier: "segueToProjectTVC", sender: selectedProject)
+            self.tableView.deselectRow(at: indexPath, animated: true)
         }
-        //        print("project -\n", array![indexPath.row])
     }
 }
