@@ -16,6 +16,8 @@ fileprivate let cellIdentifiers = ["projectMainInfoCell",
 
 class ProjectTVC: UITableViewController {
     
+    @IBOutlet weak var correctionFormButton: UIBarButtonItem!
+    
     // Get from previous VC
     var inputProjectUsers:  ProjectsUser!
     var poolDays:           [ProjectsUser]!
@@ -41,8 +43,6 @@ class ProjectTVC: UITableViewController {
     }
     var projectInfo:        ProjectInfo? { // MainInfoCell + Description
         didSet {
-            
-            
             if let projectSession = projectInfo?.projectSessions {
                 for session in projectSession {
                     if let description = session.projectSessionDescription, description.isEmpty == false {
@@ -51,7 +51,6 @@ class ProjectTVC: UITableViewController {
                     }
                 }
             }
-            
             let bicycle = projectsUsers
             projectsUsers = bicycle
             
@@ -73,6 +72,11 @@ class ProjectTVC: UITableViewController {
         // Make URL Requests
         getProjectsUsers()
         getProjectInfo()
+        
+//        print("parentID -", inputProjectUsers.project?.parentID)
+        if poolDays.isEmpty == false {
+            navigationItem.rightBarButtonItems?.removeAll()
+        }
         
         poolDays.sort(by: { ($0.id ?? 0) < ($1.id ?? 0) })
     }
@@ -101,6 +105,31 @@ class ProjectTVC: UITableViewController {
             }
         }
     }
+    
+    // MARK: - TapCorrectionFormButton
+    @IBAction func tapCorrectionFormButton(_ sender: UIBarButtonItem) {
+        if let projectID = inputProjectUsers.project?.id {
+            API.shared.getCorrectiomForm(projectID) { (correctionsForm) in
+                if let questions = correctionsForm?.questionsWithAnswers {
+                    print("🤩🤩🤩")
+                    var array: [String] = []
+                    questions.forEach { (question) in
+                        array.append(question.guidelines ?? "")
+                    }
+                    YandexAPI.shared.getTranslation(language: "uk", text: array) { (translated) in
+                        print("completed")
+                        translated?.forEach({ (sentence) in
+                            print(sentence)
+                            print()
+                        })
+                    }
+                }
+            }
+        }
+    }
+}
+
+extension ProjectTVC {
     
     // MARK: - Table view data source
     

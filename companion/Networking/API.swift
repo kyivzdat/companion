@@ -73,7 +73,7 @@ extension API {
     //MARK: - Refresh Token
     public func refreshToken(completion: @escaping () -> ()) {
         
-        print("REFRESH TOKEN")
+//        print("REFRESH TOKEN")
         guard let tokenDB = realm.objects(Token.self).first else { return print("Guard. API. refreshToken(). no Token") }
         
         makeTokenRequest(tokenDB: tokenDB, preAccessToken: "") {
@@ -124,7 +124,7 @@ extension API {
     // MARK: - Save Token In DB
     private func saveTokenInDB(tokenModel: Token, tokenSavedInDB tokenDB: Token?, completion: @escaping() -> ()) {
         
-        print("saveTokenInDB")
+//        print("saveTokenInDB")
         guard let accessToken = tokenModel.access_token,
             tokenModel.created_at != 0,
             tokenModel.expires_in != 0 else { return print("Guard. API. saveTokenInDB() bad values in JSON") }
@@ -205,7 +205,7 @@ extension API {
     public func getDataOfProject(projectID: Int, completion: @escaping(ProjectsUser) -> ()) {
 //        print("🤪getDataOfProject🤪")
         
-        let urlString = API.shared.apiURL+"/v2/projects_users/" + String(projectID)
+        let urlString = apiURL+"/v2/projects_users/" + String(projectID)
         guard let url = NSURL(string: urlString) else { return }
         
         let request = NSMutableURLRequest(url: url as URL)
@@ -240,6 +240,27 @@ extension API {
                 let projectDecode = try JSONDecoder().decode(ProjectInfo.self, from: data)
                 
                 completion(projectDecode)
+            } catch {
+                print(error.localizedDescription)
+                return
+            }
+        }.resume()
+    }
+    
+    // MARK: - GetCorrectionForm
+    func getCorrectiomForm(_ projectID: Int, completion: @escaping(CorrectionForm?) -> ()) {
+        let urlString = API.shared.apiURL+"/v2/scale_teams?project_id=" + String(projectID)
+        guard let url = NSURL(string: urlString) else { return }
+        
+        let request = NSMutableURLRequest(url: url as URL)
+        request.setValue("Bearer " + API.shared.bearer, forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
+            guard let data = data else { return }
+            do {
+                let projectsDecode = try JSONDecoder().decode([CorrectionForm].self, from: data)
+                
+                completion(projectsDecode.first)
             } catch {
                 print(error.localizedDescription)
                 return

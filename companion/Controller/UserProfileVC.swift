@@ -37,21 +37,51 @@ class UserProfileVC: UITableViewController {
     // Passed Data from Login VC
     var userData: UserData!
     
+    let searchController = UISearchController(searchResultsController: nil)
+    
     // MARK: - view Did load
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setupSearchController()
         
+        fillGeneralDataOnView()
+        
+        // Level
+        fillLevelProgressView()
+        
+        // Exams
+        managedExamsImages()
+        
+        // Internships
+        checkForPassedInternships()
+        
+        viewSetup()
+    }
+    
+    // MARK: Setup SearchController
+    func setupSearchController() {
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Search a user"
+        
+//        searchController.hidesNavigationBarDuringPresentation = false
+//        searchController.obscuresBackgroundDuringPresentation = false
+//        definesPresentationContext = true
+//        searchController.definesPresentationContext = true
+        
+        navigationItem.searchController = searchController
+    }
+    
+    func fillGeneralDataOnView() {
         //Image
         if let urlImage = URL(string: userData.imageURL ?? "") {
             photoImageView.kf.indicatorType = .activity
-            //            photoImageView.kf.setImage(with: urlImage)
             photoImageView.kf.setImage(with: urlImage,
-                                       placeholder: UIImage(named: "photoHolder"),
+                                       placeholder: #imageLiteral(resourceName: "photoHolder"),
                                        options: [.transition(.fade(1))],
                                        progressBlock: nil)
         }
         
-        //        #colorLiteral(red: 0.003921568627, green: 0.7294117647, blue: 0.737254902, alpha: 1)
         fullName.text = userData.displayname
         login.text = userData.login
         correctionPoints.text = String(userData.correctionPoint ?? 0)
@@ -60,20 +90,33 @@ class UserProfileVC: UITableViewController {
             yearOfpool.text = poolMonth + ", " + poolYear
         }
         isAvailableLabel.text = userData.location ?? "Unavailable"
-        
-        // Level
+    }
+    
+    func viewSetup() {
+        bgViews.forEach { (view) in
+            view.layer.cornerRadius = 3
+            view.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            view.layer.shadowOffset = CGSize(width: 1, height: 1)
+            view.layer.shadowRadius = 1
+            view.layer.shadowOpacity = 0.1
+        }
+        tableView.tableFooterView = UIView(frame: .zero)
+    }
+    
+    func fillLevelProgressView() {
         if let indexOfCursus = userData.cursusUsers?.firstIndex(where: { $0.cursusID == 1 }),
             let level = userData.cursusUsers?[indexOfCursus].level {
             levelLabel.text = String(level)
             let progress = Float(Double(level) - Double(Int(level)))
             levelProgressView.progress = progress
         }
-        
-        // Exams
+    }
+    
+    func managedExamsImages() {
         if let indexOfExams = userData.projectsUsers?.firstIndex(where: { $0.project?.id == 11 }),
             let exams = self.userData.projectsUsers?[indexOfExams] {
             
-            let passedImage =       UIImage(named: "passedExam")
+            let passedImage = #imageLiteral(resourceName: "passedExam")
             
             if exams.validated == true {
                 examsImageViews.forEach { (examViewImage) in
@@ -89,31 +132,17 @@ class UserProfileVC: UITableViewController {
                 })
             }
         }
-        
-        // Internships
+    }
+    
+    func checkForPassedInternships() {
         
         for imageID in 0..<internshipImageViews.count {
             let idOfInternshipsProject = [120, 1650, 212] // First Internship, PartTime-I, Final Intership
-            checkForPassedInternships(projectID: idOfInternshipsProject[imageID], imageID: imageID)
-        }
-        
-        
-        bgViews.forEach { (view) in
-            view.layer.cornerRadius = 3
-            view.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            view.layer.shadowOffset = CGSize(width: 1, height: 1)
-            view.layer.shadowRadius = 1
-            view.layer.shadowOpacity = 0.1
-        }
-        tableView.tableFooterView = UIView(frame: .zero)
-    }
-    
-    func checkForPassedInternships(projectID: Int, imageID: Int) {
-        
-        if let indexOfFinalInternShip = userData.projectsUsers?.firstIndex(where: { $0.project?.id == projectID }),
-            self.userData.projectsUsers?[indexOfFinalInternShip].validated == true {
-            
-            self.internshipImageViews[imageID].image = UIImage(named: "internshipPassed")
+            if let indexOfFinalInternShip = userData.projectsUsers?.firstIndex(where: { $0.project?.id == idOfInternshipsProject[imageID] }),
+                self.userData.projectsUsers?[indexOfFinalInternShip].validated == true {
+                
+                self.internshipImageViews[imageID].image = #imageLiteral(resourceName: "internshipPassed")
+            }
         }
     }
     
@@ -146,15 +175,12 @@ class UserProfileVC: UITableViewController {
             var typeOfData: AllowedTypes!
             switch indexPath.row {
             case 0:
-                print("Select projects")
                 dataToPass = prepareProjects(courseID)
                 typeOfData = .projects
             case 1:
-                print("Select skills")
                 dataToPass = prepareSkills(courseID)
                 typeOfData = .skills
             case 2:
-                print("Select achievements")
                 dataToPass = prepareAchievements(courseID)
                 typeOfData = .achievements
             default:
@@ -164,10 +190,11 @@ class UserProfileVC: UITableViewController {
         }
     }
     
+    // MARK: - prepareProjects
     /**
-     - course ID
-     - 4 - Piscine C  (pool)
-     - 1 - school 42
+     - course ID:
+         - 4 - Piscine C  (pool)
+         - 1 - school 42
      */
     func prepareProjects(_ courseID: Int) -> [ProjectsUser] {
         guard let projects = userData.projectsUsers else { return [] }
@@ -182,6 +209,7 @@ class UserProfileVC: UITableViewController {
         return resultArray
     }
     
+    // MARK: - prepareSkills
     func prepareSkills(_ courseID: Int) -> [Skill] {
         
         guard let indexOfCursus = userData.cursusUsers?.firstIndex(where: { $0.cursusID == courseID }),
@@ -189,6 +217,7 @@ class UserProfileVC: UITableViewController {
         return skills
     }
     
+    // MARK: - prepareAchievements
     func prepareAchievements(_ courseID: Int) -> [Achievement] {
         
         var resultArray: [Achievement] = []
@@ -203,5 +232,13 @@ class UserProfileVC: UITableViewController {
             resultArray.append(lastElem)
         }
         return resultArray
+    }
+}
+
+extension UserProfileVC: UISearchBarDelegate {
+    // MARK: - SearchBar Delegate
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("text -", searchBar.text ?? "nil")
     }
 }

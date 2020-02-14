@@ -31,9 +31,6 @@ class Projects_Skills_AchievementsTVC: UIViewController {
         
         navigationItem.title = getTypeOfData.rawValue.capitalized
         
-        print("Projects_Skills_AchievementsTVC")
-        print("TypeOfData -", getTypeOfData.rawValue)
-        
         iconsArray = Array<UIImage?>(repeating: nil, count: array.count)
         
         if getTypeOfData == TypeOfData.projects, let allProjects = array as? [ProjectsUser] {
