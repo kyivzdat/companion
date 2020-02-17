@@ -19,26 +19,32 @@ struct CorrectionForm: Codable {
 
 // MARK: - QuestionsWithAnswer
 struct QuestionsWithAnswer: Codable {
-    let id: Int?
     let name, guidelines: String?
-    let rating: Rating?
-    let kind: Kind?
+}
 
-    enum Kind: String, Codable {
-        case bonus = "bonus"
-        case standard = "standard"
-    }
 
-    enum Rating: String, Codable {
-        case bool = "bool"
-        case multi = "multi"
-    }
+// MARK: - Translate
+struct Translate: Codable {
+    let sentences: [Sentence]?
+}
+
+// MARK: - Sentence
+struct Sentence: Codable {
+    let trans, orig: String?
 }
 
 
 // MARK: - Welcome
-struct Translate: Codable {
-    let code: Int?
-    let lang: String?
-    let text: [String]?
+struct TranslationJSON: Codable {
+    let data: DataClass?
+}
+
+// MARK: - DataClass
+struct DataClass: Codable {
+    let translations: [Translation]?
+}
+
+// MARK: - Translation
+struct Translation: Codable {
+    let translatedText: String?
 }

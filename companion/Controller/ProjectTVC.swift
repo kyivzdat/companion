@@ -64,11 +64,15 @@ class ProjectTVC: UITableViewController {
                                         3: []
     ]
     
+    var dateWhenStartedRequests: TimeInterval!
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = inputProjectUsers.project?.name
+        
+        dateWhenStartedRequests = Date().timeIntervalSince1970
         // Make URL Requests
         getProjectsUsers()
         getProjectInfo()
@@ -101,29 +105,29 @@ class ProjectTVC: UITableViewController {
             API.shared.getGeneralInfoOfProject(projectID: projectID) { (newProjectInfo) in
                 DispatchQueue.main.async {
                     self.projectInfo = newProjectInfo
+                    
+                    if newProjectInfo.exam ?? true {
+                        self.navigationItem.rightBarButtonItems?.removeAll()
+                    }
                 }
             }
         }
     }
     
-    // MARK: - TapCorrectionFormButton
-    @IBAction func tapCorrectionFormButton(_ sender: UIBarButtonItem) {
-        if let projectID = inputProjectUsers.project?.id {
-            API.shared.getCorrectiomForm(projectID) { (correctionsForm) in
-                if let questions = correctionsForm?.questionsWithAnswers {
-                    print("🤩🤩🤩")
-                    var array: [String] = []
-                    questions.forEach { (question) in
-                        array.append(question.guidelines ?? "")
-                    }
-                    YandexAPI.shared.getTranslation(language: "uk", text: array) { (translated) in
-                        print("completed")
-                        translated?.forEach({ (sentence) in
-                            print(sentence)
-                            print()
-                        })
-                    }
-                }
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToCorrectionForm" {
+            guard let dvc = segue.destination as? CorrectionFormTVC else { return }
+            
+            dvc.projectID = inputProjectUsers.project?.id
+            
+            let currentDate = Date().timeIntervalSince1970
+            if currentDate - dateWhenStartedRequests < 1 {
+                
+                print("Attempt to exceed the speed limit for the Segway transition")
+                dvc.delay = 1
+            } else {
+                dvc.delay = 0
             }
         }
     }
@@ -222,5 +226,25 @@ extension ProjectTVC {
         cell.fillProjectInfo(day)
         
         return cell
+    }
+}
+
+extension ProjectTVC {
+    // MARK: - Delegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // get cell ranges for pool Days
+        guard let min = rangesForCell[3]?.first, let max = rangesForCell[3]?.last,
+            min...max ~= indexPath.row else { return }
+        
+        print("index -", indexPath.row - min)
+        let poolDay = poolDays[indexPath.row - min]
+        
+        guard let newVC = storyboard?.instantiateViewController(withIdentifier: "ProjectTVC") as? ProjectTVC else { return }
+        newVC.inputProjectUsers = poolDay
+        newVC.poolDays = []
+        
+        navigationController?.pushViewController(newVC, animated: true)
     }
 }

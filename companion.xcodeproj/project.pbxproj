@@ -21,8 +21,10 @@
 		E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */; };
 		E176F440239BF5480028766A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E176F43F239BF5480028766A /* CoreDataStack.swift */; };
 		E17FD19A23F718ED00C52066 /* CorrectionFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */; };
-		E17FD19C23F731D500C52066 /* YandexAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17FD19B23F731D500C52066 /* YandexAPI.swift */; };
-		E17FD19F23F733A000C52066 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17FD19E23F733A000C52066 /* API.swift */; };
+		E17FD19C23F731D500C52066 /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17FD19B23F731D500C52066 /* GoogleAPI.swift */; };
+		E17FD19F23F733A000C52066 /* 42API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17FD19E23F733A000C52066 /* 42API.swift */; };
+		E19D2F6923FAD88200E11DD0 /* CorrectionFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19D2F6823FAD88100E11DD0 /* CorrectionFormCell.swift */; };
+		E19D2F6B23FAD95900E11DD0 /* CorrectionFormTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19D2F6A23FAD95900E11DD0 /* CorrectionFormTVC.swift */; };
 		E19E1DE423ED34E8006F3594 /* JSONme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19E1DE323ED34E8006F3594 /* JSONme.swift */; };
 		E1A79E8823EAAE060022C633 /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A79E8723EAAE060022C633 /* TokenModel.swift */; };
 		E1A79E8A23EB2B5A0022C633 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A79E8923EB2B5A0022C633 /* UserProfileVC.swift */; };
@@ -51,8 +53,10 @@
 		E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompanionModel.xcdatamodel; sourceTree = "<group>"; };
 		E176F43F239BF5480028766A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionFormModel.swift; sourceTree = "<group>"; };
-		E17FD19B23F731D500C52066 /* YandexAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YandexAPI.swift; sourceTree = "<group>"; };
-		E17FD19E23F733A000C52066 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		E17FD19B23F731D500C52066 /* GoogleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
+		E17FD19E23F733A000C52066 /* 42API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 42API.swift; sourceTree = "<group>"; };
+		E19D2F6823FAD88100E11DD0 /* CorrectionFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionFormCell.swift; sourceTree = "<group>"; };
+		E19D2F6A23FAD95900E11DD0 /* CorrectionFormTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionFormTVC.swift; sourceTree = "<group>"; };
 		E19E1DE323ED34E8006F3594 /* JSONme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONme.swift; sourceTree = "<group>"; };
 		E1A79E8723EAAE060022C633 /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
 		E1A79E8923EB2B5A0022C633 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
@@ -93,6 +97,7 @@
 				E10F921923F4414A00E37615 /* ProjectDescriptionCell.swift */,
 				E10F921B23F4415B00E37615 /* ProjectTeamCell.swift */,
 				E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */,
+				E19D2F6823FAD88100E11DD0 /* CorrectionFormCell.swift */,
 			);
 			path = ProjectCells;
 			sourceTree = "<group>";
@@ -128,6 +133,7 @@
 				E10BF78023F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift */,
 				E10F921523F43A5800E37615 /* ProjectTVC.swift */,
 				ACC5DBB5236B5A2B00C5CC1E /* SearchTVC.swift */,
+				E19D2F6A23FAD95900E11DD0 /* CorrectionFormTVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -135,8 +141,8 @@
 		E17FD19D23F7321400C52066 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				E17FD19E23F733A000C52066 /* API.swift */,
-				E17FD19B23F731D500C52066 /* YandexAPI.swift */,
+				E17FD19E23F733A000C52066 /* 42API.swift */,
+				E17FD19B23F731D500C52066 /* GoogleAPI.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -314,18 +320,20 @@
 				E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */,
 				E1AAE5B123631ACE0001E4FE /* LoginVC.swift in Sources */,
 				E17FD19A23F718ED00C52066 /* CorrectionFormModel.swift in Sources */,
-				E17FD19C23F731D500C52066 /* YandexAPI.swift in Sources */,
+				E17FD19C23F731D500C52066 /* GoogleAPI.swift in Sources */,
 				E176F440239BF5480028766A /* CoreDataStack.swift in Sources */,
 				E10BF78123F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift in Sources */,
+				E19D2F6B23FAD95900E11DD0 /* CorrectionFormTVC.swift in Sources */,
 				ACC5DBB6236B5A2B00C5CC1E /* SearchTVC.swift in Sources */,
 				E10F922123F4814B00E37615 /* ProjectTeamCVCell.swift in Sources */,
 				E10F921C23F4415B00E37615 /* ProjectTeamCell.swift in Sources */,
 				E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */,
+				E19D2F6923FAD88200E11DD0 /* CorrectionFormCell.swift in Sources */,
 				E105469823EC52F6005F5593 /* UserModel.swift in Sources */,
 				E10F921623F43A5800E37615 /* ProjectTVC.swift in Sources */,
 				E19E1DE423ED34E8006F3594 /* JSONme.swift in Sources */,
 				E10F921823F4412400E37615 /* ProjectMainInfoCell.swift in Sources */,
-				E17FD19F23F733A000C52066 /* API.swift in Sources */,
+				E17FD19F23F733A000C52066 /* 42API.swift in Sources */,
 				E10F921A23F4414A00E37615 /* ProjectDescriptionCell.swift in Sources */,
 				E1A79E8A23EB2B5A0022C633 /* UserProfileVC.swift in Sources */,
 				E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */,

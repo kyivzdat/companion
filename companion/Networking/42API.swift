@@ -1,5 +1,5 @@
 //
-//  API.swift
+//  42API.swift
 //  companion
 //
 //  Created by Vladyslav PALAMARCHUK on 10/25/19.
@@ -249,6 +249,7 @@ extension API {
     
     // MARK: - GetCorrectionForm
     func getCorrectiomForm(_ projectID: Int, completion: @escaping(CorrectionForm?) -> ()) {
+
         let urlString = API.shared.apiURL+"/v2/scale_teams?project_id=" + String(projectID)
         guard let url = NSURL(string: urlString) else { return }
         
@@ -260,7 +261,13 @@ extension API {
             do {
                 let projectsDecode = try JSONDecoder().decode([CorrectionForm].self, from: data)
                 
-                completion(projectsDecode.first)
+                var result: CorrectionForm? = nil
+                for oneForm in projectsDecode {
+                    guard oneForm.questionsWithAnswers?.isEmpty == false else { continue }
+                    result = oneForm
+                    break
+                }
+                completion(result)
             } catch {
                 print(error.localizedDescription)
                 return
