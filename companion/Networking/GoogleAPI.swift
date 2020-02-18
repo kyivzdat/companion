@@ -13,8 +13,8 @@ class GoogleAPI {
     static let shared = GoogleAPI()
     
     // MARK: - URL
-    private let url = "https://translation.googleapis.com/language/translate/v2?key=AIzaSyAFDJwbRXA5_dlwJ267JVPmc0sFhNhIMGw&format=text"
-    //    https://translation.googleapis.com/language/translate/v2?key=AIzaSyAFDJwbRXA5_dlwJ267JVPmc0sFhNhIMGw&target=uk&format=text
+    private let url = "https://translation.googleapis.com/language/translate/v2?key=w&format=text"
+
     private init() {}
 }
 
@@ -113,5 +113,3 @@ extension GoogleAPI {
         return result
     }
 }
-
-
