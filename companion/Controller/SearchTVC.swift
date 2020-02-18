@@ -41,7 +41,6 @@ extension SearchTVC: UISearchResultsUpdating {
             self.matchingLogins = profiles
         }
     }
-
 }
 
 extension SearchTVC {
@@ -66,16 +65,17 @@ extension SearchTVC {
         
         API.shared.getProfileInfo(userLogin: login) { (result) in
             DispatchQueue.main.async {
-                self.showUserProfile(result)
+                self.showUserProfile(result, login)
             }
         }
     }
     
     // MARK: - TableView Delegate
-    func showUserProfile(_ result: Result<UserData, Error>) {
+    func showUserProfile(_ result: Result<UserData, Error>, _ login: String) {
         
         guard let dvc = storyboard?.instantiateViewController(withIdentifier: "UserProfileVC") as? UserProfileVC else { return }
         
+        dvc.navigationItem.title = login
         switch result {
         case .success(let userData):
             dvc.userData = userData

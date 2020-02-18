@@ -12,16 +12,64 @@ class SlotsVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
+    var valideSlots: [Slot] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        DispatchQueue.global(qos: .userInteractive).async {
+            
+            let semaphore = DispatchSemaphore(value: 0)
+            
+            for number in 0... {
+                
+                var allSlots: [Slot] = []
+                API.shared.getSlots(fromPage: number) { (slots) in
+                    
+                    allSlots = slots
+                    print("signal")
+                    semaphore.signal()
+                }
+                print("wait")
+                let _ = semaphore.wait(timeout: .distantFuture)
+                
+                if let (valideSlots, isAllSlots) = self.processingSlots(allSlots) {
+                    print("add slots")
+                    self.valideSlots += valideSlots
+                    guard isAllSlots == false else { break }
+                } else {
+                    print("error")
+                }
+            }
+            print("valideSlots", self.valideSlots)
+        }
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
     }
     
-
+    func processingSlots(_ slots: [Slot]) -> (valideSlots: [Slot], isAllSlots: Bool)? {
+        
+        var valideSlots: [Slot] = []
+        let currentDate = Date().timeIntervalSince1970
+        
+        for slot in slots {
+            
+            let startTime   = String(slot.beginAt?.split(separator: ".").first ?? "")
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            
+            if let startDate = dateFormatter.date(from: startTime)?.timeIntervalSince1970 {
+                guard currentDate < startDate else { return (valideSlots, true) }
+                
+                valideSlots.append(slot)
+            } else {
+                return nil
+            }
+        }
+        return (valideSlots, false)
+    }
     
     // MARK: - Navigation
 

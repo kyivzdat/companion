@@ -8,10 +8,11 @@
 
 import Foundation
 
+// MARK: - Slot
 struct Slot: Codable {
     let id: Int?
     let beginAt, endAt: String?
-    let scaleTeam: String?
+    let scaleTeam: ScaleTeam?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -20,6 +21,24 @@ struct Slot: Codable {
         case scaleTeam = "scale_team"
     }
 }
+
+// MARK: - ScaleTeam
+struct ScaleTeam: Codable {
+    let beginAt: String?
+    let correcteds: [Correct]?
+    let corrector: Correct?
+
+    enum CodingKeys: String, CodingKey {
+        case beginAt = "begin_at"
+        case correcteds, corrector
+    }
+    
+    struct Correct: Codable {
+        let login: String?
+    }
+}
+
+
 
 /*
 [

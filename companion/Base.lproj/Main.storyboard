@@ -1316,8 +1316,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="endLabel" destination="ufT-Xc-xjk" id="xz3-u5-ey6"/>
-                                            <outlet property="startLabel" destination="r49-Eb-vDb" id="EjF-2m-Zg7"/>
+                                            <outlet property="endLabel" destination="ufT-Xc-xjk" id="ycT-Bt-vlb"/>
+                                            <outlet property="startLabel" destination="r49-Eb-vDb" id="Adm-ke-D84"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

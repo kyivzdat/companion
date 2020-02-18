@@ -308,8 +308,8 @@ extension API {
     }
 
     //MARK: - Get Slots
-    public func getSlots() {
-        guard let url = NSURL(string: apiURL+"/v2/me/slots") else { return }
+    public func getSlots(fromPage page: Int, completion: @escaping ([Slot]) -> ()) {
+        guard let url = NSURL(string: apiURL+"/v2/me/slots?page[number]=" + String(page)) else { return }
         
         let request = NSMutableURLRequest(url: url as URL)
         request.setValue("Bearer " + bearer, forHTTPHeaderField: "Authorization")
@@ -317,8 +317,8 @@ extension API {
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
             guard let data = data else { return }
             do {
-                let json = try JSONDecoder().decode([Slot].self, from: data)
-                
+                let slots = try JSONDecoder().decode([Slot].self, from: data)
+                completion(slots)
             } catch {
                 print("Error. getSlots\n", error)
             }

@@ -19,6 +19,7 @@
 		E10F922123F4814B00E37615 /* ProjectTeamCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */; };
 		E146D9BA23FC1A820034533D /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9B923FC1A820034533D /* LoginVC.swift */; };
 		E146D9BC23FC1AB90034533D /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9BB23FC1AB90034533D /* SearchTVC.swift */; };
+		E146D9BE23FC27260034533D /* SlotsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9BD23FC27260034533D /* SlotsTVCell.swift */; };
 		E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */; };
 		E176F440239BF5480028766A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E176F43F239BF5480028766A /* CoreDataStack.swift */; };
 		E17FD19A23F718ED00C52066 /* CorrectionFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */; };
@@ -54,6 +55,7 @@
 		E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTeamCVCell.swift; sourceTree = "<group>"; };
 		E146D9B923FC1A820034533D /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		E146D9BB23FC1AB90034533D /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
+		E146D9BD23FC27260034533D /* SlotsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsTVCell.swift; sourceTree = "<group>"; };
 		E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompanionModel.xcdatamodel; sourceTree = "<group>"; };
 		E176F43F239BF5480028766A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionFormModel.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				E10BF78423F14B10009F9F53 /* AchievementCell.swift */,
 				E1B0DC3D23FBDB0B0095388E /* SearchTVCell.swift */,
 				E10F921F23F4463600E37615 /* ProjectCells */,
+				E146D9BD23FC27260034533D /* SlotsTVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -127,9 +130,9 @@
 				E1A79E8723EAAE060022C633 /* TokenModel.swift */,
 				E105469723EC52F6005F5593 /* UserModel.swift */,
 				E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */,
-				E15257AB2371A19D00E87D32 /* View */,
-				E19E1DE323ED34E8006F3594 /* JSONme.swift */,
 				E1B0DC4323FC15AF0095388E /* SlotsModel.swift */,
+				E19E1DE323ED34E8006F3594 /* JSONme.swift */,
+				E15257AB2371A19D00E87D32 /* View */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -142,8 +145,8 @@
 				E10BF78023F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift */,
 				E10F921523F43A5800E37615 /* ProjectTVC.swift */,
 				E19D2F6A23FAD95900E11DD0 /* CorrectionFormTVC.swift */,
-				E1B0DC4123FC12A80095388E /* SlotsVC.swift */,
 				E146D9BB23FC1AB90034533D /* SearchTVC.swift */,
+				E1B0DC4123FC12A80095388E /* SlotsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				E1B0DC4223FC12A80095388E /* SlotsVC.swift in Sources */,
 				E10B01F123841B5600A6A99E /* SkillCell.swift in Sources */,
 				E146D9BA23FC1A820034533D /* LoginVC.swift in Sources */,
+				E146D9BE23FC27260034533D /* SlotsTVCell.swift in Sources */,
 				E10BF78523F14B10009F9F53 /* AchievementCell.swift in Sources */,
 				E1A79E8823EAAE060022C633 /* TokenModel.swift in Sources */,
 				E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */,
