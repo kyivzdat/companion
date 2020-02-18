@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ACC5DBB6236B5A2B00C5CC1E /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC5DBB5236B5A2B00C5CC1E /* SearchTVC.swift */; };
 		E105469823EC52F6005F5593 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105469723EC52F6005F5593 /* UserModel.swift */; };
 		E10B01F123841B5600A6A99E /* SkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F023841B5600A6A99E /* SkillCell.swift */; };
 		E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F223846EC700A6A99E /* ProjectCell.swift */; };
@@ -18,6 +17,8 @@
 		E10F921A23F4414A00E37615 /* ProjectDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921923F4414A00E37615 /* ProjectDescriptionCell.swift */; };
 		E10F921C23F4415B00E37615 /* ProjectTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921B23F4415B00E37615 /* ProjectTeamCell.swift */; };
 		E10F922123F4814B00E37615 /* ProjectTeamCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */; };
+		E146D9BA23FC1A820034533D /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9B923FC1A820034533D /* LoginVC.swift */; };
+		E146D9BC23FC1AB90034533D /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9BB23FC1AB90034533D /* SearchTVC.swift */; };
 		E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */; };
 		E176F440239BF5480028766A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E176F43F239BF5480028766A /* CoreDataStack.swift */; };
 		E17FD19A23F718ED00C52066 /* CorrectionFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */; };
@@ -29,17 +30,18 @@
 		E1A79E8823EAAE060022C633 /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A79E8723EAAE060022C633 /* TokenModel.swift */; };
 		E1A79E8A23EB2B5A0022C633 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A79E8923EB2B5A0022C633 /* UserProfileVC.swift */; };
 		E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */; };
-		E1AAE5B123631ACE0001E4FE /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5B023631ACE0001E4FE /* LoginVC.swift */; };
 		E1AAE5B423631ACF0001E4FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1AAE5B223631ACF0001E4FE /* Main.storyboard */; };
 		E1AAE5B623631AD60001E4FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1AAE5B523631AD60001E4FE /* Assets.xcassets */; };
 		E1AAE5B923631AD60001E4FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1AAE5B723631AD60001E4FE /* LaunchScreen.storyboard */; };
+		E1B0DC3E23FBDB0C0095388E /* SearchTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0DC3D23FBDB0B0095388E /* SearchTVCell.swift */; };
+		E1B0DC4223FC12A80095388E /* SlotsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0DC4123FC12A80095388E /* SlotsVC.swift */; };
+		E1B0DC4423FC15B00095388E /* SlotsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0DC4323FC15AF0095388E /* SlotsModel.swift */; };
 		E8D70778DCD07C9FA9A87DC2 /* Pods_companion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44C38A4EE49D2ADA1ABF5322 /* Pods_companion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		097C92CF47CF695890E3B88E /* Pods-companion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-companion.release.xcconfig"; path = "Target Support Files/Pods-companion/Pods-companion.release.xcconfig"; sourceTree = "<group>"; };
 		44C38A4EE49D2ADA1ABF5322 /* Pods_companion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_companion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		ACC5DBB5236B5A2B00C5CC1E /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchTVC.swift; path = ../View/SearchTVC.swift; sourceTree = "<group>"; };
 		E105469723EC52F6005F5593 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		E10B01F023841B5600A6A99E /* SkillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCell.swift; sourceTree = "<group>"; };
 		E10B01F223846EC700A6A99E /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
@@ -50,6 +52,8 @@
 		E10F921923F4414A00E37615 /* ProjectDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescriptionCell.swift; sourceTree = "<group>"; };
 		E10F921B23F4415B00E37615 /* ProjectTeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTeamCell.swift; sourceTree = "<group>"; };
 		E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTeamCVCell.swift; sourceTree = "<group>"; };
+		E146D9B923FC1A820034533D /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		E146D9BB23FC1AB90034533D /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
 		E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompanionModel.xcdatamodel; sourceTree = "<group>"; };
 		E176F43F239BF5480028766A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionFormModel.swift; sourceTree = "<group>"; };
@@ -62,11 +66,13 @@
 		E1A79E8923EB2B5A0022C633 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		E1AAE5AB23631ACE0001E4FE /* companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = companion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E1AAE5B023631ACE0001E4FE /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = ../View/LoginVC.swift; sourceTree = "<group>"; };
 		E1AAE5B323631ACF0001E4FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E1AAE5B523631AD60001E4FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1AAE5B823631AD60001E4FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1AAE5BA23631AD60001E4FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1B0DC3D23FBDB0B0095388E /* SearchTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVCell.swift; sourceTree = "<group>"; };
+		E1B0DC4123FC12A80095388E /* SlotsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsVC.swift; sourceTree = "<group>"; };
+		E1B0DC4323FC15AF0095388E /* SlotsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsModel.swift; sourceTree = "<group>"; };
 		FFF2494E4D6885EF8530AFB2 /* Pods-companion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-companion.debug.xcconfig"; path = "Target Support Files/Pods-companion/Pods-companion.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +114,7 @@
 				E10B01F023841B5600A6A99E /* SkillCell.swift */,
 				E10B01F223846EC700A6A99E /* ProjectCell.swift */,
 				E10BF78423F14B10009F9F53 /* AchievementCell.swift */,
+				E1B0DC3D23FBDB0B0095388E /* SearchTVCell.swift */,
 				E10F921F23F4463600E37615 /* ProjectCells */,
 			);
 			path = View;
@@ -120,7 +127,9 @@
 				E1A79E8723EAAE060022C633 /* TokenModel.swift */,
 				E105469723EC52F6005F5593 /* UserModel.swift */,
 				E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */,
+				E15257AB2371A19D00E87D32 /* View */,
 				E19E1DE323ED34E8006F3594 /* JSONme.swift */,
+				E1B0DC4323FC15AF0095388E /* SlotsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -128,12 +137,13 @@
 		E15257AD2371A1E900E87D32 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E1AAE5B023631ACE0001E4FE /* LoginVC.swift */,
+				E146D9B923FC1A820034533D /* LoginVC.swift */,
 				E1A79E8923EB2B5A0022C633 /* UserProfileVC.swift */,
 				E10BF78023F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift */,
 				E10F921523F43A5800E37615 /* ProjectTVC.swift */,
-				ACC5DBB5236B5A2B00C5CC1E /* SearchTVC.swift */,
 				E19D2F6A23FAD95900E11DD0 /* CorrectionFormTVC.swift */,
+				E1B0DC4123FC12A80095388E /* SlotsVC.swift */,
+				E146D9BB23FC1AB90034533D /* SearchTVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -182,7 +192,6 @@
 			children = (
 				E1A162B623EDF05B0091DAD0 /* Additional */,
 				E15257AC2371A1DD00E87D32 /* Model */,
-				E15257AB2371A19D00E87D32 /* View */,
 				E15257AD2371A1E900E87D32 /* Controller */,
 				E17FD19D23F7321400C52066 /* Networking */,
 				E1AAE5B223631ACF0001E4FE /* Main.storyboard */,
@@ -314,18 +323,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1B0DC4223FC12A80095388E /* SlotsVC.swift in Sources */,
 				E10B01F123841B5600A6A99E /* SkillCell.swift in Sources */,
+				E146D9BA23FC1A820034533D /* LoginVC.swift in Sources */,
 				E10BF78523F14B10009F9F53 /* AchievementCell.swift in Sources */,
 				E1A79E8823EAAE060022C633 /* TokenModel.swift in Sources */,
 				E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */,
-				E1AAE5B123631ACE0001E4FE /* LoginVC.swift in Sources */,
 				E17FD19A23F718ED00C52066 /* CorrectionFormModel.swift in Sources */,
 				E17FD19C23F731D500C52066 /* GoogleAPI.swift in Sources */,
 				E176F440239BF5480028766A /* CoreDataStack.swift in Sources */,
 				E10BF78123F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift in Sources */,
 				E19D2F6B23FAD95900E11DD0 /* CorrectionFormTVC.swift in Sources */,
-				ACC5DBB6236B5A2B00C5CC1E /* SearchTVC.swift in Sources */,
 				E10F922123F4814B00E37615 /* ProjectTeamCVCell.swift in Sources */,
+				E1B0DC4423FC15B00095388E /* SlotsModel.swift in Sources */,
 				E10F921C23F4415B00E37615 /* ProjectTeamCell.swift in Sources */,
 				E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */,
 				E19D2F6923FAD88200E11DD0 /* CorrectionFormCell.swift in Sources */,
@@ -335,6 +345,8 @@
 				E10F921823F4412400E37615 /* ProjectMainInfoCell.swift in Sources */,
 				E17FD19F23F733A000C52066 /* 42API.swift in Sources */,
 				E10F921A23F4414A00E37615 /* ProjectDescriptionCell.swift in Sources */,
+				E1B0DC3E23FBDB0C0095388E /* SearchTVCell.swift in Sources */,
+				E146D9BC23FC1AB90034533D /* SearchTVC.swift in Sources */,
 				E1A79E8A23EB2B5A0022C633 /* UserProfileVC.swift in Sources */,
 				E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */,
 			);

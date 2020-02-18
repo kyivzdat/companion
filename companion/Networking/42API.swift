@@ -82,7 +82,7 @@ extension API {
     }
     
     // MARK: - Token Request
-    func makeTokenRequest(tokenDB: Token?, preAccessToken: String, completion: @escaping () -> ()) {
+    private func makeTokenRequest(tokenDB: Token?, preAccessToken: String, completion: @escaping () -> ()) {
         
         print("makeTokenRequest")
         guard let url = NSURL(string: apiURL+"oauth/token") else { return }
@@ -129,6 +129,7 @@ extension API {
             tokenModel.created_at != 0,
             tokenModel.expires_in != 0 else { return print("Guard. API. saveTokenInDB() bad values in JSON") }
         
+        print("access_token =", accessToken)
         self.bearer = accessToken
         DispatchQueue.main.async {
             do {
@@ -171,7 +172,6 @@ extension API {
             guard fetchAccessTokenFromDB() else { return }
         }
         
-        print("access_token =", bearer)
         print("getProfileInfo")
         
         let login = (userLogin == "me") ? userLogin : "users/" + userLogin
@@ -188,11 +188,15 @@ extension API {
                 
                 // Get exams Info
                 let examsId = 11
-                if let indexOfExamInArray = userData.projectsUsers?.firstIndex(where: { $0.project?.id == examsId }), let indexOfExamProject = userData.projectsUsers?[indexOfExamInArray].id {
+                if let indexOfExamInArray = userData.projectsUsers?.firstIndex(where: { $0.project?.id == examsId }),
+                    let indexOfExamProject = userData.projectsUsers?[indexOfExamInArray].id {
+                    
                     self.getDataOfProject(projectID: indexOfExamProject) { (passedExams) in
                         userData.projectsUsers?[indexOfExamInArray] = passedExams
                         completion(.success(userData))
                     }
+                } else {
+                    completion(.success(userData))
                 }
             } catch {
                 completion(.failure(error))
@@ -275,110 +279,13 @@ extension API {
         }.resume()
     }
     
-    // MARK: - Save User Info To DB
-    private func saveNewUserToDB(myInfo: UserData, completion: @escaping() -> ()) {
-        //
-        //        print("SAVE NEW USER TO DB\n")
-        //        let profileInfoDB = ProfileInfoDB(context: context)
-        //
-        //        guard let corPoints = myInfo.correction_point,
-        //            let id = myInfo.id,
-        //            let wallet = myInfo.wallet,
-        //            let passedExams = myInfo.passedExams
-        //            else { return }
-        //
-        //        // Main info
-        //        profileInfoDB.login = myInfo.login
-        //        profileInfoDB.first_name = myInfo.first_name
-        //        profileInfoDB.last_name = myInfo.last_name
-        //        profileInfoDB.id = Int32(id)
-        //        profileInfoDB.correction_point = Int16(corPoints)
-        //        profileInfoDB.image_url = myInfo.image_url
-        //        profileInfoDB.location = myInfo.location
-        //        profileInfoDB.passedExams = Int16(passedExams)
-        //        profileInfoDB.wallet = Int16(wallet)
-        //
-        //        // Campus
-        //        let campusDB = CampusDB(context: context)
-        //        guard let campus = myInfo.campus.first,
-        //            let campusId = campus?.id
-        //            else { return }
-        //        campusDB.address = campus?.address
-        //        campusDB.city = campus?.city
-        //        campusDB.country = campus?.country
-        //        campusDB.facebook = campus?.facebook
-        //        campusDB.website = campus?.website
-        //        campusDB.id = Int16(campusId)
-        //        profileInfoDB.campus = campusDB
-        //
-        //        // Cursus users <- Skills
-        //        let cursusUsers = myInfo.cursus_users
-        //        cursusUsers.forEach { (cursus) in
-        //            let cursusUsersDB = CursusUsersDB(context: context)
-        //
-        //            guard let cursus_id = cursus?.cursus_id,
-        //                let level = cursus?.level
-        //                else { return }
-        //            cursusUsersDB.cursus_id = Int16(cursus_id)
-        //            cursusUsersDB.level = level
-        //
-        //
-        //            guard let skills = myInfo.cursus_users[0]?.skills else { return }
-        //            skills.forEach { (skill) in
-        //                let skillsDB = SkillsDB(context: context)
-        //
-        //                guard let skillId = skill?.id,
-        //                    let skillLevel = skill?.level
-        //                    else { return }
-        //
-        //                skillsDB.id = Int16(skillId)
-        //                skillsDB.level = skillLevel
-        //                skillsDB.name = skill?.name
-        //
-        //                cursusUsersDB.addToSkills(skillsDB)
-        //            }
-        //            profileInfoDB.addToCursusUsers(cursusUsersDB)
-        //        }
-        //
-        //        // Project Users
-        //        let projectUsers = myInfo.projects_users
-        //        projectUsers.forEach { (project) in
-        //            let projectDB = ProjectUsersDB(context: context)
-        //
-        //            projectDB.name = project?.project?.name
-        //            projectDB.slug = project?.project?.slug
-        //            projectDB.status = project?.status
-        //
-        //            if let mark = project?.final_mark {
-        //                projectDB.final_mark = Int16(mark)
-        //            } else {
-        //                projectDB.final_mark = -1
-        //            }
-        //            if let parent_id = project?.project?.parent_id {
-        //                projectDB.parent_id = Int16(parent_id)
-        //            } else {
-        //                projectDB.parent_id = -1
-        //            }
-        //            if let validated = project?.validated {
-        //                projectDB.validated = validated == 0 ? false : true
-        //            } else {
-        //                projectDB.validated = false
-        //            }
-        //
-        //            profileInfoDB.addToProjectUsers(projectDB)
-        //
-        //        }
-        //
-        //        do {
-        //            try context.save()
-        //            print("Success to save myInfo first time! 👍")
-        //            completion()
-        //        } catch {
-        //            print("Fail to save myInfo first time! 👎", error)
-        //        }
-    }
-    
-    public func getRangeProfiles(inputText: String, completion: @escaping (Data) -> ()) {
+   
+    // MARK: - getRangeProfiles
+    public func getRangeProfiles(inputText: String, completion: @escaping ([String]) -> ()) {
+        
+        struct ParseProfile: Decodable {
+            var login: String?
+        }
         
         let urlString = API.shared.apiURL+"v2/users?search[login]=\(inputText)&sort=login"
         guard let url = NSURL(string: urlString) else { return }
@@ -387,26 +294,34 @@ extension API {
         
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
             guard let data = data else { return }
-            DispatchQueue.main.async {
-                completion(data)
+            do {
+                let profiles = try JSONDecoder().decode([ParseProfile].self, from: data)
+                let result = profiles.map { $0.login ?? "" }
+                DispatchQueue.main.async {
+                    completion(result)
+                }
+            } catch {
+                return print("error getRangeProfile\n\t", error)
             }
+            
         }.resume()
     }
-}
 
-
-extension API {
     //MARK: - Get Slots
     public func getSlots() {
-        guard let url = NSURL(string: apiURL+"/v2/slots") else { return }
+        guard let url = NSURL(string: apiURL+"/v2/me/slots") else { return }
         
         let request = NSMutableURLRequest(url: url as URL)
         request.setValue("Bearer " + bearer, forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
             guard let data = data else { return }
-            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return }
-            print(json)
+            do {
+                let json = try JSONDecoder().decode([Slot].self, from: data)
+                
+            } catch {
+                print("Error. getSlots\n", error)
+            }
         }.resume()
     }
     
@@ -432,4 +347,108 @@ extension API {
             }
         }.resume()
     }
+    
+    // MARK: - Save User Info To DB
+       private func saveNewUserToDB(myInfo: UserData, completion: @escaping() -> ()) {
+           //
+           //        print("SAVE NEW USER TO DB\n")
+           //        let profileInfoDB = ProfileInfoDB(context: context)
+           //
+           //        guard let corPoints = myInfo.correction_point,
+           //            let id = myInfo.id,
+           //            let wallet = myInfo.wallet,
+           //            let passedExams = myInfo.passedExams
+           //            else { return }
+           //
+           //        // Main info
+           //        profileInfoDB.login = myInfo.login
+           //        profileInfoDB.first_name = myInfo.first_name
+           //        profileInfoDB.last_name = myInfo.last_name
+           //        profileInfoDB.id = Int32(id)
+           //        profileInfoDB.correction_point = Int16(corPoints)
+           //        profileInfoDB.image_url = myInfo.image_url
+           //        profileInfoDB.location = myInfo.location
+           //        profileInfoDB.passedExams = Int16(passedExams)
+           //        profileInfoDB.wallet = Int16(wallet)
+           //
+           //        // Campus
+           //        let campusDB = CampusDB(context: context)
+           //        guard let campus = myInfo.campus.first,
+           //            let campusId = campus?.id
+           //            else { return }
+           //        campusDB.address = campus?.address
+           //        campusDB.city = campus?.city
+           //        campusDB.country = campus?.country
+           //        campusDB.facebook = campus?.facebook
+           //        campusDB.website = campus?.website
+           //        campusDB.id = Int16(campusId)
+           //        profileInfoDB.campus = campusDB
+           //
+           //        // Cursus users <- Skills
+           //        let cursusUsers = myInfo.cursus_users
+           //        cursusUsers.forEach { (cursus) in
+           //            let cursusUsersDB = CursusUsersDB(context: context)
+           //
+           //            guard let cursus_id = cursus?.cursus_id,
+           //                let level = cursus?.level
+           //                else { return }
+           //            cursusUsersDB.cursus_id = Int16(cursus_id)
+           //            cursusUsersDB.level = level
+           //
+           //
+           //            guard let skills = myInfo.cursus_users[0]?.skills else { return }
+           //            skills.forEach { (skill) in
+           //                let skillsDB = SkillsDB(context: context)
+           //
+           //                guard let skillId = skill?.id,
+           //                    let skillLevel = skill?.level
+           //                    else { return }
+           //
+           //                skillsDB.id = Int16(skillId)
+           //                skillsDB.level = skillLevel
+           //                skillsDB.name = skill?.name
+           //
+           //                cursusUsersDB.addToSkills(skillsDB)
+           //            }
+           //            profileInfoDB.addToCursusUsers(cursusUsersDB)
+           //        }
+           //
+           //        // Project Users
+           //        let projectUsers = myInfo.projects_users
+           //        projectUsers.forEach { (project) in
+           //            let projectDB = ProjectUsersDB(context: context)
+           //
+           //            projectDB.name = project?.project?.name
+           //            projectDB.slug = project?.project?.slug
+           //            projectDB.status = project?.status
+           //
+           //            if let mark = project?.final_mark {
+           //                projectDB.final_mark = Int16(mark)
+           //            } else {
+           //                projectDB.final_mark = -1
+           //            }
+           //            if let parent_id = project?.project?.parent_id {
+           //                projectDB.parent_id = Int16(parent_id)
+           //            } else {
+           //                projectDB.parent_id = -1
+           //            }
+           //            if let validated = project?.validated {
+           //                projectDB.validated = validated == 0 ? false : true
+           //            } else {
+           //                projectDB.validated = false
+           //            }
+           //
+           //            profileInfoDB.addToProjectUsers(projectDB)
+           //
+           //        }
+           //
+           //        do {
+           //            try context.save()
+           //            print("Success to save myInfo first time! 👍")
+           //            completion()
+           //        } catch {
+           //            print("Fail to save myInfo first time! 👎", error)
+           //        }
+       }
+       
 }

@@ -37,8 +37,6 @@ class UserProfileVC: UITableViewController {
     // Passed Data from Login VC
     var userData: UserData!
     
-    let searchController = UISearchController(searchResultsController: nil)
-    
     // MARK: - view Did load
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,13 +59,14 @@ class UserProfileVC: UITableViewController {
     
     // MARK: Setup SearchController
     func setupSearchController() {
-        searchController.searchBar.delegate = self
-        searchController.searchBar.placeholder = "Search a user"
+        guard let searchTVC = storyboard?.instantiateViewController(withIdentifier: "SearchTVC") as? SearchTVC else { return }
         
-//        searchController.hidesNavigationBarDuringPresentation = false
-//        searchController.obscuresBackgroundDuringPresentation = false
-//        definesPresentationContext = true
-//        searchController.definesPresentationContext = true
+        searchTVC.parentTVC = self
+        
+        let searchController = UISearchController(searchResultsController: searchTVC)
+        
+        searchController.searchBar.placeholder = "Search a user"
+        searchController.searchResultsUpdater = searchTVC
         
         navigationItem.searchController = searchController
     }
@@ -75,6 +74,7 @@ class UserProfileVC: UITableViewController {
     func fillGeneralDataOnView() {
         //Image
         if let urlImage = URL(string: userData.imageURL ?? "") {
+            photoImageView.layer.cornerRadius = 3
             photoImageView.kf.indicatorType = .activity
             photoImageView.kf.setImage(with: urlImage,
                                        placeholder: #imageLiteral(resourceName: "photoHolder"),
@@ -232,13 +232,5 @@ class UserProfileVC: UITableViewController {
             resultArray.append(lastElem)
         }
         return resultArray
-    }
-}
-
-extension UserProfileVC: UISearchBarDelegate {
-    // MARK: - SearchBar Delegate
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("text -", searchBar.text ?? "nil")
     }
 }

@@ -33,6 +33,7 @@ class CorrectionFormTVC: UITableViewController {
     
     func getQuestionsWithAnswer() {
         
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
@@ -71,6 +72,7 @@ class CorrectionFormTVC: UITableViewController {
                         DispatchQueue.main.async {
                             activityIndicator.isHidden = true
                             activityIndicator.stopAnimating()
+                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         }
                     }
                 }

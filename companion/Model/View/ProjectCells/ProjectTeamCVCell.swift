@@ -30,7 +30,6 @@ class ProjectTeamCVCell: UICollectionViewCell {
             userImageView.kf.setImage(with: url, placeholder: nil, options: [.transition(.fade(1))], progressBlock: nil)
             
             loginLabel.text = login
-//            loginLabel.attributedText = outlineLabel(string: login, font: "AppleSDGothicNeo-Bold", size: 15, mainColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
         }
         leaderImageView.image = (user.leader ?? false) ? #imageLiteral(resourceName: "star") : nil
     }

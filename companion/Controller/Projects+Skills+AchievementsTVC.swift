@@ -89,7 +89,6 @@ extension Projects_Skills_AchievementsTVC: UITableViewDataSource {
     // MARK: - Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return array.count
     }
     
@@ -113,9 +112,7 @@ extension Projects_Skills_AchievementsTVC: UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath) as? ProjectCell,
             let project = array[indexPath.row] as? ProjectsUser else { return UITableViewCell() }
-        
-//        cell.projectLabel.text = project.project?.name
-//        cell.formatingMarkLabel(mark: project.finalMark, isValidated: project.validated, status: project.status)
+
         cell.fillProjectInfo(project)
         return cell
     }

@@ -55,4 +55,10 @@ class ProjectCell: UITableViewCell {
             }
         }
     }
+    
+    func addSeparator() {
+        let separatorView = UIView.init(frame: CGRect(x: 15, y: frame.size.height - 1, width: frame.size.width - 15, height: 1))
+        separatorView.backgroundColor = .darkGray
+        contentView.addSubview(separatorView)
+    }
 }

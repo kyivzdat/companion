@@ -1,5 +1,5 @@
 //
-//  SearchTVCell.swift
+//  SlotsTVCell.swift
 //  companion
 //
 //  Created by Vladyslav PALAMARCHUK on 2/18/20.
@@ -8,8 +8,11 @@
 
 import UIKit
 
-class SearchTVCell: UITableViewCell {
+class SlotsTVCell: UITableViewCell {
 
+    @IBOutlet weak var startLabel: UILabel!
+    @IBOutlet weak var endLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

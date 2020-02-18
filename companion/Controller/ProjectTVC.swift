@@ -23,10 +23,11 @@ class ProjectTVC: UITableViewController {
     var poolDays:           [ProjectsUser]!
     
     // Get from url requests
-    var projectsUsers:      ProjectsUser? { // Teams
+    //MARK: - projectUsers - Teams
+    var projectsUsers:      ProjectsUser? {
         didSet {
             
-            if let numberOfTeams = projectsUsers?.teams?.count {
+            if let numberOfTeams = projectsUsers?.teams?.count, numberOfTeams > 0 {
                 
                 // if description is missing we start from 1 row else from 2
                 let isDescription = rangesForCell[1]!.isEmpty ? 1 : 2
@@ -41,18 +42,22 @@ class ProjectTVC: UITableViewController {
             }
         }
     }
-    var projectInfo:        ProjectInfo? { // MainInfoCell + Description
+    
+    //MARK: - projectUsers - MainInfoCell+Description
+    var projectInfo:        ProjectInfo? {
         didSet {
             if let projectSession = projectInfo?.projectSessions {
-                for session in projectSession {
-                    if let description = session.projectSessionDescription, description.isEmpty == false {
-                        rangesForCell[1] = [1]
-                        break
-                    }
+                
+                let bestDescription = defineBestDescription(projectSession)
+                
+                if let description = bestDescription, description.isEmpty == false {
+                    rangesForCell[1] = [1]
+                    self.descriptionText = description
                 }
             }
-            let bicycle = projectsUsers
-            projectsUsers = bicycle
+            
+            let ductTape = projectsUsers
+            projectsUsers = ductTape
             
             tableView.reloadData()
         }
@@ -64,20 +69,27 @@ class ProjectTVC: UITableViewController {
                                         3: []
     ]
     
+    var descriptionText: String?
+    
     var dateWhenStartedRequests: TimeInterval!
     
+    var isBothRequestsEnded = 0
+
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = inputProjectUsers.project?.name
+        tableView.tableFooterView = UIView(frame: .zero)
         
         dateWhenStartedRequests = Date().timeIntervalSince1970
+        
         // Make URL Requests
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         getProjectsUsers()
         getProjectInfo()
         
-//        print("parentID -", inputProjectUsers.project?.parentID)
+        //        print("parentID -", inputProjectUsers.project?.parentID)
         if poolDays.isEmpty == false {
             navigationItem.rightBarButtonItems?.removeAll()
         }
@@ -85,7 +97,7 @@ class ProjectTVC: UITableViewController {
         poolDays.sort(by: { ($0.id ?? 0) < ($1.id ?? 0) })
     }
     
-    // MARK: - requests
+    // MARK: - Requests
     func getProjectsUsers() {
         if let userProjectID = inputProjectUsers.id {
             API.shared.getDataOfProject(projectID: userProjectID) { (newProjectsUsers) in
@@ -95,10 +107,15 @@ class ProjectTVC: UITableViewController {
                     var projectsWithSortedTeams = newProjectsUsers
                     projectsWithSortedTeams.teams = sortedTeams
                     self.projectsUsers = projectsWithSortedTeams
+                    self.isBothRequestsEnded += 1
+                    if self.isBothRequestsEnded == 2{
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    }
                 }
             }
         }
     }
+    
     
     func getProjectInfo() {
         if let projectID = inputProjectUsers.project?.id {
@@ -107,11 +124,40 @@ class ProjectTVC: UITableViewController {
                     self.projectInfo = newProjectInfo
                     
                     if newProjectInfo.exam ?? true {
+                        // Remove right navigation button
                         self.navigationItem.rightBarButtonItems?.removeAll()
+                    }
+                    self.isBothRequestsEnded += 1
+                    if self.isBothRequestsEnded == 2{
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     }
                 }
             }
         }
+    }
+    
+    // MARK: - defineBestDescription
+    func defineBestDescription(_ projectSession: [ProjectInfo.ProjectSession]) -> String? {
+        
+        var bestDescription: String?
+        if let indexOf13campus = projectSession.firstIndex(where: { $0.campusID == 13 }),
+            let description = projectSession[indexOf13campus].projectSessionDescription {
+            
+            bestDescription = description
+        } else if let indexOf8campus = projectSession.firstIndex(where: { $0.campusID == 8 }),
+            let description = projectSession[indexOf8campus].projectSessionDescription {
+            
+            bestDescription = description
+        } else {
+            for session in projectSession {
+                if let description = session.projectSessionDescription, description.isEmpty == false {
+                    bestDescription = description
+                    break
+                }
+            }
+        }
+        
+        return bestDescription
     }
     
     // MARK: - Navigation
@@ -135,7 +181,7 @@ class ProjectTVC: UITableViewController {
 
 extension ProjectTVC {
     
-    // MARK: - Table view data source
+    // MARK: - TableView DataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return getMaxRange()
@@ -161,7 +207,7 @@ extension ProjectTVC {
         }
         
         guard index < rangesForCell.count else {
-            print("index < rangesForCell.count")
+            print("index > rangesForCell.count")
             return UITableViewCell()
         }
         
@@ -186,6 +232,8 @@ extension ProjectTVC {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? ProjectMainInfoCell else { return UITableViewCell() }
         
+        removeSeparator(forCell: cell)
+        
         cell.fillViews(inputProjectUsers, projectInfo?.projectSessions)
         return cell
     }
@@ -194,9 +242,11 @@ extension ProjectTVC {
     private func getDescriptionCell(cellIdentifier identifier: String, _ indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? ProjectDescriptionCell,
-            let projectSession = projectInfo?.projectSessions else { return UITableViewCell() }
+            let description = self.descriptionText else { return UITableViewCell() }
 
-        cell.fillDescriptionLabel(projectSession)
+       removeSeparator(forCell: cell)
+        
+        cell.descriptionLabel.text = description
         return cell
     }
     
@@ -207,10 +257,14 @@ extension ProjectTVC {
             let projectsUsers = projectsUsers,
             let minOfRange = rangesForCell[2]?.first else { return UITableViewCell() }
         
+        removeSeparator(forCell: cell)
+        
         let indexOfTeam = indexPath.row - minOfRange
         cell.fillTeamUsers(projectsUsers, indexOfTeam)
+        
         return cell
     }
+    
     
     // MARK: - getPoolDayCell
     private func getPoolDayCell(cellIdentifier identifier: String, _ indexPath: IndexPath) -> UITableViewCell {
@@ -222,29 +276,34 @@ extension ProjectTVC {
         guard indexOfTeam < poolDays.count else { return UITableViewCell() }
         
         let day = poolDays[indexOfTeam]
-
         cell.fillProjectInfo(day)
-        
+
         return cell
+    }
+    
+    // MARK: removeSeparator
+    func removeSeparator(forCell cell: UITableViewCell) {
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
+        cell.directionalLayoutMargins = .zero
     }
 }
 
 extension ProjectTVC {
-    // MARK: - Delegate
+    // MARK: - TableView Delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // get cell ranges for pool Days
         guard let min = rangesForCell[3]?.first, let max = rangesForCell[3]?.last,
-            min...max ~= indexPath.row else { return }
-        
-        print("index -", indexPath.row - min)
+            min...max ~= indexPath.row,
+            let newVC = storyboard?.instantiateViewController(withIdentifier: "ProjectTVC") as? ProjectTVC else { return }
+
         let poolDay = poolDays[indexPath.row - min]
         
-        guard let newVC = storyboard?.instantiateViewController(withIdentifier: "ProjectTVC") as? ProjectTVC else { return }
         newVC.inputProjectUsers = poolDay
         newVC.poolDays = []
         
         navigationController?.pushViewController(newVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
