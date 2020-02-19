@@ -42,7 +42,7 @@ class LoginVC: UIViewController {
         if let token = token {
             print("📅 Current date: ", NSDate(timeIntervalSince1970: Date().timeIntervalSince1970 + 7200))
             print("📅 Expired_at: ", NSDate(timeIntervalSince1970: TimeInterval(token.expires_in + 7200)))
-            
+
             if token.expires_in < Int64(Date().timeIntervalSince1970) + 600 {
                 api.refreshToken() {
                     self.getInfo()

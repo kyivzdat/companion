@@ -11,7 +11,7 @@ import Foundation
 // MARK: - Slot
 struct Slot: Codable {
     let id: Int?
-    let beginAt, endAt: String?
+    var beginAt, endAt: String?
     let scaleTeam: ScaleTeam?
     
     enum CodingKeys: String, CodingKey {

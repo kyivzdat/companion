@@ -47,12 +47,13 @@ extension API {
         let scope       = "scope=public+forum+projects+profile+elearning+tig"
         
         guard let url   = URL(string: apiURL + "oauth/authorize?" + clientID + redirectURI + "&response_type=code&" + scope) else { return print("bad url")}
-        
+
         webAuthSession = ASWebAuthenticationSession(url: url,
                                                     callbackURLScheme: callbackURI,
                                                     completionHandler:
             { (url, error) in
                 guard error == nil else { return print(error!)}
+                
                 guard let url = url, let urlQuery = url.query else { return print("Error. API. makeAuthReqeust()")}
                 
                 print("🍏 url", url)
@@ -68,17 +69,6 @@ extension API {
         }
         
         webAuthSession?.start()
-    }
-    
-    //MARK: - Refresh Token
-    public func refreshToken(completion: @escaping () -> ()) {
-        
-//        print("REFRESH TOKEN")
-        guard let tokenDB = realm.objects(Token.self).first else { return print("Guard. API. refreshToken(). no Token") }
-        
-        makeTokenRequest(tokenDB: tokenDB, preAccessToken: "") {
-            completion()
-        }
     }
     
     // MARK: - Token Request
@@ -121,6 +111,17 @@ extension API {
         }.resume()
     }
     
+    //MARK: - Refresh Token
+        public func refreshToken(completion: @escaping () -> ()) {
+            
+    //        print("REFRESH TOKEN")
+            guard let tokenDB = realm.objects(Token.self).first else { return print("Guard. API. refreshToken(). no Token") }
+            
+            makeTokenRequest(tokenDB: tokenDB, preAccessToken: "") {
+                completion()
+            }
+        }
+    
     // MARK: - Save Token In DB
     private func saveTokenInDB(tokenModel: Token, tokenSavedInDB tokenDB: Token?, completion: @escaping() -> ()) {
         
@@ -129,7 +130,6 @@ extension API {
             tokenModel.created_at != 0,
             tokenModel.expires_in != 0 else { return print("Guard. API. saveTokenInDB() bad values in JSON") }
         
-        print("access_token =", accessToken)
         self.bearer = accessToken
         DispatchQueue.main.async {
             do {
@@ -172,6 +172,7 @@ extension API {
             guard fetchAccessTokenFromDB() else { return }
         }
         
+        print("access_token =", self.bearer)
         print("getProfileInfo")
         
         let login = (userLogin == "me") ? userLogin : "users/" + userLogin
@@ -181,8 +182,8 @@ extension API {
         let request = NSMutableURLRequest(url: url as URL)
         request.setValue("Bearer " + bearer, forHTTPHeaderField: "Authorization")
         
-        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
-            guard let data = data else { return print("Error. getProfileInfo. no data") }
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, error) in
+            guard let data = data else { return print("Error. getProfileInfo. no data\n", error.debugDescription) }
             do {
                 var userData = try JSONDecoder().decode(UserData.self, from: data)
                 
@@ -199,6 +200,7 @@ extension API {
                     completion(.success(userData))
                 }
             } catch {
+                print("Error. API. getProfileInfo()\n", error)
                 completion(.failure(error))
                 return
             }
@@ -308,8 +310,8 @@ extension API {
     }
 
     //MARK: - Get Slots
-    public func getSlots(fromPage page: Int, completion: @escaping ([Slot]) -> ()) {
-        guard let url = NSURL(string: apiURL+"/v2/me/slots?page[number]=" + String(page)) else { return }
+    public func getSlots(fromPage page: Int, completion: @escaping ([Slot]?) -> ()) {
+        guard let url = NSURL(string: apiURL+"/v2/me/slots?page[size]=100&page[number]=" + String(page)) else { return }
         
         let request = NSMutableURLRequest(url: url as URL)
         request.setValue("Bearer " + bearer, forHTTPHeaderField: "Authorization")
@@ -321,6 +323,7 @@ extension API {
                 completion(slots)
             } catch {
                 print("Error. getSlots\n", error)
+                completion(nil)
             }
         }.resume()
     }
