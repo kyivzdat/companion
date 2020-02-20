@@ -26,14 +26,33 @@ class SlotsVC: UITableViewController {
     
     var sectionNumber: [Int : (number: Int, date: String)] = [:]
     
+    let activityIndicator = UIActivityIndicatorView(style: .gray)
+    let emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 21))
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        activityIndicator.startAnimating()
+        activityIndicator.center = self.view.center
+        self.view.addSubview(activityIndicator)
+        
+        emptyLabel.text = "No slots"
+        emptyLabel.textAlignment = .center
+        emptyLabel.center = view.center
+        view.addSubview(emptyLabel)
+        emptyLabel.isHidden = true
+        
+        
         navigationController?.visibleViewController?.title = "Slots"
         
-        makeRequestForSlots() {}
+        makeRequestForSlots() {
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+                self.emptyLabel.isHidden = (self.slotsForPrint.isEmpty) ? false : true
+            }
+        }
         
         tableView.refreshControl = pullToRefreshControl
         tableView.tableFooterView = UIView(frame: .zero)
@@ -44,6 +63,7 @@ class SlotsVC: UITableViewController {
         makeRequestForSlots {
             DispatchQueue.main.async {
                 sender.endRefreshing()
+                self.emptyLabel.isHidden = (self.slotsForPrint.isEmpty) ? false : true
             }
         }
     }
@@ -310,5 +330,13 @@ extension SlotsVC {
         cell.fillView(withSlot: slot)
         
         return cell
+    }
+}
+
+extension SlotsVC {
+    
+    // MARK: - didSelectRowAt
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

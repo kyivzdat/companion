@@ -14,7 +14,7 @@ class SearchTVC: UITableViewController {
     // Passed from prev VC
     var parentTVC: UITableViewController!
     
-    let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+    let activityIndicator = UIActivityIndicatorView(style: .gray)
     
     var matchingLogins: [String] = [] {
         didSet {

@@ -34,7 +34,7 @@ class CorrectionFormTVC: UITableViewController {
     func getQuestionsWithAnswer() {
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        let activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()

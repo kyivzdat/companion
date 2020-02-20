@@ -74,7 +74,7 @@ extension API {
     // MARK: - Token Request
     private func makeTokenRequest(tokenDB: Token?, preAccessToken: String, completion: @escaping () -> ()) {
         
-        print("makeTokenRequest")
+//        print("makeTokenRequest")
         guard let url = NSURL(string: apiURL+"oauth/token") else { return }
         let request = NSMutableURLRequest(url: url as URL)
         request.httpMethod = "POST"
@@ -173,7 +173,7 @@ extension API {
         }
         
         print("access_token =", self.bearer)
-        print("getProfileInfo")
+//        print("getProfileInfo")
         
         let login = (userLogin == "me") ? userLogin : "users/" + userLogin
         

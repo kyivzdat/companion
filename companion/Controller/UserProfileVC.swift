@@ -70,7 +70,7 @@ class UserProfileVC: UITableViewController {
         checkForPassedInternships()
     }
     
-    // MARK: Setup SearchController
+    // MARK: setupSearchController
     func setupSearchController() {
         guard let searchTVC = storyboard?.instantiateViewController(withIdentifier: "SearchTVC") as? SearchTVC else { return }
         
@@ -84,6 +84,7 @@ class UserProfileVC: UITableViewController {
         navigationItem.searchController = searchController
     }
     
+    // MARK:  fillGeneralDataOnView
     func fillGeneralDataOnView() {
         //Image
         if let urlImage = URL(string: userData.imageURL ?? "") {
@@ -105,11 +106,12 @@ class UserProfileVC: UITableViewController {
         isAvailableLabel.text = userData.location ?? "Unavailable"
     }
     
+    // MARK: viewSetup
     func viewSetup() {
         bgViews.forEach { (view) in
             view.layer.cornerRadius = 3
             view.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            view.layer.shadowOffset = CGSize(width: 1, height: 1)
+            view.layer.shadowOffset = CGSize(width: 0, height: 0)
             view.layer.shadowRadius = 1
             view.layer.shadowOpacity = 0.1
         }
@@ -117,13 +119,13 @@ class UserProfileVC: UITableViewController {
         tableView.refreshControl = pullToRefresh
     }
     
+    // MARK: fillLevelProgressView
     func fillLevelProgressView() {
         levelProgressView.layer.cornerRadius = 1
         levelProgressView.transform = .identity
         levelProgressView.transform = levelProgressView.transform.scaledBy(x: 1, y: 14)
         levelProgressView.clipsToBounds = true
         levelProgressView.tintColor = #colorLiteral(red: 0.002772599459, green: 0.7285055518, blue: 0.7355008125, alpha: 1)
-        levelLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         if let indexOfCursus = userData.cursusUsers?.firstIndex(where: { $0.cursusID == 1 }),
             let level = userData.cursusUsers?[indexOfCursus].level {
@@ -132,9 +134,13 @@ class UserProfileVC: UITableViewController {
             levelLabel.text = "level "+String(Int(level))+" - "+String(Int((progress * 100).rounded()))+"%"
             
             levelProgressView.progress = progress
+        } else {
+            levelLabel.text = "level 0 - 0%"
+            levelProgressView.progress = 0
         }
     }
     
+    // MARK: managedExamsImages
     func managedExamsImages() {
         if let indexOfExams = userData.projectsUsers?.firstIndex(where: { $0.project?.id == 11 }),
             let exams = self.userData.projectsUsers?[indexOfExams] {
@@ -157,6 +163,7 @@ class UserProfileVC: UITableViewController {
         }
     }
     
+    // MARK: checkForPassedInternships
     func checkForPassedInternships() {
         
         for imageID in 0..<internshipImageViews.count {
@@ -170,7 +177,7 @@ class UserProfileVC: UITableViewController {
     }
 
     
-    // MARK: - Refresh
+    // MARK: - refresh
     @objc func refresh(_ sender: UIRefreshControl) {
         
         if let login = userData.login {

@@ -17,6 +17,10 @@ import RealmSwift
 
 class LoginVC: UIViewController {
     
+    @IBOutlet weak var loginButton: UIButton!
+    
+    let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+    
     lazy var context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
     
     let realm = try! Realm()
@@ -24,17 +28,32 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        setupButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        login()
+        UIView.animate(withDuration: 0.9, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            self.loginButton.transform = .identity
+        })
     }
     
+    func setupButton() {
+        loginButton.layer.cornerRadius = 10
+        loginButton.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        loginButton.layer.borderWidth = 0.5
+        loginButton.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        loginButton.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
+        loginButton.clipsToBounds = true
+        loginButton.transform = CGAffineTransform(translationX: 0, y: 300)
+    }
+
     func login() {
         print("Realm path -", Realm.Configuration.defaultConfiguration.fileURL ?? "")
-        
         let api = API.shared
         
         let token = realm.objects(Token.self).first
@@ -59,7 +78,14 @@ class LoginVC: UIViewController {
     
     // MARK: - Login button
     @IBAction func loginButton(_ sender: UIButton) {
-        login()
+        
+        activityIndicator.startAnimating()
+        activityIndicator.center = self.view.center
+        self.view.addSubview(activityIndicator)
+        
+        animateTap(loginButton) {
+            self.login()
+        }
     }
     
     private func getInfo() {
@@ -72,8 +98,38 @@ class LoginVC: UIViewController {
                     self.performSegue(withIdentifier: "LoginSegue", sender: userData)
                 case .failure(let error):
                     print("Failed to fetch self info: ", error)
+                    self.showAlert()
                 }
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
             }
+        }
+    }
+    
+    func showAlert() {
+        DispatchQueue.main.async {
+            let ac = UIAlertController(title: "Something went wrong", message: "Try again later", preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "Ok", style: .default)
+            ac.addAction(okButton)
+            self.present(ac, animated: true)
+        }
+    }
+    
+    func animateTap<T>(_ view: T, completion: @escaping () -> ()) {
+        let castView: UIView!
+        
+        if (view as? UIView) != nil {
+            castView = view as? UIView
+        } else {
+            return
+        }
+        UIView.animate(withDuration: 0.3, animations: {
+            castView.transform = CGAffineTransform(scaleX: 0.94, y: 0.94)
+        }) { (_) in
+            completion()
+            UIView.animate(withDuration: 0.3, animations: {
+                castView.transform = .identity
+            })
         }
     }
     

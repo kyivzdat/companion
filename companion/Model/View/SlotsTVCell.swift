@@ -12,6 +12,7 @@ class SlotsTVCell: UITableViewCell {
 
     @IBOutlet weak var startLabel: UILabel!
     @IBOutlet weak var endLabel: UILabel!
+    @IBOutlet weak var betweenLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,8 +25,9 @@ class SlotsTVCell: UITableViewCell {
         endLabel.text = getCorrectTime(fromString: slot.endAt)
         
         if slot.scaleTeam != nil {
-            startLabel.textColor =  #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
-            endLabel.textColor =    #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+            startLabel.textColor =      #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+            endLabel.textColor =        #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+            betweenLabel.textColor =    #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
         }
     }
     
