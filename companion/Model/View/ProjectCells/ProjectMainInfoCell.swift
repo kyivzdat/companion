@@ -22,7 +22,7 @@ class ProjectMainInfoCell: UITableViewCell {
     
     @IBOutlet weak var teamLabel: UILabel!
     @IBOutlet weak var correctionsLabel: UILabel!
-    @IBOutlet weak var checkersLabel: UILabel!
+//    @IBOutlet weak var checkersLabel: UILabel!
     @IBOutlet weak var xpLabel: UILabel!
     
     @IBOutlet weak var bigStatusImageView: UIImageView!
@@ -59,10 +59,12 @@ class ProjectMainInfoCell: UITableViewCell {
             switch projectsUsers.status {
             case "in_progress":
                 fallthrough
+            case "waiting_for_correction":
+                fallthrough
             case "searching_a_group":
                 fallthrough
             case "creating_group":
-                statusImageView.image = nil
+                statusImageView.isHidden = true
                 statusLabel.text = "subscribed"
                 bigStatusImageView.image = #imageLiteral(resourceName: "flash")
                 

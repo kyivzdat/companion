@@ -88,8 +88,7 @@ class ProjectTVC: UITableViewController {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         getProjectsUsers()
         getProjectInfo()
-        
-        //        print("parentID -", inputProjectUsers.project?.parentID)
+
         if poolDays.isEmpty == false {
             navigationItem.rightBarButtonItems?.removeAll()
         }
@@ -116,7 +115,7 @@ class ProjectTVC: UITableViewController {
         }
     }
     
-    
+    // MARK: - getProjectInfo
     func getProjectInfo() {
         if let projectID = inputProjectUsers.project?.id {
             API.shared.getGeneralInfoOfProject(projectID: projectID) { (newProjectInfo) in
@@ -196,6 +195,13 @@ extension ProjectTVC {
             }
         }
         return result + 1
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 170
+        }
+        return UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

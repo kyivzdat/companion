@@ -43,6 +43,8 @@ class ProjectCell: UITableViewCell {
                 markLabel.text = " " + String(mark ?? 0) + " "
             case "in_progress":
                 fallthrough
+            case "waiting_for_correction":
+                fallthrough
             case "searching_a_group":
                 fallthrough
             case "creating_group":

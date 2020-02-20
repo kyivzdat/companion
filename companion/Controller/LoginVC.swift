@@ -86,6 +86,7 @@ class LoginVC: UIViewController {
             let userData = sender as? UserData else { return print("Error. LoginVC. prepare()") }
         
         dvc.userData = userData
+        dvc.titleText = "Intra 42"
     }
 }
 

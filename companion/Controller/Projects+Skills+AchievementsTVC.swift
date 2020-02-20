@@ -12,6 +12,9 @@ import SVGKit
 
 class Projects_Skills_AchievementsTVC: UIViewController {
     
+    @IBOutlet weak var emptyImage: UIImageView!
+    @IBOutlet weak var emptyLabel: UILabel!
+    
     enum TypeOfData: String {
         case projects
         case skills
@@ -29,14 +32,22 @@ class Projects_Skills_AchievementsTVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = getTypeOfData.rawValue.capitalized
+        let title = getTypeOfData.rawValue.capitalized
+        navigationItem.title = title
         
-        iconsArray = Array<UIImage?>(repeating: nil, count: array.count)
-        
-        if getTypeOfData == TypeOfData.projects, let allProjects = array as? [ProjectsUser] {
-            disperseProjects(allProjects)
+        if array.isEmpty {
+            emptyLabel.text = "No " + title
+            emptyImage.isHidden = false
+            emptyLabel.isHidden = false
+        } else {
+            iconsArray = Array<UIImage?>(repeating: nil, count: array.count)
+            
+            if getTypeOfData == TypeOfData.projects, let allProjects = array as? [ProjectsUser] {
+                disperseProjects(allProjects)
+            }
         }
         
+        tableView.tableFooterView = UIView(frame: .zero)
         tableView.delegate = self
         tableView.dataSource = self
     }

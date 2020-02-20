@@ -8,9 +8,7 @@
 
 import UIKit
 
-class SlotsVC: UIViewController {
-    
-    @IBOutlet weak var tableView: UITableView!
+class SlotsVC: UITableViewController {
     
     var slotsForPrint: [Slot] = [] {
         didSet {
@@ -20,45 +18,47 @@ class SlotsVC: UIViewController {
         }
     }
     
+    var pullToRefreshControl: UIRefreshControl {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return control
+    }
+    
     var sectionNumber: [Int : (number: Int, date: String)] = [:]
     
-    let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activityIndicator.center = self.view.center
-        self.view.addSubview(activityIndicator)
+        navigationController?.visibleViewController?.title = "Slots"
         
+        makeRequestForSlots() {}
+        
+        tableView.refreshControl = pullToRefreshControl
         tableView.tableFooterView = UIView(frame: .zero)
-        tableView.delegate = self
-        tableView.dataSource = self
     }
     
-    // MARK: - viewWillAppear
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        makeRequestForSlots()
+    @objc func refresh(_ sender: UIRefreshControl) {
+        
+        makeRequestForSlots {
+            DispatchQueue.main.async {
+                sender.endRefreshing()
+            }
+        }
     }
     
     // MARK: - showActivityIndicator
     func showActivityIndicator(isActive: Bool) {
         DispatchQueue.main.async {
-            if isActive {
-                self.activityIndicator.startAnimating()
-            } else {
-                self.activityIndicator.stopAnimating()
-            }
-            self.activityIndicator.isHidden = isActive ? false : true
             UIApplication.shared.isNetworkActivityIndicatorVisible = isActive ? true : false
         }
     }
     
     // MARK: - makeRequestForSlots
-    func makeRequestForSlots() {
+    func makeRequestForSlots(completion: @escaping () -> ()) {
         
-        slotsForPrint = []
+        // Getting Evaluation Slots
         sectionNumber = [:]
         DispatchQueue.global(qos: .userInteractive).async {
             
@@ -72,7 +72,6 @@ class SlotsVC: UIViewController {
                 
                 print("pages for slots -", number)
                 if number % 2 == 0 {
-                    print("sleep")
                     sleep(1)
                 }
                 
@@ -90,13 +89,18 @@ class SlotsVC: UIViewController {
                 } else {
                     self.showAlert()
                     self.showActivityIndicator(isActive: false)
+                    completion()
+                    return
                 }
             }
             if let slotsForPring = self.getSlotsForPrint(fromValidSlots: valideSlots) {
                 self.slotsForPrint = slotsForPring
             } else {
                 self.showAlert()
+                completion()
+                return
             }
+            completion()
             self.showActivityIndicator(isActive: false)
         }
     }
@@ -267,15 +271,15 @@ class SlotsVC: UIViewController {
     
 }
 
-extension SlotsVC: UITableViewDataSource {
+extension SlotsVC {
     
     // MARK: - TableView DataSource
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return sectionNumber.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if let numberInSection = sectionNumber[section]?.number {
             return numberInSection
@@ -283,7 +287,7 @@ extension SlotsVC: UITableViewDataSource {
         return 0
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         if let date = sectionNumber[section]?.date {
             return date
@@ -291,7 +295,7 @@ extension SlotsVC: UITableViewDataSource {
         return ""
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "slotCell", for: indexPath) as! SlotsTVCell
         
@@ -307,8 +311,4 @@ extension SlotsVC: UITableViewDataSource {
         
         return cell
     }
-}
-
-extension SlotsVC: UITableViewDelegate {
-    
 }

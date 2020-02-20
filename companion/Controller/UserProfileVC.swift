@@ -36,12 +36,27 @@ class UserProfileVC: UITableViewController {
     
     // Passed Data from Login VC
     var userData: UserData!
+    var titleText: String!
+    
+    var pullToRefresh: UIRefreshControl {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return refreshControl
+    }
     
     // MARK: - view Did load
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.visibleViewController?.title = titleText
+
         setupSearchController()
+        viewSetup()
+        
+        fillViewWithInfo()
+    }
+    
+    func fillViewWithInfo() {
         
         fillGeneralDataOnView()
         
@@ -53,8 +68,6 @@ class UserProfileVC: UITableViewController {
         
         // Internships
         checkForPassedInternships()
-        
-        viewSetup()
     }
     
     // MARK: Setup SearchController
@@ -101,13 +114,23 @@ class UserProfileVC: UITableViewController {
             view.layer.shadowOpacity = 0.1
         }
         tableView.tableFooterView = UIView(frame: .zero)
+        tableView.refreshControl = pullToRefresh
     }
     
     func fillLevelProgressView() {
+        levelProgressView.layer.cornerRadius = 1
+        levelProgressView.transform = .identity
+        levelProgressView.transform = levelProgressView.transform.scaledBy(x: 1, y: 14)
+        levelProgressView.clipsToBounds = true
+        levelProgressView.tintColor = #colorLiteral(red: 0.002772599459, green: 0.7285055518, blue: 0.7355008125, alpha: 1)
+        levelLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
         if let indexOfCursus = userData.cursusUsers?.firstIndex(where: { $0.cursusID == 1 }),
             let level = userData.cursusUsers?[indexOfCursus].level {
-            levelLabel.text = String(level)
+            
             let progress = Float(Double(level) - Double(Int(level)))
+            levelLabel.text = "level "+String(Int(level))+" - "+String(Int((progress * 100).rounded()))+"%"
+            
             levelProgressView.progress = progress
         }
     }
@@ -142,6 +165,28 @@ class UserProfileVC: UITableViewController {
                 self.userData.projectsUsers?[indexOfFinalInternShip].validated == true {
                 
                 self.internshipImageViews[imageID].image = #imageLiteral(resourceName: "internshipPassed")
+            }
+        }
+    }
+
+    
+    // MARK: - Refresh
+    @objc func refresh(_ sender: UIRefreshControl) {
+        
+        if let login = userData.login {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            API.shared.getProfileInfo(userLogin: login) { (result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let userData):
+                        self.userData = userData
+                        self.fillViewWithInfo()
+                    case .failure(let error):
+                        print("Failed to fetch self info: ", error)
+                    }
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    sender.endRefreshing()
+                }
             }
         }
     }
@@ -201,7 +246,7 @@ class UserProfileVC: UITableViewController {
         var resultArray: [ProjectsUser] = []
         projects.forEach { (project) in
             // if project in school 42 and it's not pool
-            if let ids = project.cursusIDS?.first, ids == courseID {
+            if let ids = project.cursusIDS?.first, ids == courseID && project.project?.name != "Rushes" {
                 resultArray.append(project)
             }
         }
@@ -223,6 +268,9 @@ class UserProfileVC: UITableViewController {
         var resultArray: [Achievement] = []
         guard let achievements = userData.achievements else { return [] }
         
+        if achievements.isEmpty {
+            return []
+        }
         for i in 0..<(achievements.count - 1) {
             if achievements[i].name != achievements[i + 1].name {
                 resultArray.append(achievements[i])
