@@ -2,9 +2,10 @@ PODS:
   - CocoaLumberjack (3.6.1):
     - CocoaLumberjack/Core (= 3.6.1)
   - CocoaLumberjack/Core (3.6.1)
-  - Kingfisher (5.13.0):
-    - Kingfisher/Core (= 5.13.0)
-  - Kingfisher/Core (5.13.0)
+  - Kingfisher (5.13.1):
+    - Kingfisher/Core (= 5.13.1)
+  - Kingfisher/Core (5.13.1)
+  - MBCircularProgressBar (0.3.5)
   - Realm (4.3.2):
     - Realm/Headers (= 4.3.2)
   - Realm/Headers (4.3.2)
@@ -15,6 +16,7 @@ PODS:
 
 DEPENDENCIES:
   - Kingfisher (~> 5.0)
+  - MBCircularProgressBar
   - RealmSwift
   - SVGKit
 
@@ -22,17 +24,19 @@ SPEC REPOS:
   trunk:
     - CocoaLumberjack
     - Kingfisher
+    - MBCircularProgressBar
     - Realm
     - RealmSwift
     - SVGKit
 
 SPEC CHECKSUMS:
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
-  Kingfisher: 0d334cada987fcddbe9b5cec516406e1ee9d4748
+  Kingfisher: f33a848445e33c543620812158dc5d47f6bf90df
+  MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
   Realm: 5e92902e2875dff4bb0fd02f67bb737c3d5db2bc
   RealmSwift: 9a360fc7bae04fc2e308a34fbd899d5faa2d6b22
   SVGKit: 652cdf7bef8bec8564d04a8511d3ab50c7595fac
 
-PODFILE CHECKSUM: 5d57e82b42f33dff7f7dc6fcec30e18efcce8df4
+PODFILE CHECKSUM: 8f3c8c172c80c56af7cbbfad9d5845976aca434e
 
 COCOAPODS: 1.8.4

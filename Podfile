@@ -9,5 +9,6 @@ target 'companion' do
   pod 'Kingfisher', '~> 5.0'
   pod 'SVGKit'
   pod 'RealmSwift'
+  pod "MBCircularProgressBar"
 
 end

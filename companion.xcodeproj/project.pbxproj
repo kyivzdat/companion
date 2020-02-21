@@ -12,6 +12,8 @@
 		E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F223846EC700A6A99E /* ProjectCell.swift */; };
 		E10BF78123F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BF78023F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift */; };
 		E10BF78523F14B10009F9F53 /* AchievementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BF78423F14B10009F9F53 /* AchievementCell.swift */; };
+		E10F40A0240040BA00E65C9B /* LogTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F409E240040BA00E65C9B /* LogTimeCell.swift */; };
+		E10F40A1240040BA00E65C9B /* LogTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E10F409F240040BA00E65C9B /* LogTimeCell.xib */; };
 		E10F921623F43A5800E37615 /* ProjectTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921523F43A5800E37615 /* ProjectTVC.swift */; };
 		E10F921823F4412400E37615 /* ProjectMainInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921723F4412400E37615 /* ProjectMainInfoCell.swift */; };
 		E10F921A23F4414A00E37615 /* ProjectDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921923F4414A00E37615 /* ProjectDescriptionCell.swift */; };
@@ -48,6 +50,8 @@
 		E10B01F223846EC700A6A99E /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		E10BF78023F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Projects+Skills+AchievementsTVC.swift"; sourceTree = "<group>"; };
 		E10BF78423F14B10009F9F53 /* AchievementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementCell.swift; sourceTree = "<group>"; };
+		E10F409E240040BA00E65C9B /* LogTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTimeCell.swift; sourceTree = "<group>"; };
+		E10F409F240040BA00E65C9B /* LogTimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogTimeCell.xib; sourceTree = "<group>"; };
 		E10F921523F43A5800E37615 /* ProjectTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTVC.swift; sourceTree = "<group>"; };
 		E10F921723F4412400E37615 /* ProjectMainInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMainInfoCell.swift; sourceTree = "<group>"; };
 		E10F921923F4414A00E37615 /* ProjectDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescriptionCell.swift; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 				E1B0DC3D23FBDB0B0095388E /* SearchTVCell.swift */,
 				E10F921F23F4463600E37615 /* ProjectCells */,
 				E146D9BD23FC27260034533D /* SlotsTVCell.swift */,
+				E10F409E240040BA00E65C9B /* LogTimeCell.swift */,
+				E10F409F240040BA00E65C9B /* LogTimeCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -272,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1AAE5B923631AD60001E4FE /* LaunchScreen.storyboard in Resources */,
+				E10F40A1240040BA00E65C9B /* LogTimeCell.xib in Resources */,
 				E1AAE5B623631AD60001E4FE /* Assets.xcassets in Resources */,
 				E1AAE5B423631ACF0001E4FE /* Main.storyboard in Resources */,
 			);
@@ -331,6 +338,7 @@
 				E146D9BA23FC1A820034533D /* LoginVC.swift in Sources */,
 				E146D9BE23FC27260034533D /* SlotsTVCell.swift in Sources */,
 				E10BF78523F14B10009F9F53 /* AchievementCell.swift in Sources */,
+				E10F40A0240040BA00E65C9B /* LogTimeCell.swift in Sources */,
 				E1A79E8823EAAE060022C633 /* TokenModel.swift in Sources */,
 				E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */,
 				E17FD19A23F718ED00C52066 /* CorrectionFormModel.swift in Sources */,

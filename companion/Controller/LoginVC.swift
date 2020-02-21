@@ -88,6 +88,7 @@ class LoginVC: UIViewController {
         }
     }
     
+    
     private func getInfo() {
         API.shared.getProfileInfo(userLogin: "me") { (result) in
             DispatchQueue.main.async {
