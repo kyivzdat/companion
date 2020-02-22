@@ -42,13 +42,28 @@ class SearchTVC: UITableViewController {
         dvc.navigationItem.title = login
         switch result {
         case .success(let userData):
+            guard userData.login != nil else {
+                showErrorAlert()
+                break
+            }
             dvc.userData = userData
             dvc.titleText = userData.login
             self.parentTVC.navigationController?.pushViewController(dvc, animated: true)
         case .failure(let error):
             print("Failed to fetch self info: ", error)
+            showErrorAlert()
         }
-        showActivityIndicator(isActive: false)
+        
+    }
+    
+    func showErrorAlert() {
+        
+        let ac = UIAlertController(title: "Can not find such user",
+                                   message: "Try to change login",
+                                   preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "Ok", style: .default)
+        ac.addAction(okButton)
+        self.present(ac, animated: true)
     }
     
     // MARK: - showActivityIndicator
@@ -63,11 +78,25 @@ class SearchTVC: UITableViewController {
             self.activityIndicator.isHidden = isActive ? false : true
         }
     }
+    
+    // MARK: - getUserInfo
+    func getUserInfo(_ login: String) {
+        isAlreadyUserChose = true
+        
+        print("login -", login)
+        showActivityIndicator(isActive: true)
+        API.shared.getProfileInfo(userLogin: login) { (result) in
+            DispatchQueue.main.async {
+                self.showUserProfile(result, login)
+                self.isAlreadyUserChose = false
+            }
+        }
+    }
 }
 
 extension SearchTVC: UISearchResultsUpdating {
 
-    // MARK: - updateSearchResults
+    // MARK: - UISearchResultsUpdating
     func updateSearchResults(for searchController: UISearchController) {
         
         guard var searchBarText = searchController.searchBar.text else { return }
@@ -79,6 +108,22 @@ extension SearchTVC: UISearchResultsUpdating {
                 self.matchingLogins = profiles
             }
         }
+    }
+}
+
+extension SearchTVC: UISearchBarDelegate {
+    
+    // MARK: - UISearchBarDelegate
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        guard let supposedLogin = searchBar.text?.lowercased() else { return print("searchBar.text is Empty") }
+        
+        guard isAlreadyUserChose == false else {
+            print("Tried to select multiple users")
+            return
+        }
+        
+        getUserInfo(supposedLogin)
     }
 }
 
@@ -107,19 +152,9 @@ extension SearchTVC {
             print("Tried to select multiple users")
             return
         }
-        
-        isAlreadyUserChose = true
-        
+
         let login = matchingLogins[indexPath.row]
+        getUserInfo(login)
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        print("login -", login)
-        showActivityIndicator(isActive: true)
-        API.shared.getProfileInfo(userLogin: login) { (result) in
-            DispatchQueue.main.async {
-                self.showUserProfile(result, login)
-                self.isAlreadyUserChose = false
-            }
-        }
     }
 }

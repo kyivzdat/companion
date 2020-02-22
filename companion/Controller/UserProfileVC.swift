@@ -54,6 +54,8 @@ class UserProfileVC: UITableViewController {
         viewSetup()
         
         fillViewWithInfo()
+        
+        
     }
     
     func fillViewWithInfo() {
@@ -70,6 +72,32 @@ class UserProfileVC: UITableViewController {
         checkForPassedInternships()
     }
     
+    func makeRequestForTimeLog() {
+
+        guard let login = userData.login else { return print("makeRequestForTimeLog no login") }
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            let semaphore = DispatchSemaphore(value: 0)
+            
+            var rowTimeLog: [TimeLog]?
+            
+            API.shared.getTimeLog(login, page: 1) { (timeLogs) in
+                rowTimeLog = timeLogs
+                semaphore.signal()
+            }
+            let _ = semaphore.wait(timeout: .distantFuture)
+            
+            if let rowTimeLog = rowTimeLog {
+                getTi
+            }
+        }
+    }
+    
+    func getTimeLogForOneWeek(fromTimeLog: [TimeLog]) {
+        
+        
+    }
+    
     // MARK: setupSearchController
     func setupSearchController() {
         guard let searchTVC = storyboard?.instantiateViewController(withIdentifier: "SearchTVC") as? SearchTVC else { return }
@@ -80,6 +108,7 @@ class UserProfileVC: UITableViewController {
         
         searchController.searchBar.placeholder = "Search a user"
         searchController.searchResultsUpdater = searchTVC
+        searchController.searchBar.delegate = searchTVC
         
         navigationItem.searchController = searchController
     }

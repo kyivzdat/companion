@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		022C5700727651159B6D956D /* Pods_companion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44C38A4EE49D2ADA1ABF5322 /* Pods_companion.framework */; };
+		E102439A2401A06A00FDB2AE /* TimeLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10243992401A06A00FDB2AE /* TimeLog.swift */; };
 		E105469823EC52F6005F5593 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105469723EC52F6005F5593 /* UserModel.swift */; };
 		E10B01F123841B5600A6A99E /* SkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F023841B5600A6A99E /* SkillCell.swift */; };
 		E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F223846EC700A6A99E /* ProjectCell.swift */; };
@@ -39,12 +41,12 @@
 		E1B0DC3E23FBDB0C0095388E /* SearchTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0DC3D23FBDB0B0095388E /* SearchTVCell.swift */; };
 		E1B0DC4223FC12A80095388E /* SlotsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0DC4123FC12A80095388E /* SlotsVC.swift */; };
 		E1B0DC4423FC15B00095388E /* SlotsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0DC4323FC15AF0095388E /* SlotsModel.swift */; };
-		E8D70778DCD07C9FA9A87DC2 /* Pods_companion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44C38A4EE49D2ADA1ABF5322 /* Pods_companion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		097C92CF47CF695890E3B88E /* Pods-companion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-companion.release.xcconfig"; path = "Target Support Files/Pods-companion/Pods-companion.release.xcconfig"; sourceTree = "<group>"; };
 		44C38A4EE49D2ADA1ABF5322 /* Pods_companion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_companion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E10243992401A06A00FDB2AE /* TimeLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLog.swift; sourceTree = "<group>"; };
 		E105469723EC52F6005F5593 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		E10B01F023841B5600A6A99E /* SkillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCell.swift; sourceTree = "<group>"; };
 		E10B01F223846EC700A6A99E /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
@@ -79,6 +81,13 @@
 		E1B0DC3D23FBDB0B0095388E /* SearchTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVCell.swift; sourceTree = "<group>"; };
 		E1B0DC4123FC12A80095388E /* SlotsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsVC.swift; sourceTree = "<group>"; };
 		E1B0DC4323FC15AF0095388E /* SlotsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsModel.swift; sourceTree = "<group>"; };
+		E1DE59E524017571002A7B15 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1DE59E82401759E002A7B15 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1DE59E92401759E002A7B15 /* MBCircularProgressBar.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MBCircularProgressBar.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1DE59EA2401759E002A7B15 /* MBCircularProgressBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MBCircularProgressBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1DE59EB2401759E002A7B15 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1DE59EC2401759E002A7B15 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1DE59ED2401759E002A7B15 /* SVGKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SVGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFF2494E4D6885EF8530AFB2 /* Pods-companion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-companion.debug.xcconfig"; path = "Target Support Files/Pods-companion/Pods-companion.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8D70778DCD07C9FA9A87DC2 /* Pods_companion.framework in Frameworks */,
+				022C5700727651159B6D956D /* Pods_companion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +106,13 @@
 		8E649CB473DEF653149D75C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E1DE59E82401759E002A7B15 /* Kingfisher.framework */,
+				E1DE59E92401759E002A7B15 /* MBCircularProgressBar.bundle */,
+				E1DE59EA2401759E002A7B15 /* MBCircularProgressBar.framework */,
+				E1DE59EB2401759E002A7B15 /* Realm.framework */,
+				E1DE59EC2401759E002A7B15 /* RealmSwift.framework */,
+				E1DE59ED2401759E002A7B15 /* SVGKit.framework */,
+				E1DE59E524017571002A7B15 /* CocoaLumberjack.framework */,
 				44C38A4EE49D2ADA1ABF5322 /* Pods_companion.framework */,
 			);
 			name = Frameworks;
@@ -138,7 +154,7 @@
 				E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */,
 				E1B0DC4323FC15AF0095388E /* SlotsModel.swift */,
 				E19E1DE323ED34E8006F3594 /* JSONme.swift */,
-				E15257AB2371A19D00E87D32 /* View */,
+				E10243992401A06A00FDB2AE /* TimeLog.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,6 +217,7 @@
 			children = (
 				E1A162B623EDF05B0091DAD0 /* Additional */,
 				E15257AC2371A1DD00E87D32 /* Model */,
+				E15257AB2371A19D00E87D32 /* View */,
 				E15257AD2371A1E900E87D32 /* Controller */,
 				E17FD19D23F7321400C52066 /* Networking */,
 				E1AAE5B223631ACF0001E4FE /* Main.storyboard */,
@@ -335,6 +352,7 @@
 			files = (
 				E1B0DC4223FC12A80095388E /* SlotsVC.swift in Sources */,
 				E10B01F123841B5600A6A99E /* SkillCell.swift in Sources */,
+				E102439A2401A06A00FDB2AE /* TimeLog.swift in Sources */,
 				E146D9BA23FC1A820034533D /* LoginVC.swift in Sources */,
 				E146D9BE23FC27260034533D /* SlotsTVCell.swift in Sources */,
 				E10BF78523F14B10009F9F53 /* AchievementCell.swift in Sources */,
@@ -515,10 +533,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = vpalamar.companion;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vpalamar.companion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -535,10 +553,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = vpalamar.companion;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vpalamar.companion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

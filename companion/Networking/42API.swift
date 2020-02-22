@@ -11,7 +11,6 @@ import CoreData
 import AuthenticationServices
 import RealmSwift
 
-// MARK: - TODO Requests
 /*
  https://api.intra.42.fr/v2/projects/29/ <- descriptions
  https://api.intra.42.fr/v2/scale_teams?project_id=fdf&filter[team_id]=2734068 <- correction form + feedbacks
@@ -350,6 +349,32 @@ extension API {
                 print(json!)
             } catch let error {
                 print("getToken error:\n", error)
+            }
+        }.resume()
+    }
+    
+    // MARK: - getTimeLog
+    public func getTimeLog(_ login: String, page: Int, completion: @escaping ([TimeLog]?) -> ()) {
+
+        guard let url = URL(string: apiURL+"v2/users/\(login)/locations?page[size]=100&page[number]=\(page)") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            
+            guard let data = data else {
+                print(error!)
+                completion(nil)
+                return
+            }
+            
+            do {
+                let timeLog = try JSONDecoder().decode([TimeLog].self, from: data)
+                
+                DispatchQueue.main.async {
+                    completion(timeLog)
+                }
+            } catch {
+                print(error)
+                completion(nil)
             }
         }.resume()
     }
