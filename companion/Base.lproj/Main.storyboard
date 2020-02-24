@@ -512,6 +512,7 @@
                         <outlet property="levelProgressView" destination="oWs-88-JGw" id="Glo-u5-EsL"/>
                         <outlet property="login" destination="7Nq-hR-7Hn" id="qyd-n6-fOf"/>
                         <outlet property="photoImageView" destination="cez-rQ-o7J" id="DCC-IG-GwV"/>
+                        <outlet property="timeSpeedometer" destination="Z7i-ff-bCx" id="gnC-UE-DBb"/>
                         <outlet property="wallet" destination="cIY-Kw-BGh" id="7L8-FR-OZh"/>
                         <outlet property="yearOfpool" destination="9RJ-JF-DyF" id="Cxi-a9-3Dy"/>
                         <outletCollection property="internshipImageViews" destination="ekI-GU-Aof" collectionClass="NSMutableArray" id="beo-Bv-Af6"/>

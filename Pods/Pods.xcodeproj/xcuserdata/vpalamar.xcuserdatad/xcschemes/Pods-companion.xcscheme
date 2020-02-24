@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1100"
+   LastUpgradeVersion = "1130"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4CC7C8A4E35B0D31138ABFD45C910796"
-               BuildableName = "Pods_companion.framework"
+               BuildableName = "libPods-companion.a"
                BlueprintName = "Pods-companion"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

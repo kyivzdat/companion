@@ -1,15 +1,15 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CLANG_CXX_LANGUAGE_STANDARD = gnu++11
 CLANG_CXX_LIBRARY = libc++
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack" "${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher" "${PODS_CONFIGURATION_BUILD_DIR}/MBCircularProgressBar" "${PODS_CONFIGURATION_BUILD_DIR}/Realm" "${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift" "${PODS_CONFIGURATION_BUILD_DIR}/SVGKit"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack/CocoaLumberjack.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/MBCircularProgressBar/MBCircularProgressBar.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Realm/Realm.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift/RealmSwift.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SVGKit/SVGKit.framework/Headers" $(SDKROOT)/usr/include/libxml2
-LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Realm/core"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"c++" -l"xml2" -l"z" -framework "Accelerate" -framework "CFNetwork" -framework "CocoaLumberjack" -framework "CoreText" -framework "Kingfisher" -framework "MBCircularProgressBar" -framework "QuartzCore" -framework "Realm" -framework "RealmSwift" -framework "SVGKit" -framework "Security"
-OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/Kingfisher" "${PODS_ROOT}/Headers/Public/MBCircularProgressBar" "${PODS_ROOT}/Headers/Public/Realm" "${PODS_ROOT}/Headers/Public/SVGKit" $(SDKROOT)/usr/include/libxml2
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack" "${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher" "${PODS_CONFIGURATION_BUILD_DIR}/MBCircularProgressBar" "${PODS_CONFIGURATION_BUILD_DIR}/Realm" "${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift" "${PODS_CONFIGURATION_BUILD_DIR}/SVGKit" "${PODS_ROOT}/Realm/core"
+OTHER_CFLAGS = $(inherited) -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.modulemap" -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift/RealmSwift.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Private/Realm/Realm.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Private/SVGKit/SVGKit.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Public/CocoaLumberjack/CocoaLumberjack.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Public/MBCircularProgressBar/MBCircularProgressBar.modulemap"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"CocoaLumberjack" -l"Kingfisher" -l"MBCircularProgressBar" -l"Realm" -l"RealmSwift" -l"SVGKit" -l"c++" -l"realmcore-ios" -l"xml2" -l"z" -framework "Accelerate" -framework "CFNetwork" -framework "CoreText" -framework "QuartzCore" -framework "Security"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.modulemap" -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift/RealmSwift.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Private/Realm/Realm.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Private/SVGKit/SVGKit.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/CocoaLumberjack/CocoaLumberjack.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/MBCircularProgressBar/MBCircularProgressBar.modulemap"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods
+SWIFT_INCLUDE_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher" "${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift"
 USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES

@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import MBCircularProgressBar
 
 class UserProfileVC: UITableViewController {
     
@@ -23,13 +24,14 @@ class UserProfileVC: UITableViewController {
     // Location outlet
     @IBOutlet weak var isAvailableLabel: UILabel!
     
-    // Internship exams outlets
+    // Internship, exams, level outlets
     @IBOutlet var internshipImageViews: Array<UIImageView>!
     @IBOutlet var examsImageViews: Array<UIImageView>!
-    
-    // Level outlet
     @IBOutlet weak var levelLabel: UILabel!
     @IBOutlet weak var levelProgressView: UIProgressView!
+    
+    // TimeLog
+    @IBOutlet weak var timeSpeedometer: MBCircularProgressBarView!
     
     // All bg views
     @IBOutlet var bgViews: Array<UIView>!
@@ -37,7 +39,6 @@ class UserProfileVC: UITableViewController {
     // Passed Data from Login VC
     var userData: UserData!
     var titleText: String!
-    
     var pullToRefresh: UIRefreshControl {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -54,8 +55,6 @@ class UserProfileVC: UITableViewController {
         viewSetup()
         
         fillViewWithInfo()
-        
-        
     }
     
     func fillViewWithInfo() {
@@ -70,8 +69,11 @@ class UserProfileVC: UITableViewController {
         
         // Internships
         checkForPassedInternships()
+        
+        makeRequestForTimeLog()
     }
     
+    // MARK: - makeRequestForTimeLog
     func makeRequestForTimeLog() {
 
         guard let login = userData.login else { return print("makeRequestForTimeLog no login") }
@@ -88,14 +90,123 @@ class UserProfileVC: UITableViewController {
             let _ = semaphore.wait(timeout: .distantFuture)
             
             if let rowTimeLog = rowTimeLog {
-                self.getTimeLogForOneWeek(fromTimeLog: rowTimeLog)
+                guard let weekTime = self.getTimeLogsForOneWeek(fromTimeLogs: rowTimeLog) else { return }
+                var summa: Double = 0
+                
+                for index in 0..<weekTime.count {
+                    guard index > 0 else { continue }
+                    summa += weekTime[index].time
+                }
+                DispatchQueue.main.async {
+                    self.timeSpeedometer.value = CGFloat(summa / 60 / 60)
+                }
+                print("hours -", summa / 60 / 60)
             }
         }
     }
     
-    func getTimeLogForOneWeek(fromTimeLog: [TimeLog]) {
+    struct TimeForDay {
+        let day: Date!
+        let dayStr: String!
+        var time: Double = 0
+    }
+    
+    func getTimeLogsForOneWeek(fromTimeLogs timeLogs: [TimeLog]) -> [TimeForDay]? {
         
+        let getDateFormatter = DateFormatter()
+        getDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         
+        // 7 days ago
+        let stopTime = Date().timeIntervalSince1970 - (8 * 24 * 60 * 60)
+
+        var printTimeLog: [TimeForDay] = []
+        
+        var prevDate: Date? = nil
+        for timeLog in timeLogs {
+
+            guard let dayDate = getOnlyDay(fromString: timeLog.beginAt)
+                else { return nil }
+            
+            // Check if we have reached all 7 days
+            guard dayDate.timeIntervalSince1970 > stopTime else { break }
+            
+            // If first iteration
+            if prevDate == nil {
+                if let beginAt = timeLog.beginAt?.split(separator: ".").first,
+                    let beginDate = getDateFormatter.date(from: String(beginAt)) {
+                    let time = Date().timeIntervalSince1970 - Double(beginDate.timeIntervalSince1970) - Double(TimeZone.current.secondsFromGMT())
+                    
+                    let newDate = TimeForDay(day: dayDate, dayStr: getDateFormatter.string(from: dayDate), time: time)
+                    
+                    printTimeLog.append(newDate)
+                    prevDate = dayDate
+                    continue
+                }
+                
+            }
+            
+            if prevDate == dayDate {
+                
+                if let beginAt = timeLog.beginAt?.split(separator: ".").first,
+                    let endAt = timeLog.endAt?.split(separator: ".").first,
+                    let beginTime = getDateFormatter.date(from: String(beginAt)), let endTime = getDateFormatter.date(from: String(endAt)) {
+                    
+                    let timeOfRange = endTime.timeIntervalSince1970 - beginTime.timeIntervalSince1970
+                    printTimeLog[printTimeLog.endIndex - 1].time += timeOfRange
+                } else {
+                    print("Error")
+                    return nil
+                }
+                
+                //                correctTimeLog[correctTimeLog.endIndex - 1].beginAt = timeLog.beginAt
+            } else {
+
+                prevDate = dayDate
+                if let beginAt = timeLog.beginAt?.split(separator: ".").first,
+                    let endAt = timeLog.endAt?.split(separator: ".").first,
+                    let beginTime = getDateFormatter.date(from: String(beginAt)),
+                    let endTime = getDateFormatter.date(from: String(endAt)) {
+                    
+                    let timeOfRange = endTime.timeIntervalSince1970 - beginTime.timeIntervalSince1970
+                    let newDate = TimeForDay(day: dayDate, dayStr: getDateFormatter.string(from: dayDate), time: timeOfRange)
+                    printTimeLog.append(newDate)
+                } else {
+                    print("Error")
+                    return nil
+                }
+
+                
+                //                correctTimeLog.append(timeLog)
+            }
+        }
+        return printTimeLog
+    }
+    
+    /*
+     String 2020-02-22T19:41:27.000Z
+     String 2020-02-22T19:41:27
+     DATE   2020-02-22T21:41:27
+     String 2020-02-22
+     DATE   2020-02-22
+     */
+    
+    func getOnlyDay(fromString string: String?) -> Date? {
+        
+        let getDateFormatter = DateFormatter()
+        getDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        getDateFormatter.timeZone = TimeZone.current
+        let dayDateFormatter = DateFormatter()
+        dayDateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let beginAtTimeLog = String(string?.split(separator: ".").first ?? "")
+        guard let beginDateTimeLog = getDateFormatter.date(from: beginAtTimeLog)
+            else { return nil }
+        
+        let dayTimeLog = dayDateFormatter.string(from: beginDateTimeLog)
+        if let dayDateTimeLog = dayDateFormatter.date(from: dayTimeLog) {
+            return dayDateTimeLog
+        }
+        return nil
     }
     
     // MARK: setupSearchController
@@ -204,7 +315,6 @@ class UserProfileVC: UITableViewController {
             }
         }
     }
-
     
     // MARK: - refresh
     @objc func refresh(_ sender: UIRefreshControl) {

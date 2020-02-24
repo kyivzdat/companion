@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct TimeLog: Decodable {
-    let endAt: String?
+struct TimeLog: Codable {
+    var endAt: String?
     let id: Int?
-    let beginAt: String?
+    var beginAt: String?
     let host: String?
 
     enum CodingKeys: String, CodingKey {
@@ -19,5 +19,9 @@ struct TimeLog: Decodable {
         case id
         case beginAt = "begin_at"
         case host
+    }
+    
+    var description: String {
+        return ("id: \(id)\nhost: \(host)\nbeginAt: \(beginAt)\nendAt: \(endAt)\n")
     }
 }

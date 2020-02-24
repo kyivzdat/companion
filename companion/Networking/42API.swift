@@ -371,7 +371,10 @@ extension API {
 
         guard let url = URL(string: apiURL+"v2/users/\(login)/locations?page[size]=100&page[number]=\(page)") else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, _, error) in
+        let request = NSMutableURLRequest(url: url)
+        request.setValue("Bearer "+bearer, forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, error) in
             
             guard let data = data else {
                 print(error!)

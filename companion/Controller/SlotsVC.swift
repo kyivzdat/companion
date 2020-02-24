@@ -26,30 +26,37 @@ class SlotsVC: UITableViewController {
     
     var sectionNumber: [Int : (number: Int, date: String)] = [:]
     
-    let activityIndicator = UIActivityIndicatorView(style: .gray)
-    let emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 21))
+    var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .gray)
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
+        
+        return activityIndicator
+    }()
+    
+    let emptyLabel: UILabel =  {
+        let emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 21))
+        emptyLabel.text = "No slots"
+        emptyLabel.textAlignment = .center
+        emptyLabel.isHidden = true
+        return emptyLabel
+    }()
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activityIndicator.startAnimating()
-        activityIndicator.center = self.view.center
-        self.view.addSubview(activityIndicator)
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
         
-        emptyLabel.text = "No slots"
-        emptyLabel.textAlignment = .center
         emptyLabel.center = view.center
         view.addSubview(emptyLabel)
-        emptyLabel.isHidden = true
-        
         
         navigationController?.visibleViewController?.title = "Slots"
         
         makeRequestForSlots() {
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
                 self.emptyLabel.isHidden = (self.slotsForPrint.isEmpty) ? false : true
             }
         }
@@ -58,6 +65,7 @@ class SlotsVC: UITableViewController {
         tableView.tableFooterView = UIView(frame: .zero)
     }
     
+    // MARK: - refresh
     @objc func refresh(_ sender: UIRefreshControl) {
         
         makeRequestForSlots {

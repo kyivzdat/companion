@@ -1,4 +1,4 @@
-framework module Pods_companion {
+module Pods_companion {
   umbrella header "Pods-companion-umbrella.h"
 
   export *

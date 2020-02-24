@@ -14,7 +14,7 @@ class SearchTVC: UITableViewController {
     // Passed from prev VC
     var parentTVC: UITableViewController!
     
-    let activityIndicator = UIActivityIndicatorView(style: .gray)
+    var activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     
     var matchingLogins: [String] = [] {
         didSet {
@@ -27,8 +27,9 @@ class SearchTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activityIndicator.isHidden = true
+        activityIndicator.color = .systemBlue
         activityIndicator.center = self.view.center
+        activityIndicator.isHidden = true
         self.view.addSubview(activityIndicator)
         
         tableView.tableFooterView = UIView(frame: .zero)
@@ -53,7 +54,7 @@ class SearchTVC: UITableViewController {
             print("Failed to fetch self info: ", error)
             showErrorAlert()
         }
-        
+        showActivityIndicator(isActive: false)
     }
     
     func showErrorAlert() {
@@ -69,13 +70,13 @@ class SearchTVC: UITableViewController {
     // MARK: - showActivityIndicator
     func showActivityIndicator(isActive: Bool) {
         DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = isActive ? true : false
+            UIApplication.shared.isNetworkActivityIndicatorVisible = isActive
+            self.activityIndicator.isHidden = !isActive
             if isActive {
                 self.activityIndicator.startAnimating()
             } else {
                 self.activityIndicator.stopAnimating()
             }
-            self.activityIndicator.isHidden = isActive ? false : true
         }
     }
     

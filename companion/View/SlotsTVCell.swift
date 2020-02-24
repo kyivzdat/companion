@@ -28,6 +28,11 @@ class SlotsTVCell: UITableViewCell {
             startLabel.textColor =      #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
             endLabel.textColor =        #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
             betweenLabel.textColor =    #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+        } else {
+            let isDarkMode = (self.traitCollection.userInterfaceStyle == .dark) ? true : false
+            startLabel.textColor =   isDarkMode ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            endLabel.textColor =     isDarkMode ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            betweenLabel.textColor = isDarkMode ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
     }
     
