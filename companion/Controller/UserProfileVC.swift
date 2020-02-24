@@ -88,7 +88,7 @@ class UserProfileVC: UITableViewController {
             let _ = semaphore.wait(timeout: .distantFuture)
             
             if let rowTimeLog = rowTimeLog {
-                getTi
+                self.getTimeLogForOneWeek(fromTimeLog: rowTimeLog)
             }
         }
     }

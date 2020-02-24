@@ -59,8 +59,8 @@ class LoginVC: UIViewController {
         let token = realm.objects(Token.self).first
         
         if let token = token {
-            print("📅 Current date: ", NSDate(timeIntervalSince1970: Date().timeIntervalSince1970 + 7200))
-            print("📅 Expired_at: ", NSDate(timeIntervalSince1970: TimeInterval(token.expires_in + 7200)))
+//            print("📅 Current date: ", NSDate(timeIntervalSince1970: Date().timeIntervalSince1970 + 7200))
+//            print("📅 Expired_at: ", NSDate(timeIntervalSince1970: TimeInterval(token.expires_in + 7200)))
 
             if token.expires_in < Int64(Date().timeIntervalSince1970) + 600 {
                 api.refreshToken() {
@@ -117,13 +117,9 @@ class LoginVC: UIViewController {
     }
     
     func animateTap<T>(_ view: T, completion: @escaping () -> ()) {
-        let castView: UIView!
         
-        if (view as? UIView) != nil {
-            castView = view as? UIView
-        } else {
-            return
-        }
+        guard let castView = view as? UIView else { return }
+
         UIView.animate(withDuration: 0.3, animations: {
             castView.transform = CGAffineTransform(scaleX: 0.94, y: 0.94)
         }) { (_) in

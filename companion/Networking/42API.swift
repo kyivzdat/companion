@@ -321,8 +321,21 @@ extension API {
         URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
             guard let data = data else { return }
             do {
-                let slots = try JSONDecoder().decode([Slot].self, from: data)
-                completion(slots)
+                var slotsForDecode = try JSONDecoder().decode([Slot].self, from: data)
+                
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [NSDictionary] {
+                    
+                    for index in 0..<slotsForDecode.count {
+                        
+                        if json[index]["scale_team"] is NSNull {
+                            slotsForDecode[index].scaleTeam = nil
+                        } else {
+                            slotsForDecode[index].scaleTeam = ScaleTeam(beginAt: nil, correcteds: nil, corrector: nil)
+                        }
+                    }
+                }
+
+                completion(slotsForDecode)
             } catch {
                 print("Error. getSlots\n", error)
                 completion(nil)

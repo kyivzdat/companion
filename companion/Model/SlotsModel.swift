@@ -12,13 +12,13 @@ import Foundation
 struct Slot: Codable {
     let id: Int?
     var beginAt, endAt: String?
-    let scaleTeam: ScaleTeam?
+    var scaleTeam: ScaleTeam?
     
     enum CodingKeys: String, CodingKey {
         case id
         case beginAt = "begin_at"
         case endAt = "end_at"
-        case scaleTeam = "scale_team"
+        case scaleTeam
     }
 }
 
