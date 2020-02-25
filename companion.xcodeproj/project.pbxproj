@@ -13,8 +13,6 @@
 		E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F223846EC700A6A99E /* ProjectCell.swift */; };
 		E10BF78123F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BF78023F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift */; };
 		E10BF78523F14B10009F9F53 /* AchievementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BF78423F14B10009F9F53 /* AchievementCell.swift */; };
-		E10F40A0240040BA00E65C9B /* LogTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F409E240040BA00E65C9B /* LogTimeCell.swift */; };
-		E10F40A1240040BA00E65C9B /* LogTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E10F409F240040BA00E65C9B /* LogTimeCell.xib */; };
 		E10F921623F43A5800E37615 /* ProjectTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921523F43A5800E37615 /* ProjectTVC.swift */; };
 		E10F921823F4412400E37615 /* ProjectMainInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921723F4412400E37615 /* ProjectMainInfoCell.swift */; };
 		E10F921A23F4414A00E37615 /* ProjectDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921923F4414A00E37615 /* ProjectDescriptionCell.swift */; };
@@ -23,6 +21,12 @@
 		E146D9BA23FC1A820034533D /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9B923FC1A820034533D /* LoginVC.swift */; };
 		E146D9BC23FC1AB90034533D /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9BB23FC1AB90034533D /* SearchTVC.swift */; };
 		E146D9BE23FC27260034533D /* SlotsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9BD23FC27260034533D /* SlotsTVCell.swift */; };
+		E16F80452405470B0091BEEC /* ViewSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F80442405470B0091BEEC /* ViewSetup.swift */; };
+		E16F8047240549F30091BEEC /* MainInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F8046240549F30091BEEC /* MainInfoView.swift */; };
+		E16F804924054A160091BEEC /* MainInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E16F804824054A160091BEEC /* MainInfoView.xib */; };
+		E16F804B240569640091BEEC /* Internship+Exams+LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F804A240569640091BEEC /* Internship+Exams+LevelView.swift */; };
+		E16F804D240569850091BEEC /* Internship+Exams+Level.xib in Resources */ = {isa = PBXBuildFile; fileRef = E16F804C240569850091BEEC /* Internship+Exams+Level.xib */; };
+		E16F804F240573AE0091BEEC /* TestTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F804E240573AE0091BEEC /* TestTVC.swift */; };
 		E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */; };
 		E176F440239BF5480028766A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E176F43F239BF5480028766A /* CoreDataStack.swift */; };
 		E17FD19A23F718ED00C52066 /* CorrectionFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */; };
@@ -52,8 +56,6 @@
 		E10B01F223846EC700A6A99E /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		E10BF78023F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Projects+Skills+AchievementsTVC.swift"; sourceTree = "<group>"; };
 		E10BF78423F14B10009F9F53 /* AchievementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementCell.swift; sourceTree = "<group>"; };
-		E10F409E240040BA00E65C9B /* LogTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTimeCell.swift; sourceTree = "<group>"; };
-		E10F409F240040BA00E65C9B /* LogTimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogTimeCell.xib; sourceTree = "<group>"; };
 		E10F921523F43A5800E37615 /* ProjectTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTVC.swift; sourceTree = "<group>"; };
 		E10F921723F4412400E37615 /* ProjectMainInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMainInfoCell.swift; sourceTree = "<group>"; };
 		E10F921923F4414A00E37615 /* ProjectDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDescriptionCell.swift; sourceTree = "<group>"; };
@@ -62,6 +64,12 @@
 		E146D9B923FC1A820034533D /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		E146D9BB23FC1AB90034533D /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
 		E146D9BD23FC27260034533D /* SlotsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsTVCell.swift; sourceTree = "<group>"; };
+		E16F80442405470B0091BEEC /* ViewSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSetup.swift; sourceTree = "<group>"; };
+		E16F8046240549F30091BEEC /* MainInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInfoView.swift; sourceTree = "<group>"; };
+		E16F804824054A160091BEEC /* MainInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainInfoView.xib; sourceTree = "<group>"; };
+		E16F804A240569640091BEEC /* Internship+Exams+LevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Internship+Exams+LevelView.swift"; sourceTree = "<group>"; };
+		E16F804C240569850091BEEC /* Internship+Exams+Level.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "Internship+Exams+Level.xib"; sourceTree = "<group>"; };
+		E16F804E240573AE0091BEEC /* TestTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTVC.swift; sourceTree = "<group>"; };
 		E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompanionModel.xcdatamodel; sourceTree = "<group>"; };
 		E176F43F239BF5480028766A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionFormModel.swift; sourceTree = "<group>"; };
@@ -133,14 +141,11 @@
 		E15257AB2371A19D00E87D32 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E10B01F023841B5600A6A99E /* SkillCell.swift */,
-				E10B01F223846EC700A6A99E /* ProjectCell.swift */,
-				E10BF78423F14B10009F9F53 /* AchievementCell.swift */,
+				E16F80402405440D0091BEEC /* UserProfileCells */,
+				E16F8041240544720091BEEC /* Projects+Skills+AchievementsCells */,
 				E1B0DC3D23FBDB0B0095388E /* SearchTVCell.swift */,
 				E10F921F23F4463600E37615 /* ProjectCells */,
 				E146D9BD23FC27260034533D /* SlotsTVCell.swift */,
-				E10F409E240040BA00E65C9B /* LogTimeCell.swift */,
-				E10F409F240040BA00E65C9B /* LogTimeCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -173,6 +178,28 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		E16F80402405440D0091BEEC /* UserProfileCells */ = {
+			isa = PBXGroup;
+			children = (
+				E16F8046240549F30091BEEC /* MainInfoView.swift */,
+				E16F804824054A160091BEEC /* MainInfoView.xib */,
+				E16F804A240569640091BEEC /* Internship+Exams+LevelView.swift */,
+				E16F804E240573AE0091BEEC /* TestTVC.swift */,
+				E16F804C240569850091BEEC /* Internship+Exams+Level.xib */,
+			);
+			path = UserProfileCells;
+			sourceTree = "<group>";
+		};
+		E16F8041240544720091BEEC /* Projects+Skills+AchievementsCells */ = {
+			isa = PBXGroup;
+			children = (
+				E10B01F023841B5600A6A99E /* SkillCell.swift */,
+				E10B01F223846EC700A6A99E /* ProjectCell.swift */,
+				E10BF78423F14B10009F9F53 /* AchievementCell.swift */,
+			);
+			path = "Projects+Skills+AchievementsCells";
+			sourceTree = "<group>";
+		};
 		E17FD19D23F7321400C52066 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +217,7 @@
 				E1AAE5B523631AD60001E4FE /* Assets.xcassets */,
 				E1AAE5B723631AD60001E4FE /* LaunchScreen.storyboard */,
 				E1AAE5BA23631AD60001E4FE /* Info.plist */,
+				E16F80442405470B0091BEEC /* ViewSetup.swift */,
 			);
 			path = Additional;
 			sourceTree = "<group>";
@@ -294,8 +322,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E16F804D240569850091BEEC /* Internship+Exams+Level.xib in Resources */,
+				E16F804924054A160091BEEC /* MainInfoView.xib in Resources */,
 				E1AAE5B923631AD60001E4FE /* LaunchScreen.storyboard in Resources */,
-				E10F40A1240040BA00E65C9B /* LogTimeCell.xib in Resources */,
 				E1AAE5B623631AD60001E4FE /* Assets.xcassets in Resources */,
 				E1AAE5B423631ACF0001E4FE /* Main.storyboard in Resources */,
 			);
@@ -356,8 +385,8 @@
 				E146D9BA23FC1A820034533D /* LoginVC.swift in Sources */,
 				E146D9BE23FC27260034533D /* SlotsTVCell.swift in Sources */,
 				E10BF78523F14B10009F9F53 /* AchievementCell.swift in Sources */,
-				E10F40A0240040BA00E65C9B /* LogTimeCell.swift in Sources */,
 				E1A79E8823EAAE060022C633 /* TokenModel.swift in Sources */,
+				E16F804B240569640091BEEC /* Internship+Exams+LevelView.swift in Sources */,
 				E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */,
 				E17FD19A23F718ED00C52066 /* CorrectionFormModel.swift in Sources */,
 				E17FD19C23F731D500C52066 /* GoogleAPI.swift in Sources */,
@@ -368,14 +397,17 @@
 				E1B0DC4423FC15B00095388E /* SlotsModel.swift in Sources */,
 				E10F921C23F4415B00E37615 /* ProjectTeamCell.swift in Sources */,
 				E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */,
+				E16F8047240549F30091BEEC /* MainInfoView.swift in Sources */,
 				E19D2F6923FAD88200E11DD0 /* CorrectionFormCell.swift in Sources */,
 				E105469823EC52F6005F5593 /* UserModel.swift in Sources */,
+				E16F804F240573AE0091BEEC /* TestTVC.swift in Sources */,
 				E10F921623F43A5800E37615 /* ProjectTVC.swift in Sources */,
 				E19E1DE423ED34E8006F3594 /* JSONme.swift in Sources */,
 				E10F921823F4412400E37615 /* ProjectMainInfoCell.swift in Sources */,
 				E17FD19F23F733A000C52066 /* 42API.swift in Sources */,
 				E10F921A23F4414A00E37615 /* ProjectDescriptionCell.swift in Sources */,
 				E1B0DC3E23FBDB0C0095388E /* SearchTVCell.swift in Sources */,
+				E16F80452405470B0091BEEC /* ViewSetup.swift in Sources */,
 				E146D9BC23FC1AB90034533D /* SearchTVC.swift in Sources */,
 				E1A79E8A23EB2B5A0022C633 /* UserProfileVC.swift in Sources */,
 				E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */,
@@ -537,6 +569,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64e armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -557,6 +590,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64e armv7 armv7s arm64";
 			};
 			name = Release;
 		};

@@ -71,6 +71,9 @@ class UserProfileVC: UITableViewController {
         checkForPassedInternships()
         
         makeRequestForTimeLog()
+        
+        let isDarkMode = (self.traitCollection.userInterfaceStyle == .dark) ? true : false
+        self.timeSpeedometer.fontColor = isDarkMode ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     }
     
     // MARK: - makeRequestForTimeLog
@@ -227,22 +230,22 @@ class UserProfileVC: UITableViewController {
     // MARK:  fillGeneralDataOnView
     func fillGeneralDataOnView() {
         //Image
-        if let urlImage = URL(string: userData.imageURL ?? "") {
-            photoImageView.layer.cornerRadius = 3
-            photoImageView.kf.indicatorType = .activity
-            photoImageView.kf.setImage(with: urlImage,
-                                       placeholder: #imageLiteral(resourceName: "photoHolder"),
-                                       options: [.transition(.fade(1))],
-                                       progressBlock: nil)
-        }
-        
-        fullName.text = userData.displayname
-        login.text = userData.login
-        correctionPoints.text = String(userData.correctionPoint ?? 0)
-        wallet.text = String(userData.wallet ?? 0) + " ₳"
-        if let poolMonth = userData.poolMonth, let poolYear = userData.poolYear {
-            yearOfpool.text = poolMonth + ", " + poolYear
-        }
+//        if let urlImage = URL(string: userData.imageURL ?? "") {
+//            photoImageView.layer.cornerRadius = 3
+//            photoImageView.kf.indicatorType = .activity
+//            photoImageView.kf.setImage(with: urlImage,
+//                                       placeholder: #imageLiteral(resourceName: "photoHolder"),
+//                                       options: [.transition(.fade(1))],
+//                                       progressBlock: nil)
+//        }
+//
+//        fullName.text = userData.displayname
+//        login.text = userData.login
+//        correctionPoints.text = String(userData.correctionPoint ?? 0)
+//        wallet.text = String(userData.wallet ?? 0) + " ₳"
+//        if let poolMonth = userData.poolMonth, let poolYear = userData.poolYear {
+//            yearOfpool.text = poolMonth + ", " + poolYear
+//        }
         isAvailableLabel.text = userData.location ?? "Unavailable"
     }
     
@@ -261,59 +264,59 @@ class UserProfileVC: UITableViewController {
     
     // MARK: fillLevelProgressView
     func fillLevelProgressView() {
-        levelProgressView.layer.cornerRadius = 1
-        levelProgressView.transform = .identity
-        levelProgressView.transform = levelProgressView.transform.scaledBy(x: 1, y: 14)
-        levelProgressView.clipsToBounds = true
-        levelProgressView.tintColor = #colorLiteral(red: 0.002772599459, green: 0.7285055518, blue: 0.7355008125, alpha: 1)
-        
-        if let indexOfCursus = userData.cursusUsers?.firstIndex(where: { $0.cursusID == 1 }),
-            let level = userData.cursusUsers?[indexOfCursus].level {
-            
-            let progress = Float(Double(level) - Double(Int(level)))
-            levelLabel.text = "level "+String(Int(level))+" - "+String(Int((progress * 100).rounded()))+"%"
-            
-            levelProgressView.progress = progress
-        } else {
-            levelLabel.text = "level 0 - 0%"
-            levelProgressView.progress = 0
-        }
+//        levelProgressView.layer.cornerRadius = 1
+//        levelProgressView.transform = .identity
+//        levelProgressView.transform = levelProgressView.transform.scaledBy(x: 1, y: 14)
+//        levelProgressView.clipsToBounds = true
+//        levelProgressView.tintColor = #colorLiteral(red: 0.002772599459, green: 0.7285055518, blue: 0.7355008125, alpha: 1)
+//
+//        if let indexOfCursus = userData.cursusUsers?.firstIndex(where: { $0.cursusID == 1 }),
+//            let level = userData.cursusUsers?[indexOfCursus].level {
+//
+//            let progress = Float(Double(level) - Double(Int(level)))
+//            levelLabel.text = "level "+String(Int(level))+" - "+String(Int((progress * 100).rounded()))+"%"
+//
+//            levelProgressView.progress = progress
+//        } else {
+//            levelLabel.text = "level 0 - 0%"
+//            levelProgressView.progress = 0
+//        }
     }
     
     // MARK: managedExamsImages
     func managedExamsImages() {
-        if let indexOfExams = userData.projectsUsers?.firstIndex(where: { $0.project?.id == 11 }),
-            let exams = self.userData.projectsUsers?[indexOfExams] {
-            
-            let passedImage = #imageLiteral(resourceName: "passedExam")
-            
-            if exams.validated == true {
-                examsImageViews.forEach { (examViewImage) in
-                    examViewImage.image = passedImage
-                }
-            } else {
-                var counter = 0
-                exams.teams?.forEach({ (team) in
-                    if team.validated == true {
-                        examsImageViews[counter].image = passedImage
-                        counter += 1
-                    }
-                })
-            }
-        }
+//        if let indexOfExams = userData.projectsUsers?.firstIndex(where: { $0.project?.id == 11 }),
+//            let exams = self.userData.projectsUsers?[indexOfExams] {
+//
+//            let passedImage = #imageLiteral(resourceName: "passedExam")
+//
+//            if exams.validated == true {
+//                examsImageViews.forEach { (examViewImage) in
+//                    examViewImage.image = passedImage
+//                }
+//            } else {
+//                var counter = 0
+//                exams.teams?.forEach({ (team) in
+//                    if team.validated == true {
+//                        examsImageViews[counter].image = passedImage
+//                        counter += 1
+//                    }
+//                })
+//            }
+//        }
     }
     
     // MARK: checkForPassedInternships
     func checkForPassedInternships() {
         
-        for imageID in 0..<internshipImageViews.count {
-            let idOfInternshipsProject = [120, 1650, 212] // First Internship, PartTime-I, Final Intership
-            if let indexOfFinalInternShip = userData.projectsUsers?.firstIndex(where: { $0.project?.id == idOfInternshipsProject[imageID] }),
-                self.userData.projectsUsers?[indexOfFinalInternShip].validated == true {
-                
-                self.internshipImageViews[imageID].image = #imageLiteral(resourceName: "internshipPassed")
-            }
-        }
+//        for imageID in 0..<internshipImageViews.count {
+//            let idOfInternshipsProject = [120, 1650, 212] // First Internship, PartTime-I, Final Intership
+//            if let indexOfFinalInternShip = userData.projectsUsers?.firstIndex(where: { $0.project?.id == idOfInternshipsProject[imageID] }),
+//                self.userData.projectsUsers?[indexOfFinalInternShip].validated == true {
+//
+//                self.internshipImageViews[imageID].image = #imageLiteral(resourceName: "internshipPassed")
+//            }
+//        }
     }
     
     // MARK: - refresh
