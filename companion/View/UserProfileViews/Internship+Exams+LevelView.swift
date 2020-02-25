@@ -57,7 +57,7 @@ class Internship_Exams_LevelView: UIView {
 
     
     // MARK: managedExamsImages
-    func managedExamsImages(_ userData: UserData) {
+    func fillExamsImages(_ userData: UserData) {
         guard let indexOfExams = userData.projectsUsers?.firstIndex(where: { $0.project?.id == 11 }),
             let exams = userData.projectsUsers?[indexOfExams] else { return }
         
@@ -79,7 +79,7 @@ class Internship_Exams_LevelView: UIView {
     }
     
     // MARK: checkForPassedInternships
-    func checkForPassedInternships(_ userData: UserData) {
+    func fillPassedInternships(_ userData: UserData) {
 
         for imageID in 0..<internshipImageViews.count {
             let idOfInternshipsProject = [120, 1650, 212] // First Internship, PartTime-I, Final Intership

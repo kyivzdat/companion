@@ -26,7 +26,9 @@
 		E16F804924054A160091BEEC /* MainInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E16F804824054A160091BEEC /* MainInfoView.xib */; };
 		E16F804B240569640091BEEC /* Internship+Exams+LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F804A240569640091BEEC /* Internship+Exams+LevelView.swift */; };
 		E16F804D240569850091BEEC /* Internship+Exams+Level.xib in Resources */ = {isa = PBXBuildFile; fileRef = E16F804C240569850091BEEC /* Internship+Exams+Level.xib */; };
-		E16F804F240573AE0091BEEC /* TestTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F804E240573AE0091BEEC /* TestTVC.swift */; };
+		E16F8051240578110091BEEC /* ParseTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F8050240578110091BEEC /* ParseTime.swift */; };
+		E16F8053240593350091BEEC /* TimeSpeedometerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F8052240593350091BEEC /* TimeSpeedometerView.swift */; };
+		E16F8055240593510091BEEC /* TimeSpeedometer.xib in Resources */ = {isa = PBXBuildFile; fileRef = E16F8054240593510091BEEC /* TimeSpeedometer.xib */; };
 		E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */; };
 		E176F440239BF5480028766A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E176F43F239BF5480028766A /* CoreDataStack.swift */; };
 		E17FD19A23F718ED00C52066 /* CorrectionFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */; };
@@ -69,7 +71,9 @@
 		E16F804824054A160091BEEC /* MainInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainInfoView.xib; sourceTree = "<group>"; };
 		E16F804A240569640091BEEC /* Internship+Exams+LevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Internship+Exams+LevelView.swift"; sourceTree = "<group>"; };
 		E16F804C240569850091BEEC /* Internship+Exams+Level.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "Internship+Exams+Level.xib"; sourceTree = "<group>"; };
-		E16F804E240573AE0091BEEC /* TestTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTVC.swift; sourceTree = "<group>"; };
+		E16F8050240578110091BEEC /* ParseTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseTime.swift; sourceTree = "<group>"; };
+		E16F8052240593350091BEEC /* TimeSpeedometerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSpeedometerView.swift; sourceTree = "<group>"; };
+		E16F8054240593510091BEEC /* TimeSpeedometer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeSpeedometer.xib; sourceTree = "<group>"; };
 		E176F43D239BF4820028766A /* CompanionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompanionModel.xcdatamodel; sourceTree = "<group>"; };
 		E176F43F239BF5480028766A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionFormModel.swift; sourceTree = "<group>"; };
@@ -141,7 +145,7 @@
 		E15257AB2371A19D00E87D32 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E16F80402405440D0091BEEC /* UserProfileCells */,
+				E16F80402405440D0091BEEC /* UserProfileViews */,
 				E16F8041240544720091BEEC /* Projects+Skills+AchievementsCells */,
 				E1B0DC3D23FBDB0B0095388E /* SearchTVCell.swift */,
 				E10F921F23F4463600E37615 /* ProjectCells */,
@@ -160,6 +164,7 @@
 				E1B0DC4323FC15AF0095388E /* SlotsModel.swift */,
 				E10243992401A06A00FDB2AE /* TimeLog.swift */,
 				E19E1DE323ED34E8006F3594 /* JSONme.swift */,
+				E16F8050240578110091BEEC /* ParseTime.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -178,16 +183,17 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		E16F80402405440D0091BEEC /* UserProfileCells */ = {
+		E16F80402405440D0091BEEC /* UserProfileViews */ = {
 			isa = PBXGroup;
 			children = (
 				E16F8046240549F30091BEEC /* MainInfoView.swift */,
 				E16F804824054A160091BEEC /* MainInfoView.xib */,
 				E16F804A240569640091BEEC /* Internship+Exams+LevelView.swift */,
-				E16F804E240573AE0091BEEC /* TestTVC.swift */,
 				E16F804C240569850091BEEC /* Internship+Exams+Level.xib */,
+				E16F8052240593350091BEEC /* TimeSpeedometerView.swift */,
+				E16F8054240593510091BEEC /* TimeSpeedometer.xib */,
 			);
-			path = UserProfileCells;
+			path = UserProfileViews;
 			sourceTree = "<group>";
 		};
 		E16F8041240544720091BEEC /* Projects+Skills+AchievementsCells */ = {
@@ -326,6 +332,7 @@
 				E16F804924054A160091BEEC /* MainInfoView.xib in Resources */,
 				E1AAE5B923631AD60001E4FE /* LaunchScreen.storyboard in Resources */,
 				E1AAE5B623631AD60001E4FE /* Assets.xcassets in Resources */,
+				E16F8055240593510091BEEC /* TimeSpeedometer.xib in Resources */,
 				E1AAE5B423631ACF0001E4FE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,12 +406,13 @@
 				E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */,
 				E16F8047240549F30091BEEC /* MainInfoView.swift in Sources */,
 				E19D2F6923FAD88200E11DD0 /* CorrectionFormCell.swift in Sources */,
+				E16F8051240578110091BEEC /* ParseTime.swift in Sources */,
 				E105469823EC52F6005F5593 /* UserModel.swift in Sources */,
-				E16F804F240573AE0091BEEC /* TestTVC.swift in Sources */,
 				E10F921623F43A5800E37615 /* ProjectTVC.swift in Sources */,
 				E19E1DE423ED34E8006F3594 /* JSONme.swift in Sources */,
 				E10F921823F4412400E37615 /* ProjectMainInfoCell.swift in Sources */,
 				E17FD19F23F733A000C52066 /* 42API.swift in Sources */,
+				E16F8053240593350091BEEC /* TimeSpeedometerView.swift in Sources */,
 				E10F921A23F4414A00E37615 /* ProjectDescriptionCell.swift in Sources */,
 				E1B0DC3E23FBDB0C0095388E /* SearchTVCell.swift in Sources */,
 				E16F80452405470B0091BEEC /* ViewSetup.swift in Sources */,

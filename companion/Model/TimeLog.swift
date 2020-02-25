@@ -22,6 +22,11 @@ struct TimeLog: Codable {
     }
     
     var description: String {
-        return ("id: \(id)\nhost: \(host)\nbeginAt: \(beginAt)\nendAt: \(endAt)\n")
+        return  """
+                id: \(id ?? -1)
+                host: \(host ?? "")
+                beginAt: \(beginAt ?? "")
+                endAt: \(endAt ?? "")"
+                """
     }
 }
