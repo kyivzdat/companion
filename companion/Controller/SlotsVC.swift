@@ -27,7 +27,8 @@ class SlotsVC: UITableViewController {
     var sectionNumber: [Int : (number: Int, date: String)] = [:]
     
     var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(style: .gray)
+        let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        activityIndicator.color = .systemBlue
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
         
