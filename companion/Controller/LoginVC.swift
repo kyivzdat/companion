@@ -40,6 +40,7 @@ class LoginVC: UIViewController {
         UIView.animate(withDuration: 0.9, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.loginButton.transform = .identity
         })
+        login()
     }
     
     func setupButton() {

@@ -32,6 +32,12 @@ class Internship_Exams_LevelView: UIView {
         bgView.frame = self.bounds
         addSubview(bgView)
         bgView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        
+        bgView.layer.cornerRadius = 3
+        bgView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        bgView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        bgView.layer.shadowRadius = 1
+        bgView.layer.shadowOpacity = 0.1
     }
     
     // MARK: fillLevelProgressView
@@ -42,19 +48,21 @@ class Internship_Exams_LevelView: UIView {
         levelProgressView.clipsToBounds = true
         levelProgressView.tintColor = #colorLiteral(red: 0.002772599459, green: 0.7285055518, blue: 0.7355008125, alpha: 1)
 
+        var progressResult: Float = 0
         if let indexOfCursus = userData.cursusUsers?.firstIndex(where: { $0.cursusID == 1 }),
             let level = userData.cursusUsers?[indexOfCursus].level {
 
             let progress = Float(Double(level) - Double(Int(level)))
             levelLabel.text = "level "+String(Int(level))+" - "+String(Int((progress * 100).rounded()))+"%"
 
-            levelProgressView.progress = progress
+            progressResult = progress
         } else {
             levelLabel.text = "level 0 - 0%"
-            levelProgressView.progress = 0
+            progressResult = 0
         }
-    }
 
+        self.levelProgressView.setProgress(progressResult, animated: false)
+    }
     
     // MARK: managedExamsImages
     func fillExamsImages(_ userData: UserData) {

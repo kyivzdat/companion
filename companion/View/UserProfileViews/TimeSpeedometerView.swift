@@ -30,19 +30,47 @@ class TimeSpeedometerView: UIView {
         bgView.frame = self.bounds
         addSubview(bgView)
         bgView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        speedometer.value = 0
+        
+        bgView.layer.cornerRadius = 3
+        bgView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        bgView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        bgView.layer.shadowRadius = 1
+        bgView.layer.shadowOpacity = 0.1
     }
     
     func fillSpeedometer(_ userData: UserData) {
         
         let isDarkMode = (traitCollection.userInterfaceStyle == .dark) ? true : false
         speedometer.fontColor = isDarkMode ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        
-        if let login = userData.login {
-            ParseTime().getLogTimeOf(.lastWeek, login: login) { (hours) in
-                self.speedometer.value = hours ?? 0
+ 
+        DispatchQueue.global(qos: .userInteractive).async {
+            
+            let semaphore = DispatchSemaphore(value: 0)
+            
+            var hoursAmount: CGFloat = 0
+            if let login = userData.login {
+                
+                ParseTime().getLogTimeOf(.lastWeek, login: login) { (hours) in
+                
+                    hoursAmount = hours ?? 0
+                    semaphore.signal()
+                }
+            } else {
+                semaphore.signal()
             }
-        } else {
-             speedometer.value = 0
+            semaphore.wait()
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 4) {
+                    self.speedometer.value = hoursAmount
+                }
+            }
+        }
+    }
+    
+    func setSpeedometerFontColor(isDarkMode: Bool) {
+        UIView.animate(withDuration: 0.3) {
+            self.speedometer.fontColor = isDarkMode ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
     }
 }

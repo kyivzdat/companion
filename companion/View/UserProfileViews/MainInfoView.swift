@@ -36,6 +36,12 @@ class MainInfoView: UIView {
         bgView.frame = self.bounds
         addSubview(bgView)
         bgView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        bgView.layer.cornerRadius = 3
+        bgView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        bgView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        bgView.layer.shadowRadius = 1
+        bgView.layer.shadowOpacity = 0.1
     }
 
     // MARK: - fillMainInfo

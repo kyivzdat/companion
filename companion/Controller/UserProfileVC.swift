@@ -51,6 +51,15 @@ class UserProfileVC: UITableViewController {
         timeSpeedometerView.fillSpeedometer(userData)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        guard let prevStyle = previousTraitCollection else { return }
+        let isDarkMode = prevStyle.userInterfaceStyle == .dark ? true : false
+
+        timeSpeedometerView.setSpeedometerFontColor(isDarkMode: !isDarkMode)
+    }
+    
     func fillViewWithInfo() {
         
         mainInfoView.fillMainInfo(userData)

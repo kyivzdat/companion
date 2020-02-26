@@ -11,6 +11,7 @@ target 'companion' do
   pod 'SVGKit'
   pod 'RealmSwift'
   pod "MBCircularProgressBar"
-
+  pod 'Charts'
+  
 end
 

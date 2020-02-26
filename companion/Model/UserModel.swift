@@ -9,6 +9,25 @@
 import Foundation
 import RealmSwift
 
+let arrayOfTitlesOfSkills = [
+"Adaptation\n& creativity",
+"Algorithms\n& AI",
+"Company\nexperience",
+"DB\n& Data",
+"Functional\nprogramming",
+"Graphics",
+"Group &\ninterpersonal",
+"Imperative\nprogramming",
+"Network\n& system\nadministration",
+"Object-oriented\nprogramming",
+"Organization",
+"Parallel\ncomputing",
+"Rigor",
+"Security",
+"Technology\nintegration",
+"Unix",
+"Web"]
+
 struct UserPreview: Decodable {
     let id: Int?
     let lastName, login, firstName, displayname: String?
