@@ -49,7 +49,7 @@ class ParseTime {
                 if timeLogs == nil || timeLogs?.isEmpty == true {
                     completion(nil)
                 }
-                rowTimeLog = timeLogs!
+                rowTimeLog = timeLogs ?? []
         
                 semaphore.signal()
             }

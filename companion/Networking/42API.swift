@@ -192,7 +192,9 @@ extension API {
                     let indexOfExamProject = userData.projectsUsers?[indexOfExamInArray].id {
                     
                     self.getDataOfProject(projectID: indexOfExamProject) { (passedExams) in
-                        userData.projectsUsers?[indexOfExamInArray] = passedExams
+                        if let passedExams = passedExams {
+                            userData.projectsUsers?[indexOfExamInArray] = passedExams
+                        }
                         completion(.success(userData))
                     }
                 } else {
@@ -207,7 +209,7 @@ extension API {
     }
     
     // MARK: - Get Data of Project
-    public func getDataOfProject(projectID: Int, completion: @escaping(ProjectsUser) -> ()) {
+    public func getDataOfProject(projectID: Int, completion: @escaping(ProjectsUser?) -> ()) {
 //        print("🤪getDataOfProject🤪")
         
         let urlString = apiURL+"/v2/projects_users/" + String(projectID)
@@ -223,7 +225,9 @@ extension API {
                 
                 completion(projectDecode)
             } catch {
-                print(error.localizedDescription)
+                print("Error. API. getDataOfProject\n", error.localizedDescription)
+                print("data -", String(data: data, encoding: .ascii) ?? "nil")
+                completion(nil)
                 return
             }
         }.resume()
@@ -246,7 +250,7 @@ extension API {
                 
                 completion(projectDecode)
             } catch {
-                print(error.localizedDescription)
+                print("Error. API. getGeneralInfoOfProject\n", error.localizedDescription)
                 return
             }
         }.resume()
@@ -274,7 +278,7 @@ extension API {
                 }
                 completion(result)
             } catch {
-                print(error.localizedDescription)
+                print("Error. API. getCorrectiomForm\n", error.localizedDescription)
                 return
             }
         }.resume()
@@ -303,6 +307,7 @@ extension API {
                 }
             } catch {
                 print("error getRangeProfile\n\t", error)
+                print("data -", String(data: data, encoding: .ascii) ?? "nil")
                 DispatchQueue.main.async {
                     completion(nil)
                 }
@@ -389,7 +394,8 @@ extension API {
                     completion(timeLog)
                 }
             } catch {
-                print(error)
+                print("Error. API. getTimeLog\n", error)
+                print("data -", String(data: data, encoding: .ascii) ?? "nil")
                 completion(nil)
             }
         }.resume()

@@ -13,25 +13,28 @@ import MBCircularProgressBar
 class UserProfileVC: UITableViewController {
     
     // MARK: - Outlets
-    @IBOutlet weak var mainInfoView: MainInfoView!
+    @IBOutlet private weak var mainInfoView: MainInfoView!
     
-    @IBOutlet weak var isAvailableLabel: UILabel!
+    @IBOutlet private weak var isAvailableLabel: UILabel!
     
-    @IBOutlet weak var internExamsLevelView: Internship_Exams_LevelView!
+    @IBOutlet private weak var internExamsLevelView: Internship_Exams_LevelView!
     
-    @IBOutlet weak var timeSpeedometerView: TimeSpeedometerView!
+    @IBOutlet private weak var timeSpeedometerView: TimeSpeedometerView!
     
     // All bg views
-    @IBOutlet var bgViews: Array<UIView>!
+    @IBOutlet private var bgViews: Array<UIView>!
     
     // Passed Data from Login VC
     var userData: UserData!
     var titleText: String!
-    var pullToRefresh: UIRefreshControl {
+    
+    private var pullToRefresh: UIRefreshControl {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return refreshControl
     }
+    
+    var timerSinceLastRefresh = Date().timeIntervalSince1970
     
     // MARK: - view Did load
     override func viewDidLoad() {
@@ -43,6 +46,9 @@ class UserProfileVC: UITableViewController {
         viewSetup()
         
         fillViewWithInfo()
+        
+        // TimeLog has fetching one time, cause server has spam rate limit
+        timeSpeedometerView.fillSpeedometer(userData)
     }
     
     func fillViewWithInfo() {
@@ -53,8 +59,6 @@ class UserProfileVC: UITableViewController {
         internExamsLevelView.fillPassedInternships(userData)
         internExamsLevelView.fillExamsImages(userData)
         internExamsLevelView.fillLevelProgressView(userData)
-        
-        timeSpeedometerView.fillSpeedometer(userData)
     }
     
     // MARK: setupSearchController
@@ -88,8 +92,22 @@ class UserProfileVC: UITableViewController {
     // MARK: - refresh
     @objc func refresh(_ sender: UIRefreshControl) {
         
-        if let login = userData.login {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        guard let login = userData.login else {
+            sender.endRefreshing()
+            showErrorAlert()
+            return
+        }
+        
+        var delay = 0
+        let currentTime = Date().timeIntervalSince1970
+        if  currentTime - timerSinceLastRefresh < 2 {
+            delay = 500
+        }
+        print(currentTime - timerSinceLastRefresh)
+        timerSinceLastRefresh = currentTime
+        print("delay =", delay)
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + .milliseconds(delay)) {
             API.shared.getProfileInfo(userLogin: login) { (result) in
                 DispatchQueue.main.async {
                     switch result {
@@ -97,6 +115,7 @@ class UserProfileVC: UITableViewController {
                         self.userData = userData
                         self.fillViewWithInfo()
                     case .failure(let error):
+                        self.showErrorAlert()
                         print("Failed to fetch self info: ", error)
                     }
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -104,6 +123,17 @@ class UserProfileVC: UITableViewController {
                 }
             }
         }
+    }
+    
+    // MARK: - showErrorAlert
+    func showErrorAlert() {
+        
+        let ac = UIAlertController(title: "Something went wrong",
+                                   message: "Please try again",
+                                   preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "Ok", style: .default)
+        ac.addAction(okButton)
+        self.present(ac, animated: true)
     }
     
     // MARK: - Navigation

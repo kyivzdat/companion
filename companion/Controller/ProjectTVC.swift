@@ -102,9 +102,9 @@ class ProjectTVC: UITableViewController {
             API.shared.getDataOfProject(projectID: userProjectID) { (newProjectsUsers) in
                 DispatchQueue.main.async {
                     
-                    let sortedTeams = newProjectsUsers.teams?.sorted(by: { ($0.id ?? 0) < ($1.id ?? 0) })
+                    let sortedTeams = newProjectsUsers?.teams?.sorted(by: { ($0.id ?? 0) < ($1.id ?? 0) })
                     var projectsWithSortedTeams = newProjectsUsers
-                    projectsWithSortedTeams.teams = sortedTeams
+                    projectsWithSortedTeams?.teams = sortedTeams
                     self.projectsUsers = projectsWithSortedTeams
                     self.isBothRequestsEnded += 1
                     if self.isBothRequestsEnded == 2{
