@@ -12,37 +12,44 @@ import SVGKit
 
 class Projects_Skills_AchievementsTVC: UIViewController {
     
-    @IBOutlet weak var emptyImage: UIImageView!
-    @IBOutlet weak var emptyLabel: UILabel!
-    
     enum TypeOfData: String {
         case projects
         case skills
         case achievements
     }
     
-    var array: [Any]!
+    @IBOutlet private weak var emptyImage:     UIImageView!
+    @IBOutlet private weak var emptyLabel:     UILabel!
+    @IBOutlet private weak var segmentControl: UISegmentedControl!
+    @IBOutlet private weak var tableView:      UITableView!
+    
+    // Passed from prev VC
+    var array:         [Any]!
     var getTypeOfData: TypeOfData!
     
-    var poolDays: [ProjectsUser] = []
+    var poolDays:   [ProjectsUser] = []
     var iconsArray: [UIImage?] = []
+    var printArray: [Any] = []
     
-    @IBOutlet weak var tableView: UITableView!
-    
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let title = getTypeOfData.rawValue.capitalized
         navigationItem.title = title
         
-        if array.isEmpty {
+        if (printArray as? [Skill]) == nil {
+            segmentControl.removeFromSuperview()
+        }
+        printArray = array
+        if printArray.isEmpty {
             emptyLabel.text = "No " + title
             emptyImage.isHidden = false
             emptyLabel.isHidden = false
         } else {
-            iconsArray = Array<UIImage?>(repeating: nil, count: array.count)
+            iconsArray = Array<UIImage?>(repeating: nil, count: printArray.count)
             
-            if getTypeOfData == TypeOfData.projects, let allProjects = array as? [ProjectsUser] {
+            if let allProjects = printArray as? [ProjectsUser] {
                 disperseProjects(allProjects)
             }
         }
@@ -67,8 +74,22 @@ class Projects_Skills_AchievementsTVC: UIViewController {
             }
         }
         projectArray.sort(by: { ($0.currentTeamID ?? 0) > ($1.currentTeamID ?? 0) })
-        array = projectArray
+        printArray = projectArray
     }
+    
+    @IBAction func changedValueSegControl(_ sender: UISegmentedControl) {
+        
+        switch sender.selectedSegmentIndex {
+        case 0:
+            printArray = array
+        case 1:
+            printArray = []
+        default:
+            break
+        }
+        tableView.reloadData()
+    }
+    
     
     // MARK: - Navigation
     
@@ -100,7 +121,7 @@ extension Projects_Skills_AchievementsTVC: UITableViewDataSource {
     // MARK: - Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return array.count
+        return printArray.count
     }
     
     
@@ -122,7 +143,7 @@ extension Projects_Skills_AchievementsTVC: UITableViewDataSource {
     func getProjectCell(_ indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath) as? ProjectCell,
-            let project = array[indexPath.row] as? ProjectsUser else { return UITableViewCell() }
+            let project = printArray[indexPath.row] as? ProjectsUser else { return UITableViewCell() }
 
         cell.fillProjectInfo(project)
         return cell
@@ -132,7 +153,7 @@ extension Projects_Skills_AchievementsTVC: UITableViewDataSource {
     func getSkillCell(_ indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "skillCell", for: indexPath) as? SkillCell,
-            let skill = array[indexPath.row] as? Skill else { return UITableViewCell() }
+            let skill = printArray[indexPath.row] as? Skill else { return UITableViewCell() }
         
         cell.skillLabel.text = skill.name
         if let level = skill.level {
@@ -146,7 +167,7 @@ extension Projects_Skills_AchievementsTVC: UITableViewDataSource {
     func getAchievmentCell(_ indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "achievementCell", for: indexPath) as? AchievementCell,
-            let achievement = array[indexPath.row] as? Achievement else { return UITableViewCell() }
+            let achievement = printArray[indexPath.row] as? Achievement else { return UITableViewCell() }
         
         cell.loadIconImage(image: iconsArray[indexPath.row], imageURLString: achievement.image) { newImage in
             self.iconsArray[indexPath.row] = newImage
@@ -180,9 +201,9 @@ extension Projects_Skills_AchievementsTVC: UITableViewDelegate {
         
         guard getTypeOfData == TypeOfData.projects else { return }
         
-        if let selectedProject = array?[indexPath.row] {
-            self.performSegue(withIdentifier: "segueToProjectTVC", sender: selectedProject)
-            self.tableView.deselectRow(at: indexPath, animated: true)
-        }
+        let selectedProject = printArray[indexPath.row]
+        self.performSegue(withIdentifier: "segueToProjectTVC", sender: selectedProject)
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        
     }
 }

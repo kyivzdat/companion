@@ -257,7 +257,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vVY-Lx-WCV">
-                                <rect key="frame" x="0.0" y="44" width="320" height="475"/>
+                                <rect key="frame" x="0.0" y="75" width="320" height="444"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="projectCell" rowHeight="50" id="FsV-Oj-H9o" customClass="ProjectCell" customModule="companion" customModuleProvider="target">
@@ -344,7 +344,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Achievment" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5WI-ih-RU5">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Achievement" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5WI-ih-RU5">
                                                     <rect key="frame" x="88" y="11" width="180" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                     <nil key="textColor"/>
@@ -405,19 +405,32 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lz7-zB-gZk">
+                                <rect key="frame" x="0.0" y="44" width="320" height="32"/>
+                                <segments>
+                                    <segment title="List"/>
+                                    <segment title="Chart"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changedValueSegControl:" destination="x90-xl-gFc" eventType="valueChanged" id="QlP-A2-J2z"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="vVY-Lx-WCV" firstAttribute="leading" secondItem="vWm-ca-2Te" secondAttribute="leading" id="5XZ-h7-M3r"/>
                             <constraint firstItem="u94-zT-oLx" firstAttribute="centerX" secondItem="vWm-ca-2Te" secondAttribute="centerX" id="9Lb-Us-n8x"/>
+                            <constraint firstItem="lz7-zB-gZk" firstAttribute="leading" secondItem="vWm-ca-2Te" secondAttribute="leading" id="Crq-di-Nn7"/>
+                            <constraint firstItem="vVY-Lx-WCV" firstAttribute="top" secondItem="lz7-zB-gZk" secondAttribute="bottom" id="H3X-Il-CH7"/>
                             <constraint firstItem="RSl-sw-lWI" firstAttribute="top" secondItem="u94-zT-oLx" secondAttribute="bottom" constant="5" id="M54-h9-MTm"/>
+                            <constraint firstItem="lz7-zB-gZk" firstAttribute="top" secondItem="O2x-N7-r1x" secondAttribute="bottom" id="NNq-0X-DVm"/>
                             <constraint firstItem="RSl-sw-lWI" firstAttribute="centerX" secondItem="u94-zT-oLx" secondAttribute="centerX" id="O8s-Xh-fjA"/>
                             <constraint firstItem="czy-16-CNH" firstAttribute="top" secondItem="vVY-Lx-WCV" secondAttribute="bottom" id="OSa-ks-O4P"/>
                             <constraint firstItem="u94-zT-oLx" firstAttribute="centerY" secondItem="vWm-ca-2Te" secondAttribute="centerY" id="P5S-ii-uWE"/>
                             <constraint firstAttribute="trailing" secondItem="vVY-Lx-WCV" secondAttribute="trailing" id="aP1-lq-0Ui"/>
+                            <constraint firstAttribute="trailing" secondItem="lz7-zB-gZk" secondAttribute="trailing" id="cKo-rk-tGP"/>
                             <constraint firstItem="u94-zT-oLx" firstAttribute="width" secondItem="vWm-ca-2Te" secondAttribute="width" multiplier="0.5" id="eny-0d-6N9"/>
                             <constraint firstItem="u94-zT-oLx" firstAttribute="height" secondItem="vWm-ca-2Te" secondAttribute="height" multiplier="0.5" id="gWA-Oi-rUv"/>
-                            <constraint firstItem="vVY-Lx-WCV" firstAttribute="top" secondItem="O2x-N7-r1x" secondAttribute="bottom" id="xPd-fK-EZM"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -445,13 +458,14 @@
                     <connections>
                         <outlet property="emptyImage" destination="u94-zT-oLx" id="526-EC-EbD"/>
                         <outlet property="emptyLabel" destination="RSl-sw-lWI" id="Rq5-Zf-7cP"/>
+                        <outlet property="segmentControl" destination="lz7-zB-gZk" id="mmv-DR-Tym"/>
                         <outlet property="tableView" destination="vVY-Lx-WCV" id="t6q-TI-bgK"/>
                         <segue destination="hyo-fR-ms0" kind="show" identifier="segueToProjectTVC" id="JI7-K4-UdZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cey-1M-6yj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1843.4782608695652" y="1234.2391304347827"/>
+            <point key="canvasLocation" x="1843.125" y="1233.8028169014085"/>
         </scene>
         <!--ProjectTVC-->
         <scene sceneID="uon-DL-uUf">
