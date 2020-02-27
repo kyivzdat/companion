@@ -31,21 +31,49 @@ class Projects_Skills_AchievementsTVC: UIViewController {
     var poolDays:   [ProjectsUser] = []
     var iconsArray: [UIImage?] = []
     var printArray: [Any] = []
-    var chartView = RadarChartView()
-    
+    var skillChartView = SkillChartView()
+
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let title = getTypeOfData.rawValue.capitalized
         navigationItem.title = title
-
         
+        customSetup(title)
+        
+        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    // MARK: - viewWillLayoutSubviews
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        let frame = view.frame
+
+        skillChartView.frame = CGRect(x: 0,
+                                      y: 0,
+                                      width: frame.width,
+                                      height: frame.height * 0.78)
+        
+        let center = view.center
+        if UIDevice.current.orientation.isLandscape {
+            skillChartView.center = CGPoint(x: center.x, y: center.y + 15)
+        } else {
+            skillChartView.center = CGPoint(x: center.x, y: center.y + 32)
+        }
+    }
+    
+    // MARK: - customSetup
+    func customSetup(_ title: String) {
+        view.addSubview(skillChartView)
         
         if (array as? [Skill]) == nil || array.isEmpty {
             segmentControl.removeFromSuperview()
         } else {
-            setupChartView()
+            view.addSubview(skillChartView)
         }
         
         printArray = array
@@ -59,29 +87,6 @@ class Projects_Skills_AchievementsTVC: UIViewController {
             if let allProjects = printArray as? [ProjectsUser] {
                 disperseProjects(allProjects)
             }
-        }
-        
-        tableView.tableFooterView = UIView(frame: .zero)
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-    
-    // MARK: - viewWillLayoutSubviews
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        let frame = view.frame
-
-        chartView.frame = CGRect(x: 0,
-                                 y: 0,
-                                 width: frame.width,
-                                 height: frame.height * 0.78)
-        
-        let center = view.center
-        if UIDevice.current.orientation.isLandscape {
-            chartView.center = CGPoint(x: center.x, y: center.y + 15)
-        } else {
-            chartView.center = CGPoint(x: center.x, y: center.y + 32)
         }
     }
     
@@ -103,102 +108,24 @@ class Projects_Skills_AchievementsTVC: UIViewController {
         printArray = projectArray
     }
     
-    // MARK: - setupChartView
-    func setupChartView() {
-        chartView = RadarChartView()
-        
-        let isDarkMode = traitCollection.userInterfaceStyle == .dark ? true : false
-        
-        // Лінії від центру
-        let xAxis = chartView.xAxis
-        xAxis.labelFont = .systemFont(ofSize: 5, weight: .bold) // Значення на краях графіка
-        xAxis.labelTextColor = isDarkMode ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        xAxis.xOffset = -10
-        xAxis.yOffset = -10
-        xAxis.valueFormatter = IndexAxisValueFormatter(values: arrayOfTitlesOfSkills)
-
-        chartView.webLineWidth = 1.5 // line from center
-        chartView.innerWebLineWidth = 1.5 // line by circle
-        chartView.webColor = .lightGray
-        chartView.innerWebColor = .lightGray
-        
-        // Внутрішні перетинки по колу (градація)
-        let yAxis = chartView.yAxis
-        yAxis.labelCount = 4
-        yAxis.labelFont = .systemFont(ofSize: 9, weight: .light)
-        yAxis.drawLabelsEnabled = false
-        yAxis.axisMinimum = 0 // Мінімальне доступне значення з якого починється масштабування
-        
-        chartView.legend.enabled = false
-        
-        chartView.isHidden = true
-        view.addSubview(chartView)
-    }
-    
     // MARK: - changedValueSegControl
     @IBAction func changedValueSegControl(_ sender: UISegmentedControl) {
         
         switch sender.selectedSegmentIndex {
         case 0:
             printArray = array
-            chartView.isHidden = true
+            skillChartView.isHidden = true
         case 1:
             printArray = []
-            fillChart()
-            
+            skillChartView.fillChart(array)
+            skillChartView.isHidden = false
         default:
             break
         }
         tableView.reloadData()
     }
     
-    // MARK: - fillChart
-    func fillChart() {
-        
-        struct SkillWithValue {
-            let title: String
-            let value: Double
-        }
-        
-        guard let skills = array as? [Skill] else { return print("skills - nil") }
-        
-        var printSkill: [SkillWithValue] = []
-        
-        let arrayOfTitleWithoutLineBreak = arrayOfTitlesOfSkills.map({ $0.replacingOccurrences(of: "\n", with: " ")})
-        for skill in arrayOfTitleWithoutLineBreak {
-            
-            var value: Double = 0
-            if let levelOfSkill = skills.first(where: { $0.name == skill })?.level {
-                value = Double(levelOfSkill)
-            }
-            let newSkill = SkillWithValue(title: skill, value: value)
-            printSkill.append(newSkill)
-        }
-    
-        
-        let entries = printSkill.map({ RadarChartDataEntry(value: $0.value) })
-        
-        let skillDataSet = RadarChartDataSet(
-            entries: entries
-        )
-        let data = RadarChartData(dataSets: [skillDataSet])
-
-        chartView.data = data
-        
-        skillDataSet.lineWidth = 1
-        skillDataSet.colors = [#colorLiteral(red: 0, green: 0.6800579429, blue: 0.6883652806, alpha: 1)]
-        skillDataSet.fillColor = #colorLiteral(red: 0.002772599459, green: 0.7285055518, blue: 0.7355008125, alpha: 1)
-        skillDataSet.drawFilledEnabled = true
-        
-        skillDataSet.valueTextColor = .clear
-        
-        chartView.isHidden = false
-    }
-    
-    
     // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToProjectTVC" {
             guard let dvc = segue.destination as? ProjectTVC,
