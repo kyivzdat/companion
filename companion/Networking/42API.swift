@@ -29,8 +29,8 @@ class API {
     private let secret = "2dc221791978c281af5bf914f3b690d66feea3469c79d1a8d3c217b23531f402"
     private var bearer = ""
     
-    lazy var realm = try! Realm()
-    lazy var context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
+    private lazy var realm = try! Realm()
+    private lazy var context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
     
     private init() {}
 }

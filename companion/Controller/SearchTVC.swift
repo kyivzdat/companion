@@ -14,15 +14,15 @@ class SearchTVC: UITableViewController {
     // Passed from prev VC
     var parentTVC: UITableViewController!
     
-    var activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+    private var activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     
-    var matchingLogins: [String] = [] {
+    private var matchingLogins: [String] = [] {
         didSet {
             tableView.reloadData()
         }
     }
     
-    var isAlreadyUserChose = false
+    private var isAlreadyUserChose = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class SearchTVC: UITableViewController {
     }
     
     // MARK: - showUserProfile
-    func showUserProfile(_ result: Result<UserData, Error>, _ login: String) {
+    private func showUserProfile(_ result: Result<UserData, Error>, _ login: String) {
         
         guard let dvc = storyboard?.instantiateViewController(withIdentifier: "UserProfileVC") as? UserProfileVC else { return }
         
@@ -57,7 +57,7 @@ class SearchTVC: UITableViewController {
         showActivityIndicator(isActive: false)
     }
     
-    func showErrorAlert() {
+    private func showErrorAlert() {
         
         let ac = UIAlertController(title: "Can not find such user",
                                    message: "Try to change login",
@@ -68,7 +68,7 @@ class SearchTVC: UITableViewController {
     }
     
     // MARK: - showActivityIndicator
-    func showActivityIndicator(isActive: Bool) {
+    private func showActivityIndicator(isActive: Bool) {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = isActive
             self.activityIndicator.isHidden = !isActive
@@ -81,7 +81,7 @@ class SearchTVC: UITableViewController {
     }
     
     // MARK: - getUserInfo
-    func getUserInfo(_ login: String) {
+    private func getUserInfo(_ login: String) {
         isAlreadyUserChose = true
         
         print("login -", login)

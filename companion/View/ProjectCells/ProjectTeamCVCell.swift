@@ -10,14 +10,13 @@ import UIKit
 
 class ProjectTeamCVCell: UICollectionViewCell {
     
-    @IBOutlet weak var userImageView: UIImageView!
-    @IBOutlet weak var loginLabel: UILabel!
-    @IBOutlet weak var leaderImageView: UIImageView!
+    @IBOutlet private weak var userImageView: UIImageView!
+    @IBOutlet private weak var loginLabel: UILabel!
+    @IBOutlet private weak var leaderImageView: UIImageView!
     
     override func awakeFromNib() {
         userImageView.layer.cornerRadius = 3
         userImageView.clipsToBounds = true
-//        loginLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         loginLabel.text = ""
     }
     
@@ -32,24 +31,5 @@ class ProjectTeamCVCell: UICollectionViewCell {
             loginLabel.text = login
         }
         leaderImageView.image = (user.leader ?? false) ? #imageLiteral(resourceName: "star") : nil
-    }
-    
-    private func outlineLabel(string: String, font: String?, size: Int, mainColor: UIColor?, foregroundColor: UIColor?) -> NSAttributedString {
-        
-        let strokeColor = (foregroundColor != nil) ? foregroundColor! : UIColor.black
-        let foregroundColor = (mainColor != nil) ? mainColor! : UIColor.white
-        
-        let font = (font == nil) ? "Arial Rounded MT Bold" : font
-        
-        if let font = UIFont(name: font!, size: CGFloat(size)) {
-            let attrString = NSAttributedString(string: string, attributes:
-                [NSAttributedString.Key.strokeColor:     strokeColor,
-                 NSAttributedString.Key.foregroundColor: foregroundColor,
-                 NSAttributedString.Key.strokeWidth:     -4.0,
-                 NSAttributedString.Key.font:            font])
-            return attrString
-        }
-        print("Font doesnt found -", font ?? "")
-        return NSAttributedString(string: string)
     }
 }

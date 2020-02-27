@@ -16,7 +16,7 @@ class CorrectionFormTVC: UITableViewController {
     // Delay, cuz requests are overlap
     var delay: Int!
     
-    var questionsWithAnswer: [QuestionsWithAnswer] = [] {
+    private var questionsWithAnswer: [QuestionsWithAnswer] = [] {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -31,7 +31,7 @@ class CorrectionFormTVC: UITableViewController {
         getQuestionsWithAnswer()
     }
     
-    func getQuestionsWithAnswer() {
+    private func getQuestionsWithAnswer() {
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let activityIndicator = UIActivityIndicatorView(style: .gray)

@@ -10,8 +10,8 @@ import UIKit
 
 class ProjectCell: UITableViewCell {
 
-    @IBOutlet weak var projectLabel: UILabel!
-    @IBOutlet weak var markLabel: UILabel!
+    @IBOutlet private weak var projectLabel: UILabel!
+    @IBOutlet private weak var markLabel: UILabel!
     
     func fillProjectInfo(_ project: ProjectsUser) {
         

@@ -10,9 +10,9 @@ import UIKit
 
 class SlotsTVCell: UITableViewCell {
 
-    @IBOutlet weak var startLabel: UILabel!
-    @IBOutlet weak var endLabel: UILabel!
-    @IBOutlet weak var betweenLabel: UILabel!
+    @IBOutlet private weak var startLabel: UILabel!
+    @IBOutlet private weak var endLabel: UILabel!
+    @IBOutlet private weak var betweenLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,7 +36,7 @@ class SlotsTVCell: UITableViewCell {
         }
     }
     
-    func getCorrectTime(fromString time: String?) -> String {
+    private func getCorrectTime(fromString time: String?) -> String {
         
         let getDateFormatter = DateFormatter()
         getDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"

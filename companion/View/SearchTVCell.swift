@@ -11,8 +11,8 @@ import Kingfisher
 
 class SearchTVCell: UITableViewCell {
 
-    @IBOutlet weak var photoImageView: UIImageView!
-    @IBOutlet weak var loginLabel: UILabel!
+    @IBOutlet private weak var photoImageView: UIImageView!
+    @IBOutlet private weak var loginLabel: UILabel!
     
     
     override func awakeFromNib() {

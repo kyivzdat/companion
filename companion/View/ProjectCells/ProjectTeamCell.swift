@@ -11,16 +11,16 @@ import Kingfisher
 
 class ProjectTeamCell: UITableViewCell {
     
-    @IBOutlet weak var bgView: UIView!
+    @IBOutlet private weak var bgView:          UIView!
     
-    @IBOutlet weak var teamLabel: UILabel!
-    @IBOutlet weak var closedTimeLabel: UILabel!
-    @IBOutlet weak var finalMarkLabel: UILabel!
+    @IBOutlet private weak var teamLabel:       UILabel!
+    @IBOutlet private weak var closedTimeLabel: UILabel!
+    @IBOutlet private weak var finalMarkLabel:  UILabel!
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView:  UICollectionView!
     
-    var projectsUsers: ProjectsUser!
-    var team: ProjectsUser.Team?
+    private var projectsUsers:  ProjectsUser!
+    private var team:           ProjectsUser.Team?
     
     override func awakeFromNib() {
         super.awakeFromNib()

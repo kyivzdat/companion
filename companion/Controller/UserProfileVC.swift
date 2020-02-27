@@ -60,7 +60,7 @@ class UserProfileVC: UITableViewController {
         timeSpeedometerView.setSpeedometerFontColor(isDarkMode: !isDarkMode)
     }
     
-    func fillViewWithInfo() {
+    private func fillViewWithInfo() {
         
         mainInfoView.fillMainInfo(userData)
         isAvailableLabel.text = userData.location ?? "Unavailable"
@@ -71,7 +71,7 @@ class UserProfileVC: UITableViewController {
     }
     
     // MARK: setupSearchController
-    func setupSearchController() {
+    private func setupSearchController() {
         guard let searchTVC = storyboard?.instantiateViewController(withIdentifier: "SearchTVC") as? SearchTVC else { return }
         
         searchTVC.parentTVC = self
@@ -86,7 +86,7 @@ class UserProfileVC: UITableViewController {
     }
     
     // MARK: viewSetup
-    func viewSetup() {
+    private func viewSetup() {
         bgViews.forEach { (view) in
             view.layer.cornerRadius = 3
             view.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -135,7 +135,7 @@ class UserProfileVC: UITableViewController {
     }
     
     // MARK: - showErrorAlert
-    func showErrorAlert() {
+    private func showErrorAlert() {
         
         let ac = UIAlertController(title: "Something went wrong",
                                    message: "Please try again",
@@ -193,7 +193,7 @@ class UserProfileVC: UITableViewController {
          - 4 - Piscine C  (pool)
          - 1 - school 42
      */
-    func prepareProjects(_ courseID: Int) -> [ProjectsUser] {
+    private func prepareProjects(_ courseID: Int) -> [ProjectsUser] {
         guard let projects = userData.projectsUsers else { return [] }
         var resultArray: [ProjectsUser] = []
         projects.forEach { (project) in
@@ -207,7 +207,7 @@ class UserProfileVC: UITableViewController {
     }
     
     // MARK: - prepareSkills
-    func prepareSkills(_ courseID: Int) -> [Skill] {
+    private func prepareSkills(_ courseID: Int) -> [Skill] {
         
         guard let indexOfCursus = userData.cursusUsers?.firstIndex(where: { $0.cursusID == courseID }),
             let skills = userData.cursusUsers?[indexOfCursus].skills else { return [] }
@@ -215,7 +215,7 @@ class UserProfileVC: UITableViewController {
     }
     
     // MARK: - prepareAchievements
-    func prepareAchievements(_ courseID: Int) -> [Achievement] {
+    private func prepareAchievements(_ courseID: Int) -> [Achievement] {
         
         var resultArray: [Achievement] = []
         guard let achievements = userData.achievements else { return [] }

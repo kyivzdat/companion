@@ -10,22 +10,22 @@ import UIKit
 
 class ProjectMainInfoCell: UITableViewCell {
     
-    @IBOutlet weak var bgView: UIView!
+    @IBOutlet private weak var bgView:              UIView!
     
-    @IBOutlet weak var markBGView: UIView!
+    @IBOutlet private weak var markBGView:          UIView!
     
-    @IBOutlet weak var statusImageView: UIImageView!
-    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet private weak var bigStatusImageView:  UIImageView!
+    @IBOutlet private weak var statusImageView:     UIImageView!
+    @IBOutlet private weak var statusLabel:         UILabel!
     
-    @IBOutlet weak var finalMarkLabel: UILabel!
-    @IBOutlet weak var ofMarkLabel: UILabel!
+    @IBOutlet private weak var finalMarkLabel:      UILabel!
+    @IBOutlet private weak var ofMarkLabel:         UILabel!
     
-    @IBOutlet weak var teamLabel: UILabel!
-    @IBOutlet weak var correctionsLabel: UILabel!
-//    @IBOutlet weak var checkersLabel: UILabel!
-    @IBOutlet weak var xpLabel: UILabel!
+    @IBOutlet private weak var teamLabel:           UILabel!
+    @IBOutlet private weak var correctionsLabel:    UILabel!
+
+    @IBOutlet private weak var xpLabel:             UILabel!
     
-    @IBOutlet weak var bigStatusImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -55,7 +55,6 @@ class ProjectMainInfoCell: UITableViewCell {
             
             bigStatusImageView.isHidden = true
         } else {
-            // MARK: - TODO need to handle statuses
             switch projectsUsers.status {
             case "in_progress":
                 fallthrough
@@ -80,25 +79,24 @@ class ProjectMainInfoCell: UITableViewCell {
     private func fillGeneralView(_ projectInfo: [ProjectInfo.ProjectSession]) {
         
         
-        if projectInfo.isEmpty == false {
-            var bestProjectInfo: ProjectInfo.ProjectSession?
-            if let indexOf13campus = projectInfo.firstIndex(where: { $0.campusID == 13 }) {
-                bestProjectInfo = projectInfo[indexOf13campus]
-            } else if let indexOf8campus = projectInfo.firstIndex(where: { $0.campusID == 8 }) {
-                bestProjectInfo = projectInfo[indexOf8campus]
-            } else {
-                bestProjectInfo = projectInfo.first
-            }
-            
-            teamLabel.text = (bestProjectInfo?.solo ?? true) ? "Solo" : "Group"
-            
-            let points = (bestProjectInfo?.scales?.first)?.correctionNumber
-            correctionsLabel.text = (points != nil) ? String(points!) : "-"
-            
-            let xp = bestProjectInfo?.difficulty
-            xpLabel.text = (xp != nil) ? String(xp!) : "-"
-
+        guard projectInfo.isEmpty == false else { return }
+        
+        var bestProjectInfo: ProjectInfo.ProjectSession?
+        if let indexOf13campus = projectInfo.firstIndex(where: { $0.campusID == 13 }) {
+            bestProjectInfo = projectInfo[indexOf13campus]
+        } else if let indexOf8campus = projectInfo.firstIndex(where: { $0.campusID == 8 }) {
+            bestProjectInfo = projectInfo[indexOf8campus]
+        } else {
+            bestProjectInfo = projectInfo.first
         }
+        
+        teamLabel.text = (bestProjectInfo?.solo ?? true) ? "Solo" : "Group"
+        
+        let points = (bestProjectInfo?.scales?.first)?.correctionNumber
+        correctionsLabel.text = (points != nil) ? String(points!) : "-"
+        
+        let xp = bestProjectInfo?.difficulty
+        xpLabel.text = (xp != nil) ? String(xp!) : "-"
     }
 }
 

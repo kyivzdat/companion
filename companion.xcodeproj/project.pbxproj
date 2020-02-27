@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E102439A2401A06A00FDB2AE /* TimeLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10243992401A06A00FDB2AE /* TimeLog.swift */; };
+		E102439A2401A06A00FDB2AE /* TimeLogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10243992401A06A00FDB2AE /* TimeLogModel.swift */; };
 		E105469823EC52F6005F5593 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105469723EC52F6005F5593 /* UserModel.swift */; };
 		E10B01F123841B5600A6A99E /* SkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F023841B5600A6A99E /* SkillCell.swift */; };
 		E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F223846EC700A6A99E /* ProjectCell.swift */; };
@@ -19,6 +19,7 @@
 		E10F921C23F4415B00E37615 /* ProjectTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F921B23F4415B00E37615 /* ProjectTeamCell.swift */; };
 		E10F922123F4814B00E37615 /* ProjectTeamCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */; };
 		E128C4BD24078C1000F3D5D1 /* SkillChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128C4BC24078C1000F3D5D1 /* SkillChartView.swift */; };
+		E128C4BF2407A0BA00F3D5D1 /* ProjectInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128C4BE2407A0BA00F3D5D1 /* ProjectInfoModel.swift */; };
 		E146D9BA23FC1A820034533D /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9B923FC1A820034533D /* LoginVC.swift */; };
 		E146D9BC23FC1AB90034533D /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9BB23FC1AB90034533D /* SearchTVC.swift */; };
 		E146D9BE23FC27260034533D /* SlotsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9BD23FC27260034533D /* SlotsTVCell.swift */; };
@@ -52,7 +53,7 @@
 /* Begin PBXFileReference section */
 		097C92CF47CF695890E3B88E /* Pods-companion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-companion.release.xcconfig"; path = "Target Support Files/Pods-companion/Pods-companion.release.xcconfig"; sourceTree = "<group>"; };
 		86E4F16CC79A6D8EF45FBE72 /* Pods_companion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_companion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E10243992401A06A00FDB2AE /* TimeLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLog.swift; sourceTree = "<group>"; };
+		E10243992401A06A00FDB2AE /* TimeLogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLogModel.swift; sourceTree = "<group>"; };
 		E105469723EC52F6005F5593 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		E10B01F023841B5600A6A99E /* SkillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCell.swift; sourceTree = "<group>"; };
 		E10B01F223846EC700A6A99E /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
@@ -64,6 +65,7 @@
 		E10F921B23F4415B00E37615 /* ProjectTeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTeamCell.swift; sourceTree = "<group>"; };
 		E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTeamCVCell.swift; sourceTree = "<group>"; };
 		E128C4BC24078C1000F3D5D1 /* SkillChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillChartView.swift; sourceTree = "<group>"; };
+		E128C4BE2407A0BA00F3D5D1 /* ProjectInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectInfoModel.swift; sourceTree = "<group>"; };
 		E146D9B923FC1A820034533D /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		E146D9BB23FC1AB90034533D /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
 		E146D9BD23FC27260034533D /* SlotsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsTVCell.swift; sourceTree = "<group>"; };
@@ -161,11 +163,12 @@
 				E176F43C239BF4820028766A /* CompanionModel.xcdatamodeld */,
 				E1A79E8723EAAE060022C633 /* TokenModel.swift */,
 				E105469723EC52F6005F5593 /* UserModel.swift */,
+				E128C4BE2407A0BA00F3D5D1 /* ProjectInfoModel.swift */,
+				E16F8050240578110091BEEC /* ParseTime.swift */,
 				E17FD19923F718ED00C52066 /* CorrectionFormModel.swift */,
 				E1B0DC4323FC15AF0095388E /* SlotsModel.swift */,
-				E10243992401A06A00FDB2AE /* TimeLog.swift */,
+				E10243992401A06A00FDB2AE /* TimeLogModel.swift */,
 				E19E1DE323ED34E8006F3594 /* JSONme.swift */,
-				E16F8050240578110091BEEC /* ParseTime.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -388,7 +391,7 @@
 			files = (
 				E1B0DC4223FC12A80095388E /* SlotsVC.swift in Sources */,
 				E10B01F123841B5600A6A99E /* SkillCell.swift in Sources */,
-				E102439A2401A06A00FDB2AE /* TimeLog.swift in Sources */,
+				E102439A2401A06A00FDB2AE /* TimeLogModel.swift in Sources */,
 				E146D9BA23FC1A820034533D /* LoginVC.swift in Sources */,
 				E146D9BE23FC27260034533D /* SlotsTVCell.swift in Sources */,
 				E10BF78523F14B10009F9F53 /* AchievementCell.swift in Sources */,
@@ -407,6 +410,7 @@
 				E16F8047240549F30091BEEC /* MainInfoView.swift in Sources */,
 				E19D2F6923FAD88200E11DD0 /* CorrectionFormCell.swift in Sources */,
 				E16F8051240578110091BEEC /* ParseTime.swift in Sources */,
+				E128C4BF2407A0BA00F3D5D1 /* ProjectInfoModel.swift in Sources */,
 				E105469823EC52F6005F5593 /* UserModel.swift in Sources */,
 				E10F921623F43A5800E37615 /* ProjectTVC.swift in Sources */,
 				E19E1DE423ED34E8006F3594 /* JSONme.swift in Sources */,

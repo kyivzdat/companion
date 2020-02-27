@@ -13,7 +13,7 @@ class TimeSpeedometerView: UIView {
 
     @IBOutlet private var bgView: UIView!
     
-    @IBOutlet weak var speedometer: MBCircularProgressBarView!
+    @IBOutlet private weak var speedometer: MBCircularProgressBarView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

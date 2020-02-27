@@ -10,11 +10,21 @@ import UIKit
 
 class SkillCell: UITableViewCell {
 
-    @IBOutlet weak var skillLabel: UILabel!
-    @IBOutlet weak var valueLabel: UILabel!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet private weak var skillLabel: UILabel!
+    @IBOutlet private weak var valueLabel: UILabel!
+    @IBOutlet private weak var progressView: UIProgressView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    func fillSkill(_ skill: Skill) {
+        
+        skillLabel.text = skill.name
+        
+        if let level = skill.level {
+            valueLabel.text = String(level)
+            progressView.progress = level / 21
+        }
     }
 }

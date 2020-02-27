@@ -34,7 +34,7 @@ struct Sentence: Codable {
 }
 
 
-// MARK: - Welcome
+// MARK: - TranslationJSON
 struct TranslationJSON: Codable {
     let data: DataClass?
 }

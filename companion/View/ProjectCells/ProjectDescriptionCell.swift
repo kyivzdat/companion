@@ -10,12 +10,16 @@ import UIKit
 
 class ProjectDescriptionCell: UITableViewCell {
     
-    @IBOutlet weak var bgView: UIView!
+    @IBOutlet private weak var bgView: UIView!
     
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         bgView.layer.cornerRadius = 3
+    }
+    
+    func fillDescription(_ description: String) {
+        descriptionLabel.text = description
     }
 }

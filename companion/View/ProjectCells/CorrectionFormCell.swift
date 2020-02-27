@@ -10,10 +10,10 @@ import UIKit
 
 class CorrectionFormCell: UITableViewCell {
 
-    @IBOutlet weak var bgView: UIView!
+    @IBOutlet private weak var bgView: UIView!
     
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var questionLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var questionLabel: UILabel!
     
     
     override func awakeFromNib() {

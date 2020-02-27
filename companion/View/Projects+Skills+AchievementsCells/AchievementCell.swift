@@ -12,12 +12,18 @@ import SVGKit
 
 class AchievementCell: UITableViewCell {
     
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var tierLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var tierLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var iconImageView: UIImageView!
     
-    func formatTierLable(_ tier: String?) {
+    func fillAchievment(_ achievement: Achievement) {
+        titleLabel.text = achievement.name
+        formatTierLable(achievement.tier)
+        descriptionLabel.text = achievement.achievementDescription
+    }
+    
+    private func formatTierLable(_ tier: String?) {
         
         if let tier = tier, tier != "none" {
             

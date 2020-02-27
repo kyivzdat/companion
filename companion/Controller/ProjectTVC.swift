@@ -8,15 +8,16 @@
 
 import UIKit
 
-fileprivate let cellIdentifiers = ["projectMainInfoCell",
-                                   "projectDescriptionCell",
-                                   "projectTeamCell",
-                                   "projectPoolDayCell"
-]
-
 class ProjectTVC: UITableViewController {
     
-    @IBOutlet weak var correctionFormButton: UIBarButtonItem!
+    private let cellIdentifiers = [
+        "projectMainInfoCell",
+        "projectDescriptionCell",
+        "projectTeamCell",
+        "projectPoolDayCell"
+    ]
+    
+    @IBOutlet private weak var correctionFormButton: UIBarButtonItem!
     
     // Get from previous VC
     var inputProjectUsers:  ProjectsUser!
@@ -24,7 +25,7 @@ class ProjectTVC: UITableViewController {
     
     // Get from url requests
     //MARK: - projectUsers - Teams
-    var projectsUsers:      ProjectsUser? {
+    private var projectsUsers:      ProjectsUser? {
         didSet {
             
             if let numberOfTeams = projectsUsers?.teams?.count, numberOfTeams > 0 {
@@ -44,7 +45,7 @@ class ProjectTVC: UITableViewController {
     }
     
     //MARK: - projectUsers - MainInfoCell+Description
-    var projectInfo:        ProjectInfo? {
+    private var projectInfo:        ProjectInfo? {
         didSet {
             if let projectSession = projectInfo?.projectSessions {
                 
@@ -63,18 +64,19 @@ class ProjectTVC: UITableViewController {
         }
     }
     
-    var rangesForCell: [Int : [Int]] = [0: [0],
-                                        1: [],
-                                        2: [],
-                                        3: []
+    private var rangesForCell: [Int : [Int]] = [
+        0: [0],
+        1: [],
+        2: [],
+        3: []
     ]
     
-    var descriptionText: String?
+    private var descriptionText: String?
     
-    var dateWhenStartedRequests: TimeInterval!
+    private var dateWhenStartedRequests: TimeInterval!
     
-    var isBothRequestsEnded = 0
-
+    private var isBothRequestsEnded = 0
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,9 +88,13 @@ class ProjectTVC: UITableViewController {
         
         // Make URL Requests
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        getProjectsUsers()
-        getProjectInfo()
-
+        if let userProjectID = inputProjectUsers.id {
+            getProjectsUsers(userProjectID)
+        }
+        if let projectID = inputProjectUsers.project?.id {
+            getProjectInfo(projectID)
+        }
+        
         if poolDays.isEmpty == false {
             navigationItem.rightBarButtonItems?.removeAll()
         }
@@ -97,46 +103,43 @@ class ProjectTVC: UITableViewController {
     }
     
     // MARK: - Requests
-    func getProjectsUsers() {
-        if let userProjectID = inputProjectUsers.id {
-            API.shared.getDataOfProject(projectID: userProjectID) { (newProjectsUsers) in
-                DispatchQueue.main.async {
-                    
-                    let sortedTeams = newProjectsUsers?.teams?.sorted(by: { ($0.id ?? 0) < ($1.id ?? 0) })
-                    var projectsWithSortedTeams = newProjectsUsers
-                    projectsWithSortedTeams?.teams = sortedTeams
-                    self.projectsUsers = projectsWithSortedTeams
-                    self.isBothRequestsEnded += 1
-                    if self.isBothRequestsEnded == 2{
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    }
+    private func getProjectsUsers(_ userProjectID: Int) {
+        API.shared.getDataOfProject(projectID: userProjectID) { (newProjectsUsers) in
+            DispatchQueue.main.async {
+                
+                let sortedTeams = newProjectsUsers?.teams?.sorted(by: { ($0.id ?? 0) < ($1.id ?? 0) })
+                var projectsWithSortedTeams = newProjectsUsers
+                projectsWithSortedTeams?.teams = sortedTeams
+                self.projectsUsers = projectsWithSortedTeams
+                self.isBothRequestsEnded += 1
+                if self.isBothRequestsEnded == 2{
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }
             }
         }
+        
     }
     
     // MARK: - getProjectInfo
-    func getProjectInfo() {
-        if let projectID = inputProjectUsers.project?.id {
-            API.shared.getGeneralInfoOfProject(projectID: projectID) { (newProjectInfo) in
-                DispatchQueue.main.async {
-                    self.projectInfo = newProjectInfo
-                    
-                    if newProjectInfo.exam ?? true {
-                        // Remove right navigation button
-                        self.navigationItem.rightBarButtonItems?.removeAll()
-                    }
-                    self.isBothRequestsEnded += 1
-                    if self.isBothRequestsEnded == 2{
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    }
+    private func getProjectInfo(_ projectID: Int) {
+        API.shared.getGeneralInfoOfProject(projectID: projectID) { (newProjectInfo) in
+            DispatchQueue.main.async {
+                self.projectInfo = newProjectInfo
+                
+                if newProjectInfo.exam ?? true {
+                    // Remove right navigation button
+                    self.navigationItem.rightBarButtonItems?.removeAll()
+                }
+                self.isBothRequestsEnded += 1
+                if self.isBothRequestsEnded == 2{
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }
             }
         }
     }
     
     // MARK: - defineBestDescription
-    func defineBestDescription(_ projectSession: [ProjectInfo.ProjectSession]) -> String? {
+    private func defineBestDescription(_ projectSession: [ProjectInfo.ProjectSession]) -> String? {
         
         var bestDescription: String?
         if let indexOf13campus = projectSession.firstIndex(where: { $0.campusID == 13 }),
@@ -155,7 +158,6 @@ class ProjectTVC: UITableViewController {
                 }
             }
         }
-        
         return bestDescription
     }
     
@@ -186,7 +188,7 @@ extension ProjectTVC {
         return getMaxRange()
     }
     
-    func getMaxRange() -> Int {
+    private func getMaxRange() -> Int {
         
         var result = 0
         rangesForCell.values.forEach { (ranges) in
@@ -249,10 +251,10 @@ extension ProjectTVC {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? ProjectDescriptionCell,
             let description = self.descriptionText else { return UITableViewCell() }
-
-       removeSeparator(forCell: cell)
         
-        cell.descriptionLabel.text = description
+        removeSeparator(forCell: cell)
+        
+        cell.fillDescription(description)
         return cell
     }
     
@@ -283,12 +285,12 @@ extension ProjectTVC {
         
         let day = poolDays[indexOfTeam]
         cell.fillProjectInfo(day)
-
+        
         return cell
     }
     
     // MARK: removeSeparator
-    func removeSeparator(forCell cell: UITableViewCell) {
+    private func removeSeparator(forCell cell: UITableViewCell) {
         cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
         cell.directionalLayoutMargins = .zero
     }
@@ -303,7 +305,7 @@ extension ProjectTVC {
         guard let min = rangesForCell[3]?.first, let max = rangesForCell[3]?.last,
             min...max ~= indexPath.row,
             let newVC = storyboard?.instantiateViewController(withIdentifier: "ProjectTVC") as? ProjectTVC else { return }
-
+        
         let poolDay = poolDays[indexPath.row - min]
         
         newVC.inputProjectUsers = poolDay

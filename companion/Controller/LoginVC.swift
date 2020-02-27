@@ -17,13 +17,11 @@ import RealmSwift
 
 class LoginVC: UIViewController {
     
-    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet private weak var loginButton: UIButton!
     
-    let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+    private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     
-    lazy var context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
-    
-    let realm = try! Realm()
+    private let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +41,7 @@ class LoginVC: UIViewController {
         login()
     }
     
-    func setupButton() {
+    private func setupButton() {
         loginButton.layer.cornerRadius = 10
         loginButton.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         loginButton.layer.borderWidth = 0.5
@@ -53,7 +51,7 @@ class LoginVC: UIViewController {
         loginButton.transform = CGAffineTransform(translationX: 0, y: 300)
     }
 
-    func login() {
+    private func login() {
         print("Realm path -", Realm.Configuration.defaultConfiguration.fileURL ?? "")
         let api = API.shared
         
@@ -78,7 +76,7 @@ class LoginVC: UIViewController {
     }
     
     // MARK: - Login button
-    @IBAction func loginButton(_ sender: UIButton) {
+    @IBAction private func loginButton(_ sender: UIButton) {
         
         activityIndicator.startAnimating()
         activityIndicator.center = self.view.center
@@ -108,7 +106,7 @@ class LoginVC: UIViewController {
         }
     }
     
-    func showAlert() {
+    private func showAlert() {
         DispatchQueue.main.async {
             let ac = UIAlertController(title: "Something went wrong", message: "Try again later", preferredStyle: .alert)
             let okButton = UIAlertAction(title: "Ok", style: .default)
@@ -117,7 +115,7 @@ class LoginVC: UIViewController {
         }
     }
     
-    func animateTap<T>(_ view: T, completion: @escaping () -> ()) {
+    private func animateTap<T>(_ view: T, completion: @escaping () -> ()) {
         
         guard let castView = view as? UIView else { return }
 

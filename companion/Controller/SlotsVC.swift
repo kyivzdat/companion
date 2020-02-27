@@ -10,7 +10,7 @@ import UIKit
 
 class SlotsVC: UITableViewController {
     
-    var slotsForPrint: [Slot] = [] {
+    private var slotsForPrint: [Slot] = [] {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -18,15 +18,15 @@ class SlotsVC: UITableViewController {
         }
     }
     
-    var pullToRefreshControl: UIRefreshControl {
+    private var pullToRefreshControl: UIRefreshControl {
         let control = UIRefreshControl()
         control.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return control
     }
     
-    var sectionNumber: [Int : (number: Int, date: String)] = [:]
+    private var sectionNumber: [Int : (number: Int, date: String)] = [:]
     
-    var activityIndicator: UIActivityIndicatorView = {
+    private var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
         activityIndicator.color = .systemBlue
         activityIndicator.startAnimating()
@@ -35,7 +35,7 @@ class SlotsVC: UITableViewController {
         return activityIndicator
     }()
     
-    let emptyLabel: UILabel =  {
+    private let emptyLabel: UILabel =  {
         let emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 21))
         emptyLabel.text = "No slots"
         emptyLabel.textAlignment = .center
@@ -78,14 +78,14 @@ class SlotsVC: UITableViewController {
     }
     
     // MARK: - showActivityIndicator
-    func showActivityIndicator(isActive: Bool) {
+    private func showActivityIndicator(isActive: Bool) {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = isActive ? true : false
         }
     }
     
     // MARK: - makeRequestForSlots
-    func makeRequestForSlots(completion: @escaping () -> ()) {
+    private func makeRequestForSlots(completion: @escaping () -> ()) {
         
         // Getting Evaluation Slots
         sectionNumber = [:]
@@ -134,7 +134,7 @@ class SlotsVC: UITableViewController {
         }
     }
     
-    func showAlert() {
+    private func showAlert() {
         DispatchQueue.main.async {
             let ac = UIAlertController(title: "Something went wrong", message: "Try again later", preferredStyle: .alert)
             let okButton = UIAlertAction(title: "Ok", style: .default)
@@ -144,7 +144,7 @@ class SlotsVC: UITableViewController {
     }
     
     // MARK: - processingSlots
-    func processingSlots(_ slots: [Slot]) -> (valideSlots: [Slot], isAllSlots: Bool)? {
+    private func processingSlots(_ slots: [Slot]) -> (valideSlots: [Slot], isAllSlots: Bool)? {
         
         var valideSlots: [Slot] = []
         let currentDate = Date().timeIntervalSince1970 + 15 * 60 // + 15 minute like in intra42
@@ -170,7 +170,7 @@ class SlotsVC: UITableViewController {
     }
     
     // MARK: - getSlotsForPrint
-    func getSlotsForPrint(fromValidSlots slots: [Slot]) -> [Slot]? {
+    private func getSlotsForPrint(fromValidSlots slots: [Slot]) -> [Slot]? {
         
         func updateLastSlot(_ lastSlot: Slot, _ currentSlot: Slot) -> Slot {
             let updateLastSlot = Slot(id: nil,
@@ -221,7 +221,7 @@ class SlotsVC: UITableViewController {
     }
     
     // MARK: isTheSameSlot
-    func isTheSameSlot(_ start: String?, _ end: String?) -> Bool? {
+    private func isTheSameSlot(_ start: String?, _ end: String?) -> Bool? {
         
         let getDate = DateFormatter()
         getDate.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -249,7 +249,7 @@ class SlotsVC: UITableViewController {
     }
     
     // MARK: - defineSectionsNumber
-    func defineSectionsNumber(_ slots: [Slot]) -> Bool {
+    private func defineSectionsNumber(_ slots: [Slot]) -> Bool {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"

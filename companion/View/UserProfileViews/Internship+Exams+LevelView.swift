@@ -12,10 +12,10 @@ class Internship_Exams_LevelView: UIView {
 
     @IBOutlet var bgView: UIView!
     
-    @IBOutlet var internshipImageViews: Array<UIImageView>!
-    @IBOutlet var examsImageViews: Array<UIImageView>!
-    @IBOutlet weak var levelLabel: UILabel!
-    @IBOutlet weak var levelProgressView: UIProgressView!
+    @IBOutlet private var internshipImageViews:     Array<UIImageView>!
+    @IBOutlet private var examsImageViews:          Array<UIImageView>!
+    @IBOutlet private weak var levelLabel:          UILabel!
+    @IBOutlet private weak var levelProgressView:   UIProgressView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

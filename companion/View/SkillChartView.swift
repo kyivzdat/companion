@@ -11,7 +11,7 @@ import Charts
 
 class SkillChartView: RadarChartView {
 
-    let chartView = RadarChartView()
+    private let chartView = RadarChartView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

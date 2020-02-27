@@ -22,7 +22,7 @@ class ParseTime {
         var time: Double = 0
     }
     
-    var stopTime = Double()
+    private var stopTime = Double()
     
     // MARK: - getLogTime
     func getLogTimeOf(_ timeRange: TimeDefinition, login: String, completion: @escaping (CGFloat?) -> ()) {
