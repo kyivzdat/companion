@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "46FA1E1D7ABC29B96888E2D9085D474F"
-               BuildableName = "MBCircularProgressBar.framework"
+               BuildableName = "libMBCircularProgressBar.a"
                BlueprintName = "MBCircularProgressBar"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

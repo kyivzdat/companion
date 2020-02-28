@@ -4,7 +4,7 @@
 target 'companion' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_modular_headers!
-  use_frameworks!
+#  use_frameworks!
 
   # Pods for companion
   pod 'Kingfisher', '~> 5.0'
@@ -12,6 +12,7 @@ target 'companion' do
   pod 'RealmSwift'
   pod "MBCircularProgressBar"
   pod 'Charts'
+  pod "CenteredCollectionView"
   
 end
 

@@ -98,7 +98,8 @@ class Projects_Skills_AchievementsTVC: UIViewController {
         var projectArray: [ProjectsUser] = []
         allProjects.forEach { (project) in
 
-            if project.project?.parentID == nil {
+            // 61 - Rushes
+            if project.project?.parentID == nil || project.project?.parentID == 61 {
                 projectArray.append(project)
             } else {
                 poolDays.append(project)

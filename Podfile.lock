@@ -1,4 +1,5 @@
 PODS:
+  - CenteredCollectionView (2.2.2)
   - Charts (3.4.0):
     - Charts/Core (= 3.4.0)
   - Charts/Core (3.4.0)
@@ -18,6 +19,7 @@ PODS:
     - CocoaLumberjack (~> 3.0)
 
 DEPENDENCIES:
+  - CenteredCollectionView
   - Charts
   - Kingfisher (~> 5.0)
   - MBCircularProgressBar
@@ -26,6 +28,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - CenteredCollectionView
     - Charts
     - CocoaLumberjack
     - Kingfisher
@@ -35,6 +38,7 @@ SPEC REPOS:
     - SVGKit
 
 SPEC CHECKSUMS:
+  CenteredCollectionView: a9217908a698c386cbb98af11b596da48900b908
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   Kingfisher: f33a848445e33c543620812158dc5d47f6bf90df
@@ -43,6 +47,6 @@ SPEC CHECKSUMS:
   RealmSwift: 9a360fc7bae04fc2e308a34fbd899d5faa2d6b22
   SVGKit: 652cdf7bef8bec8564d04a8511d3ab50c7595fac
 
-PODFILE CHECKSUM: c391140c12e771857d8229f4f315f486f8b4cf9d
+PODFILE CHECKSUM: 69b3578546a4fcfb677cc743873972139a455285
 
 COCOAPODS: 1.8.4

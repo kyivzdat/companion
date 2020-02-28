@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2ECD086D205F16F2F8A7C6F4 /* libPods-companion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A53FB75353B56633BF5EE6F5 /* libPods-companion.a */; };
 		E102439A2401A06A00FDB2AE /* TimeLogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10243992401A06A00FDB2AE /* TimeLogModel.swift */; };
 		E105469823EC52F6005F5593 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105469723EC52F6005F5593 /* UserModel.swift */; };
 		E10B01F123841B5600A6A99E /* SkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B01F023841B5600A6A99E /* SkillCell.swift */; };
@@ -20,6 +21,9 @@
 		E10F922123F4814B00E37615 /* ProjectTeamCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */; };
 		E128C4BD24078C1000F3D5D1 /* SkillChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128C4BC24078C1000F3D5D1 /* SkillChartView.swift */; };
 		E128C4BF2407A0BA00F3D5D1 /* ProjectInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128C4BE2407A0BA00F3D5D1 /* ProjectInfoModel.swift */; };
+		E128C4C42407C54800F3D5D1 /* CalendarCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128C4C32407C54800F3D5D1 /* CalendarCVCell.swift */; };
+		E128C4C82407C7A700F3D5D1 /* MonthCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128C4C72407C7A700F3D5D1 /* MonthCVCell.swift */; };
+		E128C4CA2407C8CF00F3D5D1 /* MonthsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128C4C92407C8CF00F3D5D1 /* MonthsVC.swift */; };
 		E146D9BA23FC1A820034533D /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9B923FC1A820034533D /* LoginVC.swift */; };
 		E146D9BC23FC1AB90034533D /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9BB23FC1AB90034533D /* SearchTVC.swift */; };
 		E146D9BE23FC27260034533D /* SlotsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9BD23FC27260034533D /* SlotsTVCell.swift */; };
@@ -38,7 +42,6 @@
 		E19D2F6923FAD88200E11DD0 /* CorrectionFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19D2F6823FAD88100E11DD0 /* CorrectionFormCell.swift */; };
 		E19D2F6B23FAD95900E11DD0 /* CorrectionFormTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19D2F6A23FAD95900E11DD0 /* CorrectionFormTVC.swift */; };
 		E19E1DE423ED34E8006F3594 /* JSONme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19E1DE323ED34E8006F3594 /* JSONme.swift */; };
-		E1A5BD7A1010A841E6927BF9 /* Pods_companion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E4F16CC79A6D8EF45FBE72 /* Pods_companion.framework */; };
 		E1A79E8823EAAE060022C633 /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A79E8723EAAE060022C633 /* TokenModel.swift */; };
 		E1A79E8A23EB2B5A0022C633 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A79E8923EB2B5A0022C633 /* UserProfileVC.swift */; };
 		E1AAE5AF23631ACE0001E4FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AAE5AE23631ACE0001E4FE /* AppDelegate.swift */; };
@@ -52,7 +55,7 @@
 
 /* Begin PBXFileReference section */
 		097C92CF47CF695890E3B88E /* Pods-companion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-companion.release.xcconfig"; path = "Target Support Files/Pods-companion/Pods-companion.release.xcconfig"; sourceTree = "<group>"; };
-		86E4F16CC79A6D8EF45FBE72 /* Pods_companion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_companion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A53FB75353B56633BF5EE6F5 /* libPods-companion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-companion.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E10243992401A06A00FDB2AE /* TimeLogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLogModel.swift; sourceTree = "<group>"; };
 		E105469723EC52F6005F5593 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		E10B01F023841B5600A6A99E /* SkillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCell.swift; sourceTree = "<group>"; };
@@ -66,6 +69,9 @@
 		E10F922023F4814B00E37615 /* ProjectTeamCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTeamCVCell.swift; sourceTree = "<group>"; };
 		E128C4BC24078C1000F3D5D1 /* SkillChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillChartView.swift; sourceTree = "<group>"; };
 		E128C4BE2407A0BA00F3D5D1 /* ProjectInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectInfoModel.swift; sourceTree = "<group>"; };
+		E128C4C32407C54800F3D5D1 /* CalendarCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCVCell.swift; sourceTree = "<group>"; };
+		E128C4C72407C7A700F3D5D1 /* MonthCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCVCell.swift; sourceTree = "<group>"; };
+		E128C4C92407C8CF00F3D5D1 /* MonthsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MonthsVC.swift; path = companion/Controller/MonthsVC.swift; sourceTree = SOURCE_ROOT; };
 		E146D9B923FC1A820034533D /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		E146D9BB23FC1AB90034533D /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
 		E146D9BD23FC27260034533D /* SlotsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsTVCell.swift; sourceTree = "<group>"; };
@@ -110,7 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1A5BD7A1010A841E6927BF9 /* Pods_companion.framework in Frameworks */,
+				2ECD086D205F16F2F8A7C6F4 /* libPods-companion.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,7 +133,7 @@
 				E1DE59EC2401759E002A7B15 /* RealmSwift.framework */,
 				E1DE59ED2401759E002A7B15 /* SVGKit.framework */,
 				E1DE59E524017571002A7B15 /* CocoaLumberjack.framework */,
-				86E4F16CC79A6D8EF45FBE72 /* Pods_companion.framework */,
+				A53FB75353B56633BF5EE6F5 /* libPods-companion.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -144,9 +150,19 @@
 			path = ProjectCells;
 			sourceTree = "<group>";
 		};
+		E128C4C02407C4DE00F3D5D1 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				E128C4C72407C7A700F3D5D1 /* MonthCVCell.swift */,
+				E128C4C32407C54800F3D5D1 /* CalendarCVCell.swift */,
+			);
+			name = Calendar;
+			sourceTree = "<group>";
+		};
 		E15257AB2371A19D00E87D32 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E128C4C02407C4DE00F3D5D1 /* Calendar */,
 				E16F80402405440D0091BEEC /* UserProfileViews */,
 				E16F8041240544720091BEEC /* Projects+Skills+AchievementsCells */,
 				E1B0DC3D23FBDB0B0095388E /* SearchTVCell.swift */,
@@ -183,6 +199,7 @@
 				E19D2F6A23FAD95900E11DD0 /* CorrectionFormTVC.swift */,
 				E146D9BB23FC1AB90034533D /* SearchTVC.swift */,
 				E1B0DC4123FC12A80095388E /* SlotsVC.swift */,
+				E128C4C92407C8CF00F3D5D1 /* MonthsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -282,7 +299,7 @@
 				E1AAE5A723631ACE0001E4FE /* Sources */,
 				E1AAE5A823631ACE0001E4FE /* Frameworks */,
 				E1AAE5A923631ACE0001E4FE /* Resources */,
-				BF877D0FA6C4609339FCB7C7 /* [CP] Embed Pods Frameworks */,
+				FFA21D50CDB8B397BCC57B2B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -365,21 +382,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BF877D0FA6C4609339FCB7C7 /* [CP] Embed Pods Frameworks */ = {
+		FFA21D50CDB8B397BCC57B2B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-companion/Pods-companion-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-companion/Pods-companion-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-companion/Pods-companion-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-companion/Pods-companion-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-companion/Pods-companion-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-companion/Pods-companion-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -394,11 +411,14 @@
 				E102439A2401A06A00FDB2AE /* TimeLogModel.swift in Sources */,
 				E146D9BA23FC1A820034533D /* LoginVC.swift in Sources */,
 				E146D9BE23FC27260034533D /* SlotsTVCell.swift in Sources */,
+				E128C4CA2407C8CF00F3D5D1 /* MonthsVC.swift in Sources */,
 				E10BF78523F14B10009F9F53 /* AchievementCell.swift in Sources */,
 				E1A79E8823EAAE060022C633 /* TokenModel.swift in Sources */,
 				E16F804B240569640091BEEC /* Internship+Exams+LevelView.swift in Sources */,
 				E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */,
+				E128C4C42407C54800F3D5D1 /* CalendarCVCell.swift in Sources */,
 				E17FD19A23F718ED00C52066 /* CorrectionFormModel.swift in Sources */,
+				E128C4C82407C7A700F3D5D1 /* MonthCVCell.swift in Sources */,
 				E17FD19C23F731D500C52066 /* GoogleAPI.swift in Sources */,
 				E176F440239BF5480028766A /* CoreDataStack.swift in Sources */,
 				E10BF78123F14A79009F9F53 /* Projects+Skills+AchievementsTVC.swift in Sources */,

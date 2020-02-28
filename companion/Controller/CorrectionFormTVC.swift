@@ -23,6 +23,8 @@ class CorrectionFormTVC: UITableViewController {
             }
         }
     }
+    
+    private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +36,9 @@ class CorrectionFormTVC: UITableViewController {
     private func getQuestionsWithAnswer() {
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        let activityIndicator = UIActivityIndicatorView(style: .gray)
+        
+        activityIndicator.color = .systemBlue
+        activityIndicator.hidesWhenStopped = true
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
@@ -70,8 +74,7 @@ class CorrectionFormTVC: UITableViewController {
                         self.questionsWithAnswer.append(newStruct)
                         
                         DispatchQueue.main.async {
-                            activityIndicator.isHidden = true
-                            activityIndicator.stopAnimating()
+                            self.activityIndicator.stopAnimating()
                             UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         }
                     }

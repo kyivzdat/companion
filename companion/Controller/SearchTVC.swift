@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class SearchTVC: UITableViewController {
 
     // Passed from prev VC
