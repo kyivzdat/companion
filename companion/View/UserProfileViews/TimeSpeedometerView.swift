@@ -43,28 +43,16 @@ class TimeSpeedometerView: UIView {
         
         let isDarkMode = (traitCollection.userInterfaceStyle == .dark) ? true : false
         speedometer.fontColor = isDarkMode ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
- 
-        DispatchQueue.global(qos: .userInteractive).async {
+        
+        if let login = userData.login {
             
-            let semaphore = DispatchSemaphore(value: 0)
-            
-            var hoursAmount: CGFloat = 0
-            if let login = userData.login {
-                
-                ParseTime().getLogTimeOf(.lastWeek, login: login) { (hours) in
-                
-                    hoursAmount = hours ?? 0
-                    semaphore.signal()
-                }
-            } else {
-                semaphore.signal()
-            }
-            semaphore.wait()
-            DispatchQueue.main.async {
-                UIView.animate(withDuration: 4) {
-                    self.speedometer.value = hoursAmount
-                }
-            }
+            ParseTime().getLogTime(of: .lastWeek,
+                                   login: login,
+                                   returnWeekTime: { (hours) in
+                                    UIView.animate(withDuration: 4) {
+                                        self.speedometer.value = hours ?? 0
+                                    }
+            })
         }
     }
     

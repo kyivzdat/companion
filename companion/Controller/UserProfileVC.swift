@@ -157,6 +157,9 @@ class UserProfileVC: UITableViewController {
             
             dvc.array = tuple.data
             dvc.getTypeOfData = tuple.type
+        } else if segue.identifier == "segueToMonthsVC" {
+            guard let dvc = segue.destination as? MonthsVC else { return }
+            dvc.login = userData.login
         }
     }
     
@@ -167,7 +170,9 @@ class UserProfileVC: UITableViewController {
         
         var dataToPass: [Any] = []
         
-        if indexPath.section == 1 {
+        if indexPath.section == 0 && indexPath.row == 3 {
+            performSegue(withIdentifier: "segueToMonthsVC", sender: nil)
+        } else if indexPath.section == 1 {
             typealias AllowedTypes = Projects_Skills_AchievementsTVC.TypeOfData
             var typeOfData: AllowedTypes!
             switch indexPath.row {

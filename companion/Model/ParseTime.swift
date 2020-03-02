@@ -14,74 +14,158 @@ enum TimeDefinition: Int {
     case last3Months = 90
 }
 
+struct SecondsForDay {
+    let date:    Date!
+    let dayStr:  String!
+    var seconds: Double = 0
+}
+
 class ParseTime {
-    
-    private struct TimeForDay {
-        let day: Date!
-        let dayStr: String!
-        var time: Double = 0
-    }
     
     private var stopTime = Double()
     
     // MARK: - getLogTime
-    func getLogTimeOf(_ timeRange: TimeDefinition, login: String, completion: @escaping (CGFloat?) -> ()) {
-                
-        let numberOfDays = timeRange.rawValue * (24 * 60 * 60) // convert in seconds
-        stopTime = Date().timeIntervalSince1970 - Double(numberOfDays)
+    func getLogTime(of timeRange: TimeDefinition, login: String, returnWeekTime: ((CGFloat?) -> ())? = nil, returnMonthsTime: ((([Int : [SecondsForDay]])?) -> ())? = nil) {
         
-        makeRequestForTimeLog(login) { (result) in
+        defineStopTime(timeRange)
+        
+        makeRequestForTimeLog(login) { (timeLog) in
             DispatchQueue.main.async {
-                completion(result)
+                guard let timeLog = timeLog else {
+                    returnWeekTime?(nil)
+                    returnMonthsTime?(nil)
+                    return
+                }
+                switch timeRange {
+                case .lastWeek:
+                    // Dropped first, because current day doesnt may be included
+                    let timeArray = Array(timeLog.map( { $0.seconds }).dropFirst())
+                    let timeSum = timeArray.reduce(0, +)
+                    returnWeekTime?(CGFloat(timeSum / 60 / 60))
+                case .last3Months:
+                    let splittedTimeLog = self.splitTimeByMonths(timeLog)
+                    returnMonthsTime?(splittedTimeLog)
+                }
             }
         }
     }
     
-    private func makeRequestForTimeLog(_ login: String, completion: @escaping (CGFloat?) -> ()) {
+    private func splitTimeByMonths(_ timeLog: [SecondsForDay]) -> [Int : [SecondsForDay]] {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM"
+        dateFormatter.timeZone = TimeZone.current
+        
+        var result: [Int : [SecondsForDay]] = [:]
+        var monthCounter = 0
+        var prevMonth = ""
+        for day in timeLog {
+            
+            let date = dateFormatter.string(from: day.date)
+            
+            if result.isEmpty {
+                prevMonth = date
+                result[monthCounter] = [day]
+                continue
+            }
+            
+            if prevMonth == date {
+                result[monthCounter]?.append(day)
+            } else {
+                monthCounter += 1
+                prevMonth = date
+                result[monthCounter] = [day]
+            }
+        }
+        return result
+    }
+    
+    // MARK: - defineStopTime
+    private func defineStopTime(_ timeDefinition: TimeDefinition) {
+        
+        switch timeDefinition {
+        case .lastWeek:
+            let numberOfDays = timeDefinition.rawValue * (24 * 60 * 60) // convert in seconds
+            stopTime = Date().timeIntervalSince1970 - Double(numberOfDays)
+        case .last3Months:
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd-MM-yyyy"
+            
+            var curDate = dateFormatter.string(from: Date())
+            guard let rangeForDay = "00".range(of: "00"),
+                let rangeForMonth = "00-11".range(of: "11") else { return }
+            
+            dateFormatter.dateFormat = "MM"
+            var stopMonth = ""
+            guard let month = Int(dateFormatter.string(from: Date())) else { return }
+            
+            stopMonth = String((month - 3) % 12 + 1)
+            stopMonth = stopMonth.count == 1 ? "0" + stopMonth : stopMonth
+            
+            curDate.replaceSubrange(rangeForDay, with: "01")
+            curDate.replaceSubrange(rangeForMonth, with: stopMonth)
+            dateFormatter.dateFormat = "dd-MM-yyyy"
+            if let stopTimeDate = dateFormatter.date(from: curDate) {
+                stopTime = stopTimeDate.timeIntervalSince1970
+            }
+        }
+    }
+    
+    // MARK: - makeRequestForTimeLog
+    private func makeRequestForTimeLog(_ login: String, completion: @escaping ([SecondsForDay]?) -> ()) {
         
         DispatchQueue.global(qos: .userInteractive).async {
             let semaphore = DispatchSemaphore(value: 0)
             
-            var rowTimeLog: [TimeLog] = []
-            var timeSumma: Double = 0
+            var managedTimeLog: [SecondsForDay] = []
             
-            API.shared.getTimeLog(login, page: 1) { (timeLogs) in
-                if timeLogs == nil || timeLogs?.isEmpty == true {
-                    completion(nil)
+            for pageNumber in 1...10 {
+                print("page number =", pageNumber)
+                
+                var rowTimeLog: [TimeLog] = []
+                API.shared.getTimeLog(login, page: pageNumber) { (timeLogs) in
+                    if timeLogs == nil || timeLogs?.isEmpty == true {
+                        completion(nil)
+                    }
+                    rowTimeLog = timeLogs ?? []
+                    
+                    semaphore.signal()
                 }
-                rowTimeLog = timeLogs ?? []
-        
-                semaphore.signal()
+                let _ = semaphore.wait(timeout: .distantFuture)
+                
+                if let timeLog = self.getHoursForEachDay(fromTimeLogs: rowTimeLog) {
+                    
+                    managedTimeLog += timeLog.time
+                    guard timeLog.isFinished == false else {
+                        completion(managedTimeLog)
+                        break
+                    }
+                } else {
+                    completion(nil)
+                    break
+                }
             }
-            let _ = semaphore.wait(timeout: .distantFuture)
-            
-            let weekTime = self.getHoursForEachDay(fromTimeLogs: rowTimeLog)
-            if weekTime == nil {
-                completion(nil)
-            }
-
-            timeSumma += self.getHoursSumma(from: weekTime!)
-            completion(CGFloat(timeSumma / 60 / 60))
-
         }
     }
     
-    private func getHoursSumma(from weekTime: [ParseTime.TimeForDay]) -> Double {
+    // MARK: - getHoursSumma
+    private func getHoursSumma(from weekTime: [SecondsForDay]) -> Double {
         var summa: Double = 0
         
         for index in 0..<weekTime.count {
             guard index > 0 else { continue }
-            summa += weekTime[index].time
+            summa += weekTime[index].seconds
         }
         return summa
     }
     
-    private func getHoursForEachDay(fromTimeLogs timeLogs: [TimeLog]) -> [TimeForDay]? {
+    // MARK: - getHoursForEachDay
+    private func getHoursForEachDay(fromTimeLogs timeLogs: [TimeLog]) -> (time: [SecondsForDay], isFinished: Bool)? {
         
         let getDateFormatter = DateFormatter()
         getDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
 
-        var printTimeLog: [TimeForDay] = []
+        var resultTimeLog: [SecondsForDay] = []
         
         var prevDate: Date? = nil
         for timeLog in timeLogs {
@@ -90,7 +174,9 @@ class ParseTime {
                 else { return nil }
             
             // Check if we have reached all days
-            guard dayDate.timeIntervalSince1970 > stopTime else { break }
+            guard dayDate.timeIntervalSince1970 > stopTime else {
+                return (resultTimeLog, true)
+            }
             
             guard
                 let beginAt = timeLog.beginAt?.split(separator: ".").first,
@@ -104,10 +190,11 @@ class ParseTime {
                 
                 let time = Date().timeIntervalSince1970 - beginTimeWithInterval - Double(TimeZone.current.secondsFromGMT())
                 
-                let newDate = TimeForDay(day: dayDate,
-                                         dayStr: dayStr,
-                                         time: time)
-                printTimeLog.append(newDate)
+                let newDate = SecondsForDay(
+                    date: dayDate,
+                    dayStr: dayStr,
+                    seconds: time)
+                resultTimeLog.append(newDate)
                 prevDate = dayDate
                 continue
             }
@@ -121,19 +208,20 @@ class ParseTime {
             if prevDate == dayDate {
                 
                 let timeOfRange = endTimeWithInterval - beginTimeWithInterval
-                printTimeLog[printTimeLog.endIndex - 1].time += timeOfRange
+                resultTimeLog[resultTimeLog.endIndex - 1].seconds += timeOfRange
             // if it is another day
             } else {
                 
                 prevDate = dayDate
                 let timeOfRange = endTimeWithInterval - beginTimeWithInterval
-                let newDate = TimeForDay(day: dayDate,
-                                         dayStr: dayStr,
-                                         time: timeOfRange)
-                printTimeLog.append(newDate)
+                let newDate = SecondsForDay(
+                    date: dayDate,
+                    dayStr: dayStr,
+                    seconds: timeOfRange)
+                resultTimeLog.append(newDate)
             }
         }
-        return printTimeLog
+        return (resultTimeLog, false)
     }
     
     /*
@@ -144,6 +232,7 @@ class ParseTime {
     DATE   2020-02-22
     */
     
+    // MARK: - getOnlyDay
     private func getOnlyDay(fromString string: String?) -> Date? {
         
         let getDateFormatter = DateFormatter()

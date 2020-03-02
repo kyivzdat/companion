@@ -11,4 +11,5 @@ import UIKit
 class CalendarCVCell: UICollectionViewCell {
     
     @IBOutlet weak var dateLabel: UILabel!
+    var hours: Double = -1
 }
