@@ -11,11 +11,11 @@ import CenteredCollectionView
 
 class MonthCVCell: UICollectionViewCell {
     
-    @IBOutlet weak var calendarCV:      UICollectionView!
-    @IBOutlet weak var monthLabel:      UILabel!
-    @IBOutlet weak var daysLabel:       UILabel!
-    @IBOutlet weak var allHoursLabel:   UILabel!
-    
+    @IBOutlet private weak var calendarCV:          UICollectionView!
+    @IBOutlet private weak var monthLabel:          UILabel!
+    @IBOutlet private weak var daysLabel:           UILabel!
+    @IBOutlet private weak var allHoursLabel:       UILabel!
+    @IBOutlet private weak var averageHoursLabel:   UILabel!
     
     private var numberOfDays:   Int = 0
     private var offset:         Int = 0
@@ -24,6 +24,7 @@ class MonthCVCell: UICollectionViewCell {
     private var timeLog:        [Int : SecondsForDay] = [:]
     private var hoursLabel:     UILabel!
 
+    //MARK: - fillCalendar
     func fillCalendar(secondsForDays: [SecondsForDay], offset: Int, hoursLabel: UILabel) {
 
         self.secondsForDays = secondsForDays
@@ -35,18 +36,25 @@ class MonthCVCell: UICollectionViewCell {
         self.numberOfDays = numberOfDays
         
         monthLabel.text = getPrintMonth() ?? ""
-        daysLabel.text = "Days: \(secondsForDays.count)"
+        
+        let workingDays = secondsForDays.count
+        daysLabel.text = "Days: \(workingDays)"
         
         var seconds: Double = 0
         secondsForDays.forEach { (day) in
             seconds += day.seconds
         }
-        allHoursLabel.text = convertHoursToPrint(seconds / 3600)
+        let hours = seconds / 3600
+        allHoursLabel.text = convertHoursToPrint(hours)
+        
+        let averageHours = hours / Double(workingDays)
+        averageHoursLabel.text = "≈" + convertHoursToPrint(averageHours)
         
         calendarCV.delegate = self
         calendarCV.dataSource = self
     }
     
+    //MARK: - getPrintMonth
     private func getPrintMonth() -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone.current
@@ -57,6 +65,7 @@ class MonthCVCell: UICollectionViewCell {
         return month
     }
     
+    //MARK: - defineDays
     private func defineDays() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d"
@@ -70,6 +79,7 @@ class MonthCVCell: UICollectionViewCell {
         }
     }
     
+    //MARK: - getNumberOfDaysInMonth
     private func getNumberOfDaysInMonth() -> Int? {
         guard let day = secondsForDays.first else { return nil }
         let dateFormatter = DateFormatter()
@@ -91,6 +101,7 @@ class MonthCVCell: UICollectionViewCell {
         return nil
     }
     
+    //MARK: - convertHoursToPrint
     func convertHoursToPrint(_ hours: Double) -> String {
         let roundedHours = Int(hours)
         let minutes = Int((hours * 100 - Double(roundedHours * 100)) * 0.6)
@@ -100,6 +111,8 @@ class MonthCVCell: UICollectionViewCell {
 
 
 extension MonthCVCell: UICollectionViewDelegate {
+    
+    //MARK: - Delegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         guard let item = collectionView.cellForItem(at: indexPath) as? CalendarCVCell else { return }
@@ -128,6 +141,8 @@ extension MonthCVCell: UICollectionViewDelegate {
 }
 
 extension MonthCVCell: UICollectionViewDelegateFlowLayout {
+    
+    // MARK: - DelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let size = collectionView.frame.width / 7 - 7
@@ -137,6 +152,7 @@ extension MonthCVCell: UICollectionViewDelegateFlowLayout {
 
 extension MonthCVCell: UICollectionViewDataSource {
     
+    // MARK: - DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         numberOfDays + offset
     }
@@ -158,23 +174,18 @@ extension MonthCVCell: UICollectionViewDataSource {
         
         let day = indexPath.row - originOffset + 1
         
-        
         if let seconds = timeLog[day]?.seconds {
             
-            
+            let isDarkMode = traitCollection.userInterfaceStyle == .dark ? true : false
             
             let hours = seconds / 3600
-            let alpha = CGFloat(1 - hours / 24)
-            cell.backgroundColor = UIColor(
-                displayP3Red: 0,
-                green: 186,
-                blue: 188,
-                alpha: CGFloat(1 - hours / 24))
+            let alpha = isDarkMode ? Float(1 - hours / 24) : Float(hours / 24)
+
+            cell.backgroundColor = #colorLiteral(red: 0.01608469896, green: 0.728243649, blue: 0.7355104089, alpha: alpha)
             cell.hours = hours
         }
         
         cell.dateLabel.text = String(day)
-        
         
         return cell
     }

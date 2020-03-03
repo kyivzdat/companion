@@ -34,9 +34,11 @@ class MonthsVC: UIViewController {
     private var timeLog: [Int : [SecondsForDay]] = [:]
     private var monthlyOffset:  [Int : Int] = [:]
     
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "Logtime"
         constraintToEdge.constant += 20
         setupCV()
         getMonthsTime() { logTime in
@@ -45,6 +47,7 @@ class MonthsVC: UIViewController {
         }
     }
     
+    // MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -52,6 +55,7 @@ class MonthsVC: UIViewController {
         monthsCV.semanticContentAttribute = .forceLeftToRight
     }
     
+    // MARK: - setupCV
     private func setupCV() {
         monthsCV.contentInsetAdjustmentBehavior = .never
         guard let centeredCVFlowLayout = monthsCV.collectionViewLayout as? CenteredCollectionViewFlowLayout else { return }
@@ -73,6 +77,7 @@ class MonthsVC: UIViewController {
         monthsCV.dataSource = self
     }
     
+    // MARK: - getMonthlyOffset
     private func getMonthsTime(completion: @escaping ([Int : [SecondsForDay]]) -> ()) {
         
         ParseTime().getLogTime(of: .last3Months, login: login, returnWeekTime: nil) { (logTime) in
@@ -86,6 +91,7 @@ class MonthsVC: UIViewController {
         }
     }
     
+    // MARK: - getMonthlyOffset
     private func getMonthlyOffset(_ logTime: [Int : [SecondsForDay]]) {
         
         for i in 0...2 {
@@ -96,6 +102,7 @@ class MonthsVC: UIViewController {
         }
     }
     
+    // MARK: - getFirstWeekdayOfTheMonth
     private func getFirstWeekdayOfTheMonth(_ date: Date) -> Int? {
         
         let dateFormatter = DateFormatter()
@@ -119,6 +126,8 @@ class MonthsVC: UIViewController {
 }
 
 extension MonthsVC: UICollectionViewDataSource {
+    
+    // MARK: - DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
@@ -130,6 +139,11 @@ extension MonthsVC: UICollectionViewDataSource {
         if let timeLog = timeLog[indexPath.row], let offset = monthlyOffset[indexPath.row] {
             cell.fillCalendar(secondsForDays: timeLog, offset: offset, hoursLabel: hoursLabel)
         }
+        cell.layer.cornerRadius = 3
+        cell.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+        cell.layer.shadowRadius = 3
+        cell.layer.shadowOpacity = 0.6
 
         return cell
     }
