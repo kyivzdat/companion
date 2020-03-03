@@ -187,6 +187,8 @@ extension MonthCVCell: UICollectionViewDataSource {
         
         cell.dateLabel.text = String(day)
         
+        cell.layer.cornerRadius = 3
+        
         return cell
     }
 }

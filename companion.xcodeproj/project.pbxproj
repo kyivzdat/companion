@@ -24,6 +24,8 @@
 		E128C4C42407C54800F3D5D1 /* CalendarCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128C4C32407C54800F3D5D1 /* CalendarCVCell.swift */; };
 		E128C4C82407C7A700F3D5D1 /* MonthCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128C4C72407C7A700F3D5D1 /* MonthCVCell.swift */; };
 		E128C4CA2407C8CF00F3D5D1 /* MonthsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128C4C92407C8CF00F3D5D1 /* MonthsVC.swift */; };
+		E13876D9240E6B3200EB26F0 /* AlamofireAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13876D8240E6B3200EB26F0 /* AlamofireAPI.swift */; };
+		E13876DB240E6EA300EB26F0 /* tmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13876DA240E6EA300EB26F0 /* tmp.swift */; };
 		E146D9BA23FC1A820034533D /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9B923FC1A820034533D /* LoginVC.swift */; };
 		E146D9BC23FC1AB90034533D /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9BB23FC1AB90034533D /* SearchTVC.swift */; };
 		E146D9BE23FC27260034533D /* SlotsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146D9BD23FC27260034533D /* SlotsTVCell.swift */; };
@@ -72,6 +74,8 @@
 		E128C4C32407C54800F3D5D1 /* CalendarCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCVCell.swift; sourceTree = "<group>"; };
 		E128C4C72407C7A700F3D5D1 /* MonthCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCVCell.swift; sourceTree = "<group>"; };
 		E128C4C92407C8CF00F3D5D1 /* MonthsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MonthsVC.swift; path = companion/Controller/MonthsVC.swift; sourceTree = SOURCE_ROOT; };
+		E13876D8240E6B3200EB26F0 /* AlamofireAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireAPI.swift; sourceTree = "<group>"; };
+		E13876DA240E6EA300EB26F0 /* tmp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tmp.swift; sourceTree = "<group>"; };
 		E146D9B923FC1A820034533D /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		E146D9BB23FC1AB90034533D /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
 		E146D9BD23FC27260034533D /* SlotsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsTVCell.swift; sourceTree = "<group>"; };
@@ -232,6 +236,7 @@
 			children = (
 				E17FD19E23F733A000C52066 /* 42API.swift */,
 				E17FD19B23F731D500C52066 /* GoogleAPI.swift */,
+				E13876D8240E6B3200EB26F0 /* AlamofireAPI.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 				E15257AD2371A1E900E87D32 /* Controller */,
 				E17FD19D23F7321400C52066 /* Networking */,
 				E1AAE5B223631ACF0001E4FE /* Main.storyboard */,
+				E13876DA240E6EA300EB26F0 /* tmp.swift */,
 			);
 			path = companion;
 			sourceTree = "<group>";
@@ -413,6 +419,7 @@
 				E146D9BE23FC27260034533D /* SlotsTVCell.swift in Sources */,
 				E128C4CA2407C8CF00F3D5D1 /* MonthsVC.swift in Sources */,
 				E10BF78523F14B10009F9F53 /* AchievementCell.swift in Sources */,
+				E13876D9240E6B3200EB26F0 /* AlamofireAPI.swift in Sources */,
 				E1A79E8823EAAE060022C633 /* TokenModel.swift in Sources */,
 				E16F804B240569640091BEEC /* Internship+Exams+LevelView.swift in Sources */,
 				E10B01F323846EC700A6A99E /* ProjectCell.swift in Sources */,
@@ -425,6 +432,7 @@
 				E19D2F6B23FAD95900E11DD0 /* CorrectionFormTVC.swift in Sources */,
 				E10F922123F4814B00E37615 /* ProjectTeamCVCell.swift in Sources */,
 				E1B0DC4423FC15B00095388E /* SlotsModel.swift in Sources */,
+				E13876DB240E6EA300EB26F0 /* tmp.swift in Sources */,
 				E10F921C23F4415B00E37615 /* ProjectTeamCell.swift in Sources */,
 				E176F43E239BF4820028766A /* CompanionModel.xcdatamodeld in Sources */,
 				E16F8047240549F30091BEEC /* MainInfoView.swift in Sources */,

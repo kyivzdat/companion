@@ -13,6 +13,7 @@ target 'companion' do
   pod "MBCircularProgressBar"
   pod 'Charts'
   pod "CenteredCollectionView"
+  pod 'Alamofire', '~> 5.0'
   
 end
 
