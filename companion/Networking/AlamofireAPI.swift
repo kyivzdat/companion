@@ -9,11 +9,6 @@
 import Foundation
 import Alamofire
 
-private enum ListOfURL: String {
-    case getToken = "https://api.intra.42.fr/oauth/token/"
-    case timeLog = "https://api.intra.42.fr/v2/locations/?page[size]=100&user_id="
-}
-
 class AlamofireAPI {
     
     static let shared = AlamofireAPI()
@@ -65,5 +60,71 @@ class AlamofireAPI {
                 completion(nil)
             }
         }
+    }
+
+}
+
+private enum ListOfURL: String {
+    case getToken = "https://api.intra.42.fr/oauth/token/"
+    case timeLog = "https://api.intra.42.fr/v2/locations/?page[size]=100&user_id="
+}
+
+class API2 {
+    
+    public enum ListOfURL: String {
+        case getToken = "v2/user/"
+        case timeLog = "v2/locations/?page[size]=100&user_id="
+    }
+    
+    public func getInfo(url: ListOfURL, param: String, returnData: @escaping (Any?) -> ()) {
+        
+        let requestResponser = RequestResponser(additionalLink: url.rawValue)
+        
+        switch url {
+        case .getToken:
+            requestResponser.makeRequest(param, returnType: Token.self) { (result) in
+                returnData(result)
+            }
+        case .timeLog:
+            requestResponser.makeRequest(param, returnType: TimeLog.self) { (result) in
+                returnData(result)
+            }
+        }
+    }
+}
+
+class RequestResponser {
+    private let apiURL = "https://api.itra"
+    private let additionalLink: String
+    
+    init(additionalLink: String) {
+        self.additionalLink = additionalLink
+    }
+    
+    private func createLink(params: String) -> NSMutableURLRequest? {
+        let urlString = apiURL + additionalLink + params
+        guard let url = NSURL(string: urlString) else { return nil }
+        
+        let request = NSMutableURLRequest(url: url as URL)
+        request.setValue("Bearer " + "key", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    public func makeRequest<T: Decodable>(_ params: String, returnType: T.Type, completion: @escaping (T?) -> ()) {
+        guard let request = createLink(params: params) else { return }
+        
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, _, _) in
+            guard let data = data else { return }
+            do {
+                let projectDecode = try JSONDecoder().decode(returnType.self, from: data)
+                
+                completion(projectDecode)
+            } catch {
+                print("Error. API. getDataOfProject\n", error.localizedDescription)
+                print("data -", String(data: data, encoding: .ascii) ?? "nil")
+                completion(nil)
+                return
+            }
+        }.resume()
     }
 }
